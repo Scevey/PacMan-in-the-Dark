@@ -36,6 +36,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
+    <Compile Include="GamePiece.cs" />
+    <Compile Include="Map.cs" />
+    <Compile Include="MovableGamePiece.cs" />
+    <Compile Include="Path.cs" />
+    <Compile Include="Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

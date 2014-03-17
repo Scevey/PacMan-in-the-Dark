@@ -1,0 +1,10 @@
+C:\Users\Mike\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\SDL.dll
+C:\Users\Mike\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\PacmanInTheDark.exe
+C:\Users\Mike\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\PacmanInTheDark.pdb
+C:\Users\Mike\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Lidgren.Network.dll
+C:\Users\Mike\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\MonoGame.Framework.dll
+C:\Users\Mike\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\OpenTK.dll
+C:\Users\Mike\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Tao.Sdl.dll
+C:\Users\Mike\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.csprojResolveAssemblyReference.cache
+C:\Users\Mike\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.exe
+C:\Users\Mike\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.pdb
