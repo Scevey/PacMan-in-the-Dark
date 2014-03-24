@@ -5,8 +5,13 @@ using System.Text;
 
 namespace PacmanInTheDark
 {
+    //enum Direction { Up, Left, Down, Right };
+
     abstract class MovableGamePiece : GamePiece
     {
+        // Note from Jeremy -- use Direction enum instead of byte direction. **Will be easier to understand
+        //Direction direction;
+
         //direction variable
         byte direction; //only ever 0-3, byte to save space
 
