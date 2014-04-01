@@ -9,18 +9,45 @@ namespace PacmanInTheDark
     {
         //start and end point for the path
         Point start;
+        public Point Start
+        {
+            get
+            {
+                return start;
+            }
+        }
+
         Point end;
+        public Point End
+        {
+            get
+            {
+                return end;
+            }
+        }
 
         //Dictionary of intersecting paths (elements) and the points of intersection (keys)
         Dictionary<Path, Point> intersectionDictionary;
 
-        //attribute for length
-        int length;
-        public int Length
+        //property for length
+        //don't attempt to set this, it isn't stored in memory. It isn't even a real variable
+        public float Length
         {
             get
             {
-                return length;
+                //distance formula
+                return (float)Math.Sqrt((End.X-Start.X)*(End.X-Start.X)+(End.Y-Start.Y)*(End.Y-Start.Y));
+            }
+        }
+
+        //field for the path's vector representation
+        public Point PathVector
+        {
+            get
+            {
+                //returns a Point that represents the path written as a vector
+                //specifically, each component of the point is the difference between the end and start points of the path
+                return new Point(this.End.X - this.Start.X, this.End.Y - this.Start.Y);
             }
         }
         
@@ -50,7 +77,7 @@ namespace PacmanInTheDark
 
             //TODO intersection maths
 
-            intersect = null;
+            intersect = new Point(-1,-1);
             return false;
         }
 

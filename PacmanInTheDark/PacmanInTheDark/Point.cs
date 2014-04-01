@@ -5,13 +5,27 @@ using System.Text;
 
 namespace PacmanInTheDark
 {
-    class Point //only used to cleanly create paths, importing the actual Point class is overkill
+    struct Point //used to reference locations in map-space
     {
         //coords of the point
-        int x;
-        int y;
+        float x;
+        public float X
+        {
+            get
+            {
+                return x;
+            }
+        }
+        float y;
+        public float Y
+        {
+            get
+            {
+                return y;
+            }
+        }
 
-        public Point(int _x, int _y) //takes coords, sets coords
+        public Point(float _x, float _y) //takes coords, sets coords
         {
             x = _x;
             y = _y;

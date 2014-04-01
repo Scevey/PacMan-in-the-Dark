@@ -5,15 +5,18 @@ using System.Text;
 
 namespace PacmanInTheDark
 {
-    //enum Direction { Up, Left, Down, Right };
+    //indicates current direction of movement, not desired direction of movement
+    //user input will not directly control this
+    enum Direction { Up, Left, Down, Right };
 
     abstract class MovableGamePiece : GamePiece
     {
         // Note from Jeremy -- use Direction enum instead of byte direction. **Will be easier to understand
-        //Direction direction;
+        Direction direction;
+        //note from mike -- okay
 
         //direction variable
-        byte direction; //only ever 0-3, byte to save space
+        //byte direction; //only ever 0-3, byte to save space
 
         //the next path the piece will move to
         Path nextPath;
@@ -28,7 +31,7 @@ namespace PacmanInTheDark
         }
 
         //handles movement
-        public void Move()
+        public void Move(float speed)
         {
             //TODO
         }
