@@ -30,8 +30,8 @@ namespace PacmanInTheDark
         /// <param name="myGhostImg">Starting image</param>
         /// <param name="path">Starting path</param>
         /// <param name="pos">Starting pos. on path</param>
-        public Ghost(Texture2D myGhostImg, Path path, float pos)
-            : base(path, pos)
+        public Ghost(Texture2D myGhostImg, Path path, float pos, float speed)
+            : base(path, pos, speed)
         {
             //Starting image for ghost
             GhostImg = myGhostImg;
@@ -89,7 +89,7 @@ namespace PacmanInTheDark
 
         }
 
-        public override Path GetNextPath()
+        public override Path GetNextDirection()
         {
             return null;
         }

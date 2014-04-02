@@ -45,8 +45,8 @@ namespace PacmanInTheDark
         /// <param name="myLives">Starting lives</param>
         /// <param name="path">Starting path</param>
         /// <param name="pos">Starting pos on path</param>
-        public Pacman(Texture2D myPacman, Path path, float pos)
-            : base(path, pos)
+        public Pacman(Texture2D myPacman, Path path, float pos, float speed)
+            : base(path, pos, speed)
         {
             //Pacman starts with 100 health and 3 lives
             Health = 100;
@@ -100,7 +100,7 @@ namespace PacmanInTheDark
         
         }
 
-        public override Path GetNextPath()
+        public override Path GetNextDirection()
         {
             return null;
         }

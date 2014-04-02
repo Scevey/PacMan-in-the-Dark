@@ -7,6 +7,7 @@ namespace PacmanInTheDark
 {
     abstract class GamePiece
     {
+        #region Fields
         //path the piece is on
         Path currentPath;
         public Path CurrentPath
@@ -35,25 +36,36 @@ namespace PacmanInTheDark
             }
         }
 
-        //field for the position of the piece in map-space
-        //don't attempt to set this to a value, it isn't actually stored in memory. It isn't even a real variable
-        Point MapPos
+        //TODO add variable for spritesheet
+
+        #endregion
+
+        #region Properties
+        public float PathTraversal
         {
             get
             {
                 //number (0-1) representing how far along the path the piece is
                 //obtained by dividing the current path position (which is a number of map tiles) by the path's length (which is also in map tiles)
-                float pathTraversal = PathPos / currentPath.Length;
+                return PathPos / currentPath.Length;
+            }
+        }
 
+        //field for the position of the piece in map-space
+        //don't attempt to set this to a value, it isn't actually stored in memory. It isn't even a real variable
+        public Point MapPos
+        {
+            get
+            {
                 //a vector representing the 2D offset of the piece from the start point of the path
-                Point vectorOffset = currentPath.PathVector * pathTraversal;
+                Point vectorOffset = currentPath.PathVector * PathTraversal;
 
                 //adds the vector offset to the start point of the current path and returns the result
                 return currentPath.Start + vectorOffset;
             }
         }
 
-        //TODO add variable for spritesheet
+        #endregion
 
         //takes initial positional parameters
         public GamePiece(Path path, float pos) //TODO add parameter for spritesheet

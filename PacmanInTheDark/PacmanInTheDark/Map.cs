@@ -8,6 +8,7 @@ namespace PacmanInTheDark
 {
     class Map
     {
+        #region Fields
         //list of paths
         List<Path> paths;
 
@@ -22,6 +23,8 @@ namespace PacmanInTheDark
 
         //list of pellets
         //TODO
+
+        #endregion
 
         //takes a map file name, does stuff
         public Map(string filename)

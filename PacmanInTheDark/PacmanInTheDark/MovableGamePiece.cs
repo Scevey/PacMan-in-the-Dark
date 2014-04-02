@@ -7,52 +7,64 @@ namespace PacmanInTheDark
 {
     //indicates current direction of movement, not desired direction of movement
     //user input will not directly control this
-    enum Direction { Up, Left, Down, Right };
+    enum Direction { None, Up, Left, Down, Right };
 
     abstract class MovableGamePiece : GamePiece
     {
+        #region Fields
+
         // Note from Jeremy -- use Direction enum instead of byte direction. **Will be easier to understand
         Direction direction;
+        Direction nextDirection;
         //note from mike -- okay
 
         //direction variable
         //byte direction; //only ever 0-3, byte to save space
 
-        //the next path the piece will move to
-        Path nextPath;
-
         //speed variable
         float speed; //represents a number of tiles. It will be really small
 
-        public MovableGamePiece(Path path, float pos)
+        #endregion
+
+        public MovableGamePiece(Path path, float pos, float _speed)
             : base(path, pos)
         {
-            //TODO
+            speed = _speed;
         }
 
         //handles movement
-        public void Move(float speed)
+        public void Move()
         {
+            //TODO
+            //iterates through all the paths intersecting with the current path
+            //if the current position is within one movement of the intersection point and the direction to the path matches
+            //the current nextDirection, a path change occurs
+            //Note from Mike -- this isn't finished yet, and I have no time now. Comment it out of you need to, but don't alter it
+            foreach (Path p in CurrentPath.IntersectionDictionary.Keys)
+            {
+                //if (nextDirection == CurrentPath.DirectionToPath(p) && MapPos>= CurrentPath.IntersectionDictionary[p]-
+            }
+
             if (CurrentPath.Orientation == Orientation.Horizontal)
             {
                 if (direction == Direction.Left)
                 {
-                    PathPos--;
+                    PathPos -= speed;
                 }
                 else
                 {
-                    PathPos++;
+                    PathPos += speed;
                 }
             }
             else
             {
                 if (direction == Direction.Down)
                 {
-                    PathPos++;
+                    PathPos += speed;
                 }
                 else
                 {
-                    PathPos--;
+                    PathPos -= speed;
                 }
             }
         }
@@ -64,7 +76,7 @@ namespace PacmanInTheDark
         }
 
         //determines the next path the piece will move to
-        public abstract Path GetNextPath();
+        public abstract Path GetNextDirection();
         
         
     }

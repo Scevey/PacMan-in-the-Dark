@@ -7,6 +7,8 @@ namespace PacmanInTheDark
 {
     struct Point //used to reference locations in map-space and to represent vectors
     {
+        #region Fields
+
         //coords of the point
         float x;
         public float X
@@ -24,6 +26,8 @@ namespace PacmanInTheDark
                 return y;
             }
         }
+
+        #endregion
 
         public Point(float _x, float _y) //takes coords, sets coords
         {
@@ -60,6 +64,11 @@ namespace PacmanInTheDark
         {
             //returns a Point whose components whose components are the products of the initial Point's components and the float
             return new Point(p1.X * f1, p1.Y * f1);
+        }
+
+        public static bool operator ==(Point p1, Point p2)
+        {
+            return (p1.X == p2.X && p1.Y == p2.Y) ? true : false;
         }
 
         #endregion

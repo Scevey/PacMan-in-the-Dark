@@ -8,6 +8,8 @@ namespace PacmanInTheDark
     enum Orientation { Horizontal, Vertical };
     class Path
     {
+        #region Fields
+
         //start and end point for the path
         Point start;
         public Point Start
@@ -37,6 +39,17 @@ namespace PacmanInTheDark
 
         //Dictionary of intersecting paths (elements) and the points of intersection (keys)
         Dictionary<Path, Point> intersectionDictionary;
+        public Dictionary<Path, Point> IntersectionDictionary
+        {
+            get
+            {
+                return intersectionDictionary;
+            }
+        }
+
+        #endregion
+
+        #region Properties
 
         //property for length
         //don't attempt to set this, it isn't stored in memory. It isn't even a real variable
@@ -59,7 +72,9 @@ namespace PacmanInTheDark
                 return End-Start;
             }
         }
-        
+
+        #endregion
+
         //takes start and end
         public Path(Point _start, Point _end)
         {
@@ -119,6 +134,46 @@ namespace PacmanInTheDark
             return intersects;
         }
 
+        //determines the direction of a given path relative to this path
+        public Direction DirectionToPath(Path p)
+        {
+            //returns "None" if the given path and this one don't intersect
+            if (!intersectionDictionary.ContainsKey(p))
+            {
+                return Direction.None;
+            }
+
+            if (p.Orientation == Orientation.Vertical)
+            {
+                //if Y coord of opposite point minus point in the dictionary is greater than zero...
+                if ((p.OtherPoint(intersectionDictionary[p]) - intersectionDictionary[p]).Y > 0)
+                    //return down
+                    return Direction.Down;
+                else
+                    //otherwise return up
+                    return Direction.Up;
+            }
+            
+            //same thing, but if the path is horizontal the X coord is used
+            else
+            {
+                if ((p.OtherPoint(intersectionDictionary[p]) - intersectionDictionary[p]).X > 0)
+                    return Direction.Right;
+                else
+                    return Direction.Left;
+            }
+        }
+
+        //
+        public Point OtherPoint(Point p)
+        {
+            if (p == this.Start)
+                return this.End;
+            else if (p ==this.End)
+                return this.Start;
+
+            return p;
+        }
         //we may want to add more methods here, but I don't what else we'll need at this point
     }
 }
