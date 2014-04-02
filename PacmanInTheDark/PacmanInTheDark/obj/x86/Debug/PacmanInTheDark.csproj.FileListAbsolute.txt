@@ -14,3 +14,4 @@ D:\Users\Mike\My Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\ob
 D:\Users\Mike\My Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.pdb
 C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.exe
 C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.pdb
+C:\Users\Mike\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\PacMan Spirte Sheet.xnb

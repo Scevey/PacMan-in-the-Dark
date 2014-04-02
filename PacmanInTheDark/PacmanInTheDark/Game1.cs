@@ -19,6 +19,10 @@ namespace PacmanInTheDark
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        //map field - after milestone 2 this will be part of the Game class, not the top level class
+        //it's here for testing purposes only
+        Map gameMap;
+
         //PacMan Attributes
         Pacman Player;
 
@@ -38,6 +42,7 @@ namespace PacmanInTheDark
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            gameMap = new Map("map.txt");
 
             base.Initialize();
         }
@@ -54,7 +59,7 @@ namespace PacmanInTheDark
             // TODO: use this.Content to load your game content here
 
             // Load in PacMan sprite sheet
-            Texture2D pacMan = Content.Load<Texture2D>("PacMan Sprite Sheet");
+            //Texture2D pacMan = Content.Load<Texture2D>("PacMan Sprite Sheet");
         }
 
         /// <summary>

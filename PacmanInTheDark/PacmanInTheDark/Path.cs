@@ -49,14 +49,14 @@ namespace PacmanInTheDark
             }
         }
 
-        //field for the path's vector representation
+        //property for the path's vector representation
         public Point PathVector
         {
             get
             {
                 //returns a Point that represents the path written as a vector
-                //specifically, each component of the point is the difference between the end and start points of the path
-                return new Point(this.End.X - this.Start.X, this.End.Y - this.Start.Y);
+                //specifically, returns the difference between the start and end points
+                return End-Start;
             }
         }
         
@@ -76,6 +76,8 @@ namespace PacmanInTheDark
                 orientation = Orientation.Horizontal;
 
             }
+
+            intersectionDictionary = new Dictionary<Path, Point>();
         }
 
         //takes a path, adds that path's info to the dictionary if it intersects. If not, does nothing
@@ -92,12 +94,29 @@ namespace PacmanInTheDark
         public bool Intersects(Path path, out Point intersect)
         {
             bool intersects;
-            Point intersectionPoint;
 
-            //TODO intersection maths
+            //intersection maths
+            float A1 = this.End.Y - this.Start.Y;
+            float B1 = this.Start.X - this.End.X;
+            float C1 = A1 * this.start.X + B1 * this.Start.Y;
 
-            intersect = new Point(-1,-1);
-            return false;
+            float A2 = path.End.Y - path.Start.Y;
+            float B2 = path.Start.X - path.End.X;
+            float C2 = A2 * path.start.X + B2 * path.Start.Y;
+
+            float det = A1 * B2 - A2 * B1;
+
+            if (det == 0)
+            {
+                intersect = new Point(-1, -1);
+                intersects = false;
+            }
+            else
+            {
+                intersect = new Point((B2 * C1 - B1 * C2) / det, (A1 * C2 - A2 * C1) / det);
+                intersects = true;
+            }
+            return intersects;
         }
 
         //we may want to add more methods here, but I don't what else we'll need at this point

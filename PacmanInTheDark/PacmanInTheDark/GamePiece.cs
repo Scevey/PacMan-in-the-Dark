@@ -46,10 +46,10 @@ namespace PacmanInTheDark
                 float pathTraversal = PathPos / currentPath.Length;
 
                 //a vector representing the 2D offset of the piece from the start point of the path
-                Point vectorOffset = new Point(currentPath.PathVector.X * pathTraversal, currentPath.PathVector.Y * pathTraversal);
+                Point vectorOffset = currentPath.PathVector * pathTraversal;
 
                 //adds the vector offset to the start point of the current path and returns the result
-                return new Point(currentPath.Start.X + vectorOffset.X, currentPath.Start.Y + vectorOffset.Y);
+                return currentPath.Start + vectorOffset;
             }
         }
 
