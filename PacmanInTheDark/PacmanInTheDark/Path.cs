@@ -5,6 +5,7 @@ using System.Text;
 
 namespace PacmanInTheDark
 {
+    enum Orientation { Horizontal, Vertical };
     class Path
     {
         //start and end point for the path
@@ -24,6 +25,14 @@ namespace PacmanInTheDark
             {
                 return end;
             }
+        }
+
+        //Whether it's on a horizontal or vertical path
+        Orientation orientation;
+        public Orientation Orientation
+        {
+            get { return orientation; }
+            set { orientation = value; }
         }
 
         //Dictionary of intersecting paths (elements) and the points of intersection (keys)
@@ -57,6 +66,16 @@ namespace PacmanInTheDark
             //sets start and end
             start = _start;
             end = _end;
+
+            if (start.X != end.X)
+            {
+                orientation = Orientation.Vertical;
+            }
+            else
+            {
+                orientation = Orientation.Horizontal;
+
+            }
         }
 
         //takes a path, adds that path's info to the dictionary if it intersects. If not, does nothing

@@ -83,5 +83,15 @@ namespace PacmanInTheDark
                     break;
             }
         }
+
+        public override void Draw()
+        {
+
+        }
+
+        public override Path GetNextPath()
+        {
+            return null;
+        }
     }
 }
