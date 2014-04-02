@@ -81,61 +81,28 @@ namespace PacmanInTheDark
             //else gameState.Gameover();
         }
 
-        /// <summary>
-        /// Update Pacman's image based off of corresponding direction and location on path
-        /// </summary>
-        /// <param name="direction">0-3</param>
-        public void Move(byte direction)
-        {
-            bool isEven = ((PathPos % 2) == 0);
-            //TODO
-            //Add textures for each direction and change whether pos. is even/odd (mouth open/closed)
-            //Change path accordingly
-            switch (direction)
-            {
-                case 0: //Up
-                    //if (isEven) 
-                    //{
-                    //    PacmanImg =   
-                    //    PathChange(...)
-                    //}
-                    //else PacmanImg = 
-                    break;
-                case 1: //Left
-                    //if (isEven) 
-                    //{
-                    //    PacmanImg =   
-                    //    PathChange(...)
-                    //}
-                    //else PacmanImg = 
-                    break;
-                case 2: //Down
-                    //if (isEven) 
-                    //{
-                    //    PacmanImg =   
-                    //    PathChange(...)
-                    //}
-                    //else PacmanImg = 
-                    break;
-                case 3: //Right
-                    //if (isEven) 
-                    //{
-                    //    PacmanImg =   
-                    //    PathChange(...)
-                    //}
-                    //else PacmanImg = 
-                    break;
-            }
-        }
+        ///// <summary>
+        ///// Update Pacman's image based off of corresponding direction and location on path
+        ///// </summary>
+        ///// <param name="direction">0-3</param>
+        //public void Move(byte direction)
+        //{
+        //                
+        //}
 
         //NOTE: Why do we need a draw method if we can just redraw accordingly in the Move method? 
 
-        ///// <summary>
-        ///// Update Pacman Image
-        ///// </summary>
-        //public void Draw()
-        //{
-        //
-        //}
+        /// <summary>
+        /// Update Pacman Image
+        /// </summary>
+        public override void Draw()
+        {
+        
+        }
+
+        public override Path GetNextPath()
+        {
+            return null;
+        }
     }
 }
