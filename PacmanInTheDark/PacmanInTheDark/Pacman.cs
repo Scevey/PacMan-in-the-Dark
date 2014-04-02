@@ -37,6 +37,10 @@ namespace PacmanInTheDark
             set { pacmanImg = value; }
         }
 
+        // Draw related attribute
+        Vector2 position; //draw at this point in the window
+        Point frameSize; // size of frame in pixels
+        Point currentFrame; //Location on sprite sheet of the frame
 
         /// <summary>
         /// Constructor to create Pacman Object
@@ -133,9 +137,11 @@ namespace PacmanInTheDark
         ///// <summary>
         ///// Update Pacman Image
         ///// </summary>
-        //public void Draw()
-        //{
-        //
-        //}
+
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            //spriteBatch.Draw(pacmanImg, position, new Rectangle(currentFrame.X, currentFrame.Y, frameSize.X, frameSize.Y), Color.White);
+        }
     }
 }
