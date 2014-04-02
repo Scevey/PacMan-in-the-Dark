@@ -37,6 +37,10 @@ namespace PacmanInTheDark
             set { pacmanImg = value; }
         }
 
+        // Draw related attribute
+        Vector2 position; //draw at this point in the window
+        Point frameSize; // size of frame in pixels
+        Point currentFrame; //Location on sprite sheet of the frame
 
         /// <summary>
         /// Constructor to create Pacman Object
@@ -81,28 +85,63 @@ namespace PacmanInTheDark
             //else gameState.Gameover();
         }
 
-        ///// <summary>
-        ///// Update Pacman's image based off of corresponding direction and location on path
-        ///// </summary>
-        ///// <param name="direction">0-3</param>
-        //public void Move(byte direction)
-        //{
-        //                
-        //}
+        /// <summary>
+        /// Update Pacman's image based off of corresponding direction and location on path
+        /// </summary>
+        /// <param name="direction">0-3</param>
+        public void Move(byte direction)
+        {
+            bool isEven = ((PathPos % 2) == 0);
+            //TODO
+            //Add textures for each direction and change whether pos. is even/odd (mouth open/closed)
+            //Change path accordingly
+            switch (direction)
+            {
+                case 0: //Up
+                    //if (isEven) 
+                    //{
+                    //    PacmanImg =   
+                    //    PathChange(...)
+                    //}
+                    //else PacmanImg = 
+                    break;
+                case 1: //Left
+                    //if (isEven) 
+                    //{
+                    //    PacmanImg =   
+                    //    PathChange(...)
+                    //}
+                    //else PacmanImg = 
+                    break;
+                case 2: //Down
+                    //if (isEven) 
+                    //{
+                    //    PacmanImg =   
+                    //    PathChange(...)
+                    //}
+                    //else PacmanImg = 
+                    break;
+                case 3: //Right
+                    //if (isEven) 
+                    //{
+                    //    PacmanImg =   
+                    //    PathChange(...)
+                    //}
+                    //else PacmanImg = 
+                    break;
+            }
+        }
 
         //NOTE: Why do we need a draw method if we can just redraw accordingly in the Move method? 
 
-        /// <summary>
-        /// Update Pacman Image
-        /// </summary>
-        public override void Draw()
-        {
-        
-        }
+        ///// <summary>
+        ///// Update Pacman Image
+        ///// </summary>
 
-        public override Path GetNextPath()
+
+        public void Draw(SpriteBatch spriteBatch)
         {
-            return null;
+            //spriteBatch.Draw(pacmanImg, position, new Rectangle(currentFrame.X, currentFrame.Y, frameSize.X, frameSize.Y), Color.White);
         }
     }
 }

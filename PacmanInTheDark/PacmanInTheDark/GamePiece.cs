@@ -64,6 +64,6 @@ namespace PacmanInTheDark
             //TODO add declaration for spritesheet
         }
 
-        public abstract void Draw();
+        abstract void Draw();
     }
 }

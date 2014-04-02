@@ -33,28 +33,7 @@ namespace PacmanInTheDark
         //handles movement
         public void Move(float speed)
         {
-            if (CurrentPath.Orientation == Orientation.Horizontal)
-            {
-                if (direction == Direction.Left)
-                {
-                    PathPos--;
-                }
-                else
-                {
-                    PathPos++;
-                }
-            }
-            else
-            {
-                if (direction == Direction.Down)
-                {
-                    PathPos++;
-                }
-                else
-                {
-                    PathPos--;
-                }
-            }
+            //TODO
         }
 
         //move the piece from one path to another
@@ -64,8 +43,6 @@ namespace PacmanInTheDark
         }
 
         //determines the next path the piece will move to
-        public abstract Path GetNextPath();
-        
-        
+        abstract Path GetNextPath();
     }
 }

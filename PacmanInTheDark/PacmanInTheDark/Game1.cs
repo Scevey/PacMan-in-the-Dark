@@ -19,6 +19,9 @@ namespace PacmanInTheDark
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        //PacMan Attributes
+        Pacman Player;
+
         public Game1()
             : base()
         {
@@ -49,6 +52,9 @@ namespace PacmanInTheDark
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+            // Load in PacMan sprite sheet
+            Texture2D pacMan = Content.Load<Texture2D>("PacMan Sprite Sheet");
         }
 
         /// <summary>
