@@ -35,6 +35,11 @@ namespace PacmanInTheDark
             y = _y;
         }
 
+        public static float Distance(Point p1, Point p2)
+        {
+            return (float)Math.Abs(Math.Sqrt((p2.X - p1.X) * (p2.X - p1.X) + (p2.Y - p1.Y) * (p2.Y - p1.Y)));
+        }
+
         #region operator overrides
         //these make Points behave like points and vectors from Math Graph
 

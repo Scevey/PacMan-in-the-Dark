@@ -58,7 +58,7 @@ namespace PacmanInTheDark
             get
             {
                 //distance formula
-                return (float)Math.Sqrt((End.X-Start.X)*(End.X-Start.X)+(End.Y-Start.Y)*(End.Y-Start.Y));
+                return Point.Distance(Start, End);
             }
         }
 
