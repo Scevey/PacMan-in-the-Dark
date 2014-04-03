@@ -18,11 +18,21 @@ namespace PacmanInTheDark
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Texture2D map;
+        //Gui menu;
+        //Gui backBox;
+        //Gui optionsBox;
+        //Gui exitBox;
+        //Gui optionsMenu;
+        //Gui startBox;
+        //Gui toolBox;
 
         //map field - after milestone 2 this will be part of the Game class, not the top level class
         //it's here for testing purposes only
         Map gameMap;
-
+        
+        //GameState gamestate;
+        MainMenu main = new MainMenu();
         //PacMan Attributes
         Pacman Player;
 
@@ -30,6 +40,7 @@ namespace PacmanInTheDark
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
+            
             Content.RootDirectory = "Content";
         }
 
@@ -43,7 +54,8 @@ namespace PacmanInTheDark
         {
             // TODO: Add your initialization logic here
             gameMap = new Map("map.txt");
-
+            graphics.PreferredBackBufferHeight = 1024;
+            graphics.PreferredBackBufferWidth = 1024;
             base.Initialize();
         }
 
@@ -55,7 +67,11 @@ namespace PacmanInTheDark
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            map = this.Content.Load<Texture2D>("map");
+            main.LoadContent(Content);
+           // menu = new Gui("Menu");
+           // menu.LoadContent(Content);
+           // menu.Center(1024, 1024);
             // TODO: use this.Content to load your game content here
 
             // Load in PacMan sprite sheet
@@ -82,6 +98,7 @@ namespace PacmanInTheDark
                 Exit();
 
             // TODO: Add your update logic here
+            //menu.Update();
 
             base.Update(gameTime);
         }
@@ -93,7 +110,11 @@ namespace PacmanInTheDark
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            spriteBatch.Begin();
+            //menu.Draw(spriteBatch);
+            main.Draw(spriteBatch);
+            spriteBatch.Draw(map, new Vector2(0, 0), Color.White);
+            spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

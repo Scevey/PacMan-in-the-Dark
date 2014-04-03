@@ -15,3 +15,6 @@ D:\Users\Mike\My Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\ob
 C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.exe
 C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.pdb
 C:\Users\Mike\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\PacMan Spirte Sheet.xnb
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.exe
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.pdb
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.csprojResolveAssemblyReference.cache

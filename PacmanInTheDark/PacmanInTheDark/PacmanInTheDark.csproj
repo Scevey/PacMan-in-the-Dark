@@ -38,6 +38,8 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GamePiece.cs" />
     <Compile Include="Ghost.cs" />
+    <Compile Include="Gui.cs" />
+    <Compile Include="MainMenu.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MovableGamePiece.cs" />
     <Compile Include="Pacman.cs" />
@@ -67,13 +69,49 @@
       <Link>SDL.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Menu images\Back.png" />
+    <Content Include="Content\Menu images\Backgorund.png" />
+    <Content Include="Content\Menu images\Exit.png" />
+    <Content Include="Content\Menu images\Menu.png" />
+    <Content Include="Content\Menu images\Options.png" />
+    <Content Include="Content\Menu images\OptionsMenu.png" />
+    <Content Include="Content\Menu images\Start.png" />
+    <Content Include="Content\Menu images\Tool.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Content\Back.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Exit.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OpenScreen.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Options.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OptionsMenu.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\background.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Start.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Tool.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Content\PacMan Spirte Sheet.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\SpriteFont1.xnb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
