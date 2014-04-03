@@ -18,3 +18,19 @@ C:\Users\Mike\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\W
 Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.exe
 Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.pdb
 Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.csprojResolveAssemblyReference.cache
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\SDL.dll
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Back.xnb
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Exit.xnb
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Options.xnb
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\OptionsMenu.xnb
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\background.xnb
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Start.xnb
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Tool.xnb
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\PacMan Spirte Sheet.xnb
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\PacmanInTheDark.exe
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\PacmanInTheDark.pdb
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Lidgren.Network.dll
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\MonoGame.Framework.dll
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\OpenTK.dll
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Tao.Sdl.dll
+Z:\IGMProfile\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Menu.xnb

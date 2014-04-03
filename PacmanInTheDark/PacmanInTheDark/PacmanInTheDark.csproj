@@ -69,39 +69,39 @@
       <Link>SDL.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Menu images\Back.png" />
-    <Content Include="Content\Menu images\Backgorund.png" />
-    <Content Include="Content\Menu images\Exit.png" />
-    <Content Include="Content\Menu images\Menu.png" />
-    <Content Include="Content\Menu images\Options.png" />
-    <Content Include="Content\Menu images\OptionsMenu.png" />
-    <Content Include="Content\Menu images\Start.png" />
-    <Content Include="Content\Menu images\Tool.png" />
+    <Content Include="Content\images\Back.png" />
+    <Content Include="Content\images\Backgorund.png" />
+    <Content Include="Content\images\Exit.png" />
+    <Content Include="Content\images\Menu.png" />
+    <Content Include="Content\images\Options.png" />
+    <Content Include="Content\images\OptionsMenu.png" />
+    <Content Include="Content\images\Start.png" />
+    <Content Include="Content\images\Tool.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Back.xnb">
+    <Content Include="Content\back.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Exit.xnb">
+    <Content Include="Content\exit.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\OpenScreen.xnb">
+    <Content Include="Content\menu.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Options.xnb">
+    <Content Include="Content\options.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\OptionsMenu.xnb">
+    <Content Include="Content\optionsMenu.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\background.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Start.xnb">
+    <Content Include="Content\start.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Tool.xnb">
+    <Content Include="Content\tool.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
