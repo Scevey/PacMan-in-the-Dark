@@ -76,6 +76,11 @@ namespace PacmanInTheDark
             return (p1.X == p2.X && p1.Y == p2.Y) ? true : false;
         }
 
+        public static bool operator !=(Point p1, Point p2)
+        {
+            return (p1.X == p2.X && p1.Y == p2.Y) ? false : true;
+        }
+
         #endregion
     }
 }
