@@ -54,8 +54,9 @@ namespace PacmanInTheDark
             //the current nextDirection, a path change occurs
             foreach (Path p in CurrentPath.IntersectionDictionary.Keys)
             {
+
                 //if next direction and the direction to the path match *and* the intersection is within one movement...
-                if (nextDirection == CurrentPath.DirectionToPath(p) && Point.Distance(MapPos, CurrentPath.IntersectionDictionary[p]) <= speed)
+                if (CurrentPath.PathEnterable(p, nextDirection) && Point.Distance(MapPos, CurrentPath.IntersectionDictionary[p]) <= speed)
                 {
                     //change path and end the move method
                     PathChange(p);
@@ -139,19 +140,25 @@ namespace PacmanInTheDark
             //determine the difference between this distance and a single movement
             float overrun = speed - distanceToIntersect;
 
-            //determines whether the intersection point of the new path is the start or end, and sets pathPos accordingly
-            if (CurrentPath.IntersectionDictionary[newPath] == newPath.Start)
-                //the piece is moved in the proper direction by the overrun
-                PathPos = 0 + overrun;
-            else
-                PathPos = newPath.Length - overrun;
+            //sets path pos to the distance between the start point and intersect point
+            PathPos = Point.Distance(newPath.Start, CurrentPath.IntersectionDictionary[newPath]);
+
+            //sets direction to nextDirection
+            direction = nextDirection;
 
             //note -- the overrun is necessary to preserve movement speed
             //without it the piece would lose a fraction of a movement at each path change
             //while it probably wouldn't be noticeable, this is cleaner
 
+            if (direction == Direction.Left || direction == Direction.Up)
+                PathPos = PathPos - overrun;
+            else
+                PathPos = PathPos + overrun;
+
             //sets the current path to the new path
             CurrentPath = newPath;
+
+            
         }
 
         //determines the direction in which the piece will be moving after the next path change

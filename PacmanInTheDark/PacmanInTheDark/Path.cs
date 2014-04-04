@@ -83,7 +83,7 @@ namespace PacmanInTheDark
             start = _start;
             end = _end;
 
-            if (start.X != end.X)
+            if (start.X == end.X)
             {
                 orientation = Orientation.Vertical;
             }
@@ -135,34 +135,31 @@ namespace PacmanInTheDark
             return intersects;
         }
 
-        //determines the direction of a given path relative to this path
-        public Direction DirectionToPath(Path p)
+        //determines whether a given path can be entered from this path from a given direction
+        public bool PathEnterable(Path p, Direction dir)
         {
-            //returns "None" if the given path and this one don't intersect
+            //returns false if the given path and this one don't intersect
             if (!intersectionDictionary.ContainsKey(p))
             {
-                return Direction.None;
+                return false;
             }
 
             if (p.Orientation == Orientation.Vertical)
             {
-                //if Y coord of opposite point minus point in the dictionary is greater than zero...
-                if ((p.OtherPoint(intersectionDictionary[p]) - intersectionDictionary[p]).Y > 0)
-                    //return down
-                    return Direction.Down;
-                else
-                    //otherwise return up
-                    return Direction.Up;
+                if (dir == Direction.Down && IntersectionDictionary[p] != p.End)
+                    return true;
+                if (dir == Direction.Up && IntersectionDictionary[p] != p.Start)
+                    return true;
             }
-            
-            //same thing, but if the path is horizontal the X coord is used
             else
             {
-                if ((p.OtherPoint(intersectionDictionary[p]) - intersectionDictionary[p]).X > 0)
-                    return Direction.Right;
-                else
-                    return Direction.Left;
+                if (dir == Direction.Right && IntersectionDictionary[p] != p.End)
+                    return true;
+                if (dir == Direction.Left && IntersectionDictionary[p] != p.Start)
+                    return true;
             }
+
+            return false;
         }
 
         //

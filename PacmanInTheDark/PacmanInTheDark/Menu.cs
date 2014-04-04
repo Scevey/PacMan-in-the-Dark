@@ -104,6 +104,7 @@ namespace PacmanInTheDark
                     {
                         gui.Update();
                         pacman.UpdateFrame(gameTime);
+                        pacman.Move();
                     }
                     break;
                 default:
