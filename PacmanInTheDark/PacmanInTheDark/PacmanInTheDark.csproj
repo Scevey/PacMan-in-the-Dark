@@ -39,7 +39,7 @@
     <Compile Include="GamePiece.cs" />
     <Compile Include="Ghost.cs" />
     <Compile Include="Gui.cs" />
-    <Compile Include="MainMenu.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MovableGamePiece.cs" />
     <Compile Include="Pacman.cs" />

@@ -11,15 +11,20 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace PacmanInTheDark
 {
-    class MainMenu
+    //Anthony Giallella
+    class Menu
     {
+        //gamestates
         enum GameState { MainMenu, OptionMenu, InGame }
+        
+        //lists of gui for different states
         List<Gui> startMenu = new List<Gui>();
         List<Gui> optionMenu = new List<Gui>();
         List<Gui> inGame = new List<Gui>();
         GameState gameState;
-        public MainMenu()
+        public Menu()
         {
+            //add gui for images to lists based on states
             startMenu.Add(new Gui("menu"));
             startMenu.Add(new Gui("start"));
             startMenu.Add(new Gui("options"));
@@ -27,13 +32,13 @@ namespace PacmanInTheDark
             optionMenu.Add(new Gui("optionsMenu"));
             optionMenu.Add(new Gui("back"));
             optionMenu.Add(new Gui("exit"));
-            optionMenu.Add(new Gui("tool"));
 
             inGame.Add(new Gui("background"));
 
         }
         public void LoadContent(ContentManager content)
         {
+            //load, center and add click events for all in list
             foreach (Gui gui in startMenu)
             {
                 gui.LoadContent(content);
@@ -41,9 +46,11 @@ namespace PacmanInTheDark
                 gui.clickEvent += OnClick;
             } 
 
+            //adjust position
             startMenu.Find(x => x.ImgName == "start").MoveElement(0, 0);
             startMenu.Find(x => x.ImgName == "options").MoveElement(0, +125);
             
+            //load, center and add click events for all in list
             foreach (Gui gui in optionMenu)
             {
                 gui.LoadContent(content);
@@ -51,10 +58,11 @@ namespace PacmanInTheDark
                 gui.clickEvent += OnClick;
             }
 
-            optionMenu.Find(x => x.ImgName == "back").MoveElement(0, -100);
-            optionMenu.Find(x => x.ImgName == "tool").MoveElement(0, 15);
-            optionMenu.Find(x => x.ImgName == "exit").MoveElement(0, 135);
-
+            //adjust position
+            optionMenu.Find(x => x.ImgName == "back").MoveElement(0, -50);
+            optionMenu.Find(x => x.ImgName == "exit").MoveElement(0, 85);
+            
+            //load, center and add click events for all in list
             foreach (Gui gui in inGame)
             {
                 gui.LoadContent(content);
@@ -64,9 +72,11 @@ namespace PacmanInTheDark
         }
         public void Update()
         {
+            //change between game states
             switch (gameState)
             {
                 case GameState.MainMenu:
+                    //call gui to update and change
                     foreach (Gui gui in startMenu)
                     {
                         gui.Update();
@@ -92,9 +102,11 @@ namespace PacmanInTheDark
         }
         public void Draw(SpriteBatch spriteBatch)
         {
+            //change between game states
             switch (gameState)
             {
                 case GameState.MainMenu:
+                    //change images based on state
                     foreach (Gui element in startMenu)
                     {
                         element.Draw(spriteBatch);
@@ -132,10 +144,7 @@ namespace PacmanInTheDark
             {
                 gameState = GameState.MainMenu;
             }
-            if (element == "tool")
-            {
-              //call variable editor
-            }
+
             if (element == "exit")
             {
                 Environment.Exit(0);

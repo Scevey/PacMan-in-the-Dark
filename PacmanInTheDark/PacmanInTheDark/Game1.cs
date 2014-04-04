@@ -14,6 +14,9 @@ namespace PacmanInTheDark
     /// <summary>
     /// This is the main type for your game
     /// </summary>
+    /// 
+
+    //Anthony Giallella
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
@@ -21,9 +24,7 @@ namespace PacmanInTheDark
         //map field - after milestone 2 this will be part of the Game class, not the top level class
         //it's here for testing purposes only
         Map gameMap;
-        
-        //GameState gamestate;
-        MainMenu main = new MainMenu();
+        Menu main = new Menu();
         //PacMan Attributes
         Pacman Player;
 
@@ -45,6 +46,7 @@ namespace PacmanInTheDark
         {
             // TODO: Add your initialization logic here
             gameMap = new Map("map.txt");
+            //gives window set size
             graphics.PreferredBackBufferHeight = 768;
             graphics.PreferredBackBufferWidth = 768;
             base.Initialize();
@@ -58,6 +60,8 @@ namespace PacmanInTheDark
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            //load in the content
             main.LoadContent(Content);
             // TODO: use this.Content to load your game content here
 
@@ -99,7 +103,6 @@ namespace PacmanInTheDark
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            //menu.Draw(spriteBatch);
             main.Draw(spriteBatch);
             spriteBatch.End();
             // TODO: Add your drawing code here
