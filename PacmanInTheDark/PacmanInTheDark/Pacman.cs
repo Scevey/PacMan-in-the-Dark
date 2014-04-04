@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace PacmanInTheDark
 {
+    //Jeremy Hall
     class Pacman : MovableGamePiece
     {
         // Life/hunger bar (Lost over time - can be restored with pellets)
@@ -109,6 +110,9 @@ namespace PacmanInTheDark
             }
         }
 
+        /// <summary>
+        /// Change direction based off of what key is down
+        /// </summary>
         public override void GetNextDirection()
         {
             kState = Keyboard.GetState();

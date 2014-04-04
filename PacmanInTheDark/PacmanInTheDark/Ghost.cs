@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace PacmanInTheDark
 {
+    //Jeremy Hall
     class Ghost : MovableGamePiece
     {
         //Random variable used to decide which path/direction ghost has

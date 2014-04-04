@@ -5,6 +5,7 @@ using System.Text;
 
 namespace PacmanInTheDark
 {
+    //Jeremy Hall
     enum Orientation { Horizontal, Vertical };
     class Path
     {

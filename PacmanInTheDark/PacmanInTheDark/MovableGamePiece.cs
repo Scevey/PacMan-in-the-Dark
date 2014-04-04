@@ -5,6 +5,7 @@ using System.Text;
 
 namespace PacmanInTheDark
 {
+    //Jeremy Hall
     //indicates current direction of movement, not desired direction of movement
     //user input will not directly control this
     enum Direction { None, Up, Left, Down, Right };
