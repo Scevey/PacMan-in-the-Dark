@@ -37,6 +37,10 @@ namespace PacmanInTheDark
             set { pacmanImg = value; }
         }
 
+        byte imageReset = 0;
+
+        //Keyboard state
+        KeyboardState kState;
 
         /// <summary>
         /// Constructor to create Pacman Object
@@ -81,28 +85,37 @@ namespace PacmanInTheDark
             //else gameState.Gameover();
         }
 
-        ///// <summary>
-        ///// Update Pacman's image based off of corresponding direction and location on path
-        ///// </summary>
-        ///// <param name="direction">0-3</param>
-        //public void Move(byte direction)
-        //{
-        //                
-        //}
-
-        //NOTE: Why do we need a draw method if we can just redraw accordingly in the Move method? 
-
         /// <summary>
         /// Update Pacman Image
         /// </summary>
         public override void Draw()
-        {
-        
+        {        
+            //TODO: Update pacman images either using a spritesheet or seperate images for each state
+
+            //Just an idea on how we can update pacman's image so it's constantly moving IF we don't use a spritesheet
+            if (Direction == Direction.Up)
+            {
+                //This would make pacman's image be constantly changing on every Draw call (not sure if that's good or bad)
+                if (imageReset == 0)
+                {
+                    // Set pacman image to mouth open here
+                    imageReset++;
+                }
+                else
+                {
+                    // Set pacman image to mouth close here
+                    imageReset = 0;
+                }
+            }
         }
 
-        public override Path GetNextDirection()
+        public override void GetNextDirection()
         {
-            return null;
+            kState = Keyboard.GetState();
+            if (kState.IsKeyDown(Keys.W) == true) NextDirection = Direction.Up;
+            if (kState.IsKeyDown(Keys.A) == true) NextDirection = Direction.Left;
+            if (kState.IsKeyDown(Keys.S) == true) NextDirection = Direction.Down;
+            if (kState.IsKeyDown(Keys.D) == true) NextDirection = Direction.Right;
         }
     }
 }

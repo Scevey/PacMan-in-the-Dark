@@ -13,13 +13,21 @@ namespace PacmanInTheDark
     {
         #region Fields
 
-        // Note from Jeremy -- use Direction enum instead of byte direction. **Will be easier to understand
+        // Current direction of pacman
         Direction direction;
-        Direction nextDirection;
-        //note from mike -- okay
+        public Direction Direction
+        {
+            get { return direction; }
+            set { direction = value; }
+        }
 
-        //direction variable
-        //byte direction; //only ever 0-3, byte to save space
+        // Next direction that pacman will be going, used for next path
+        Direction nextDirection;
+        public Direction NextDirection
+        {
+            get { return nextDirection; }
+            set { nextDirection = value; }
+        }
 
         //speed variable
         float speed; //represents a number of tiles. It will be really small
@@ -36,6 +44,9 @@ namespace PacmanInTheDark
         public void Move()
         {
             #region path change block - exits the method if a path change occurs
+
+            // Retrieves nextDirection - set based off of user keyboard input
+            GetNextDirection();
 
             //iterates through all the paths intersecting with the current path
             //if the current position is within one movement of the intersection point and the direction to the path matches
@@ -143,6 +154,6 @@ namespace PacmanInTheDark
         }
 
         //determines the direction in which the piece will be moving after the next path change
-        public abstract Path GetNextDirection();       
+        public abstract void GetNextDirection();       
     }
 }

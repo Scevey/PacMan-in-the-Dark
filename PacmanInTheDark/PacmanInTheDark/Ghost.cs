@@ -89,9 +89,9 @@ namespace PacmanInTheDark
 
         }
 
-        public override Path GetNextDirection()
+        public override void GetNextDirection()
         {
-            return null;
+            //return null;
         }
     }
 }
