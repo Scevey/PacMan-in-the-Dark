@@ -26,6 +26,28 @@ namespace PacmanInTheDark
 
         #endregion
 
+        #region Properties
+
+        public Point MapSize
+        {
+            get
+            {
+                float maxX = 0;
+                float maxY = 0;
+                foreach (Path p in Paths)
+                {
+                    if (p.End.X > maxX)
+                        maxX = p.End.X;
+                    if (p.End.Y > maxY)
+                        maxY = p.End.Y;
+                }
+
+                return new Point(maxX, maxY);
+            }
+        }
+
+        #endregion
+
         //takes a map file name, does stuff
         public Map(string filename)
         {
