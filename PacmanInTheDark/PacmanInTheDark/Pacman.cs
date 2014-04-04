@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.GamerServices;
 namespace PacmanInTheDark
 {
     //Jeremy Hall
+    //Sungmin Park
     class Pacman : MovableGamePiece
     {
         // Life/hunger bar (Lost over time - can be restored with pellets)
@@ -38,6 +39,16 @@ namespace PacmanInTheDark
             set { pacmanImg = value; }
         }
 
+        //Draw related attributes
+        int frame; // what frame to draw
+        int frameSizeX, frameSizeY; // size of frame in pixels
+        int numFrames; // # of frames on the spirte sheet in a row
+        int timeSinceLastFrame; // elapsed time on this frame
+        int millisecondsPerFrame; // how long to display a frame
+        int currentFrameX, currentFrameY; // location on spire sheet of the frame
+        int milliSecondPerFrame; // How long a frame will display in ms
+        Vector2 pacmanPos; //position of PacMan in pixels
+
         byte imageReset = 0;
 
         //Keyboard state
@@ -59,6 +70,11 @@ namespace PacmanInTheDark
             
             //Starting image for pacman
             PacmanImg = myPacman;
+            numFrames = 3;
+            frame = numFrames;
+            currentFrameX = 0;
+            currentFrameY = 0;
+            milliSecondPerFrame = 25;
         }
 
         /// <summary>
@@ -86,27 +102,65 @@ namespace PacmanInTheDark
             //else gameState.Gameover();
         }
 
+        //updates the frame to display
+        public void UpdateFrame(GameTime gameTime)
+        {
+            // increment the elapsed time
+            timeSinceLastFrame += gameTime.ElapsedGameTime.Milliseconds;
+
+            // time for the next frame
+            if (timeSinceLastFrame > millisecondsPerFrame)
+            {
+                if (Direction == Direction.Up || Direction == Direction.Down)
+                {
+                    currentFrameY = 100;
+                    timeSinceLastFrame = 0; // reset elapsed time
+                    frame++;
+                    if (frame >= numFrames)
+                    {
+                        frame = 0;
+                    }
+                    currentFrameX = frameSizeX * frame;
+                }
+
+                if (Direction == Direction.Right || Direction == Direction.Left)
+                {
+                    currentFrameY = 0;
+                    timeSinceLastFrame = 0; // reset elapsed time
+                    frame++;
+                    if (frame >= numFrames)
+                    {
+                        frame = 0;
+                    }
+                    currentFrameX = frameSizeX * frame;
+                }
+            }
+        }
+
         /// <summary>
         /// Update Pacman Image
         /// </summary>
-        public override void Draw()
-        {        
-            //TODO: Update pacman images either using a spritesheet or seperate images for each state
-
-            //Just an idea on how we can update pacman's image so it's constantly moving IF we don't use a spritesheet
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {   
+            //TO DO
+            //get to pacmanPos coordinates
             if (Direction == Direction.Up)
             {
-                //This would make pacman's image be constantly changing on every Draw call (not sure if that's good or bad)
-                if (imageReset == 0)
-                {
-                    // Set pacman image to mouth open here
-                    imageReset++;
-                }
-                else
-                {
-                    // Set pacman image to mouth close here
-                    imageReset = 0;
-                }
+                spriteBatch.Draw(pacmanImg, pacmanPos, new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
+            }
+            if (Direction == Direction.Down)
+            {
+                spriteBatch.Draw(pacmanImg, pacmanPos, new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White, 
+                                 0, Vector2.Zero, 1, SpriteEffects.FlipVertically, 0);
+            }
+            if (Direction == Direction.Left)
+            {
+                spriteBatch.Draw(pacmanImg, pacmanPos, new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
+            }
+            if (Direction == Direction.Right)
+            {
+                spriteBatch.Draw(pacmanImg, pacmanPos, new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White,
+                                 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
             }
         }
 

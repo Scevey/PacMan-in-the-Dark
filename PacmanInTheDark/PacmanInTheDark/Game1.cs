@@ -17,6 +17,7 @@ namespace PacmanInTheDark
     /// 
 
     //Anthony Giallella
+    //Sungmin Park
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
@@ -66,7 +67,7 @@ namespace PacmanInTheDark
             // TODO: use this.Content to load your game content here
 
             // Load in PacMan sprite sheet
-            //Texture2D pacMan = Content.Load<Texture2D>("PacMan Sprite Sheet");
+            Texture2D pacman = Content.Load<Texture2D>("PacManSheet");
         }
 
         /// <summary>

@@ -106,11 +106,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\PacMan Spirte Sheet.xnb">
+    <Content Include="Content\PacManSheet.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Content\SpriteFont1.xnb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
