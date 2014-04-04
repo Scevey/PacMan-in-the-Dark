@@ -40,6 +40,13 @@ namespace PacmanInTheDark
             return (float)Math.Abs(Math.Sqrt((p2.X - p1.X) * (p2.X - p1.X) + (p2.Y - p1.Y) * (p2.Y - p1.Y)));
         }
 
+        //coord conversion
+        //converts map coords to gameplay box coords
+        public static Point MapToScreen(Point mapPoint, Point mapSize, Point screenSize)
+        {
+            return new Point((int)((mapPoint.X * screenSize.X) / mapSize.X), (int)((mapPoint.Y * screenSize.Y / mapSize.Y)));
+        }
+
         #region operator overrides
         //these make Points behave like points and vectors from Math Graph
 
