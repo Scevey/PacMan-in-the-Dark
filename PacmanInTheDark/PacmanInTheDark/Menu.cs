@@ -12,11 +12,12 @@ using Microsoft.Xna.Framework.GamerServices;
 namespace PacmanInTheDark
 {
     //Anthony Giallella
+    //Sungmin Park
     class Menu
     {
         //Pacman object
-        //Map map = new Map("map.txt");
-        //Pacman pacman = new Pacman(Texture2D blah, map.Paths[0], pos = 0, (float) speed);
+        Map gameMap = new Map("map.txt");
+        Pacman pacman;
 
         //gamestates
         enum GameState { MainMenu, OptionMenu, InGame }
@@ -37,6 +38,7 @@ namespace PacmanInTheDark
             optionMenu.Add(new Gui("back"));
             optionMenu.Add(new Gui("exit"));
 
+            //inGame.Add(new Gui("TopBar"));
             inGame.Add(new Gui("background"));
 
         }
@@ -73,8 +75,13 @@ namespace PacmanInTheDark
                 gui.Center(768, 768);
                 gui.clickEvent += OnClick;
             }
+
+            //load in a pacmanImage and use it to create a pacman object
+            Texture2D pacmanImage = content.Load<Texture2D>("PacManSheet");
+            pacman = new Pacman(pacmanImage, gameMap.Paths[0], 0, .2f);
+
         }
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             //change between game states
             switch (gameState)
@@ -96,6 +103,7 @@ namespace PacmanInTheDark
                     foreach (Gui gui in inGame)
                     {
                         gui.Update();
+                        pacman.UpdateFrame(gameTime);
                     }
                     break;
                 default:
@@ -104,7 +112,7 @@ namespace PacmanInTheDark
 
 
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             //change between game states
             switch (gameState)
@@ -127,6 +135,7 @@ namespace PacmanInTheDark
                     {
                         element.Draw(spriteBatch);
                     }
+                    pacman.Draw(gameTime, spriteBatch);
                     break;
                 default:
                     break;

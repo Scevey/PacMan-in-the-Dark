@@ -46,7 +46,6 @@ namespace PacmanInTheDark
         int timeSinceLastFrame; // elapsed time on this frame
         int millisecondsPerFrame; // how long to display a frame
         int currentFrameX, currentFrameY; // location on spire sheet of the frame
-        int milliSecondPerFrame; // How long a frame will display in ms
         Vector2 pacmanPos; //position of PacMan in pixels
 
         byte imageReset = 0;
@@ -74,7 +73,9 @@ namespace PacmanInTheDark
             frame = numFrames;
             currentFrameX = 0;
             currentFrameY = 0;
-            milliSecondPerFrame = 25;
+            frameSizeX = 100;
+            frameSizeY = 100;
+            millisecondsPerFrame = 25;
         }
 
         /// <summary>
@@ -144,6 +145,11 @@ namespace PacmanInTheDark
         {   
             //TO DO
             //get to pacmanPos coordinates
+            Point location = new Point(0, 0);
+            location = Point.MapToScreen(MapPos, new Point(5,5),new Point(500,500));
+            pacmanPos.X = location.X;
+            pacmanPos.Y = location.Y;
+
             if (Direction == Direction.Up)
             {
                 spriteBatch.Draw(pacmanImg, pacmanPos, new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
@@ -161,6 +167,10 @@ namespace PacmanInTheDark
             {
                 spriteBatch.Draw(pacmanImg, pacmanPos, new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White,
                                  0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+            }
+            else
+            {
+                spriteBatch.Draw(pacmanImg, pacmanPos, new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
             }
         }
 

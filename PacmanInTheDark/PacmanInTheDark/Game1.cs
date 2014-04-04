@@ -27,7 +27,6 @@ namespace PacmanInTheDark
         Map gameMap;
         Menu main = new Menu();
         //PacMan Attributes
-        Pacman Player;
 
         public Game1()
             : base()
@@ -89,7 +88,7 @@ namespace PacmanInTheDark
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            main.Update();
+            main.Update(gameTime);
             // TODO: Add your update logic here
             //menu.Update();
 
@@ -104,7 +103,7 @@ namespace PacmanInTheDark
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            main.Draw(spriteBatch);
+            main.Draw(gameTime, spriteBatch);
             spriteBatch.End();
             // TODO: Add your drawing code here
 
