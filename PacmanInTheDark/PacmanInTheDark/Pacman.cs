@@ -140,7 +140,7 @@ namespace PacmanInTheDark
         /// <summary>
         /// Update Pacman Image
         /// </summary>
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {   
             //TO DO
             //get to pacmanPos coordinates

@@ -85,7 +85,7 @@ namespace PacmanInTheDark
             }
         }
 
-        public override void Draw()
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 
         }

@@ -14,6 +14,10 @@ namespace PacmanInTheDark
     //Anthony Giallella
     class Menu
     {
+        //Pacman object
+        //Map map = new Map("map.txt");
+        //Pacman pacman = new Pacman(Texture2D blah, map.Paths[0], pos = 0, (float) speed);
+
         //gamestates
         enum GameState { MainMenu, OptionMenu, InGame }
         
@@ -28,7 +32,7 @@ namespace PacmanInTheDark
             startMenu.Add(new Gui("menu"));
             startMenu.Add(new Gui("start"));
             startMenu.Add(new Gui("options"));
-
+            
             optionMenu.Add(new Gui("optionsMenu"));
             optionMenu.Add(new Gui("back"));
             optionMenu.Add(new Gui("exit"));
