@@ -22,7 +22,6 @@ namespace PacmanInTheDark
         
         //name of image
         private string imgName;
-
         public string ImgName
         {
             get { return imgName; }
@@ -51,7 +50,7 @@ namespace PacmanInTheDark
             //checks to see if mouse is on images area
             if (guiRectangle.Contains(Mouse.GetState().X, Mouse.GetState().Y)&& Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
-                //click event for that image
+                //do click event for that image
                 clickEvent(imgName);
             }
         }

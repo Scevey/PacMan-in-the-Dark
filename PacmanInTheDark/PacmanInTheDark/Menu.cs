@@ -44,7 +44,7 @@ namespace PacmanInTheDark
         }
         public void LoadContent(ContentManager content)
         {
-            //load, center and add click events for all in list
+            //load, center and add click events for all in start list
             foreach (Gui gui in startMenu)
             {
                 gui.LoadContent(content);
@@ -56,7 +56,7 @@ namespace PacmanInTheDark
             startMenu.Find(x => x.ImgName == "start").MoveElement(0, 0);
             startMenu.Find(x => x.ImgName == "options").MoveElement(0, +125);
             
-            //load, center and add click events for all in list
+            //load, center and add click events for all in option list
             foreach (Gui gui in optionMenu)
             {
                 gui.LoadContent(content);
@@ -68,7 +68,7 @@ namespace PacmanInTheDark
             optionMenu.Find(x => x.ImgName == "back").MoveElement(0, -50);
             optionMenu.Find(x => x.ImgName == "exit").MoveElement(0, 85);
             
-            //load, center and add click events for all in list
+            //load, center and add click events for all in ingame list
             foreach (Gui gui in inGame)
             {
                 gui.LoadContent(content);
@@ -94,12 +94,14 @@ namespace PacmanInTheDark
                     }
                     break;
                 case GameState.OptionMenu:
+                    //call gui to update and change
                     foreach (Gui gui in optionMenu)
                     {
                         gui.Update();
                     }
                     break;
                 case GameState.InGame:
+                    //call gui to update and change, call pacman functionality
                     foreach (Gui gui in inGame)
                     {
                         gui.Update();
@@ -126,16 +128,19 @@ namespace PacmanInTheDark
                     }
                     break;
                 case GameState.OptionMenu:
+                    //change images based on state
                     foreach (Gui element in optionMenu)
                     {
                         element.Draw(spriteBatch);
                     }
                     break;
                 case GameState.InGame:
+                    //change images based on state
                     foreach (Gui element in inGame)
                     {
                         element.Draw(spriteBatch);
                     }
+                    //draw pacman
                     pacman.Draw(gameTime, spriteBatch);
                     break;
                 default:
@@ -146,8 +151,10 @@ namespace PacmanInTheDark
         //what buttons do when clicked
         public void OnClick(string element)
         {
+            //name of image
             if (element == "start")
             {
+                //what to do on click
                 gameState = GameState.InGame;
             }
             if (element == "options")
