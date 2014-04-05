@@ -15,9 +15,13 @@ namespace PacmanInTheDark
     //Sungmin Park
     class Menu
     {
-        //Pacman object
+        ///create a map object
         Map gameMap = new Map("map.txt");
+        //Pacman object
         Pacman pacman;
+        //Draw related attributes
+        SpriteFont Font;
+        Texture2D covered;
 
         //gamestates
         enum GameState { MainMenu, OptionMenu, InGame }
@@ -38,12 +42,18 @@ namespace PacmanInTheDark
             optionMenu.Add(new Gui("back"));
             optionMenu.Add(new Gui("exit"));
 
-            //inGame.Add(new Gui("TopBar"));
-            inGame.Add(new Gui("background"));
+            inGame.Add(new Gui("topBar"));
+            //inGame.Add(new Gui("background"));    commented out to use a sample map 
 
         }
         public void LoadContent(ContentManager content)
         {
+            //load in a pacmanImage and use it to create a pacman object
+            Texture2D pacmanImage = content.Load<Texture2D>("PacManSheet");
+            Font = content.Load<SpriteFont>("Arial");
+            covered = content.Load<Texture2D>("blackCover");
+            pacman = new Pacman(pacmanImage, gameMap.Paths[0], 0, .05f);
+
             //load, center and add click events for all in start list
             foreach (Gui gui in startMenu)
             {
@@ -72,13 +82,12 @@ namespace PacmanInTheDark
             foreach (Gui gui in inGame)
             {
                 gui.LoadContent(content);
-                gui.Center(768, 768);
                 gui.clickEvent += OnClick;
             }
 
-            //load in a pacmanImage and use it to create a pacman object
-            Texture2D pacmanImage = content.Load<Texture2D>("PacManSheet");
-            pacman = new Pacman(pacmanImage, gameMap.Paths[0], 0, .2f);
+            //adjust position
+            //inGame.Find(x => x.ImgName == "background").Center(768, 768);      commented out to use a sample map
+            //inGame.Find(x => x.ImgName == "background").MoveElement(0, 155);   commented out to use a sample map
 
         }
         public void Update(GameTime gameTime)
@@ -139,8 +148,32 @@ namespace PacmanInTheDark
                     foreach (Gui element in inGame)
                     {
                         element.Draw(spriteBatch);
+                        //sample map that will later be replaced by the Gui "background"
+                        //black horizontal Lines
+                        spriteBatch.Draw(covered, new Vector2(0, 155), new Rectangle(0, 0, 600, 5), Color.White);
+                        spriteBatch.Draw(covered, new Vector2(0, 255), new Rectangle(0, 0, 300, 5), Color.White);
+                        spriteBatch.Draw(covered, new Vector2(400, 255), new Rectangle(0, 0, 200, 5), Color.White);
+                        spriteBatch.Draw(covered, new Vector2(300, 750), new Rectangle(0, 0, 100, 5), Color.White);
+                        //black vertical Lines
+                        spriteBatch.Draw(covered, new Vector2(0, 155), new Rectangle(0, 0, 5, 100), Color.White);
+                        spriteBatch.Draw(covered, new Vector2(300, 255), new Rectangle(0, 0, 5, 500), Color.White);
+                        spriteBatch.Draw(covered, new Vector2(400, 255), new Rectangle(0, 0, 5, 500), Color.White);
+                        spriteBatch.Draw(covered, new Vector2(595, 155), new Rectangle(0, 0, 5, 100), Color.White);
                     }
-                    //draw pacman
+                    //info on topBar (will change later on to update the lives,score,pellets left, and hunger bar
+                    //related to lives
+                    spriteBatch.DrawString(Font, "Lives", new Vector2(42, 45), Color.White);
+                    //related to score
+                    spriteBatch.DrawString(Font, "Score", new Vector2(190, 45), Color.White);
+                    spriteBatch.DrawString(Font, "0000000", new Vector2(175, 85), Color.White);
+                    //related to pellets left
+                    spriteBatch.DrawString(Font, "Left", new Vector2(390, 45), Color.White);
+                    spriteBatch.DrawString(Font, " 00 ", new Vector2(390, 85), Color.White);
+                    //related to hunger bar
+                    spriteBatch.DrawString(Font, "Hunger", new Vector2(590, 45), Color.White);
+                    spriteBatch.Draw(covered, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
+
+                    //draws pacman to the screen
                     pacman.Draw(gameTime, spriteBatch);
                     break;
                 default:

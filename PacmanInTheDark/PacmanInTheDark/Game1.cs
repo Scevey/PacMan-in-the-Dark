@@ -26,7 +26,6 @@ namespace PacmanInTheDark
         //it's here for testing purposes only
         Map gameMap;
         Menu main = new Menu();
-        //PacMan Attributes
 
         public Game1()
             : base()
@@ -47,7 +46,7 @@ namespace PacmanInTheDark
             // TODO: Add your initialization logic here
             gameMap = new Map("map.txt");
             //gives window set size
-            graphics.PreferredBackBufferHeight = 768;
+            graphics.PreferredBackBufferHeight = 923;
             graphics.PreferredBackBufferWidth = 768;
             base.Initialize();
         }
@@ -101,7 +100,7 @@ namespace PacmanInTheDark
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Blue);
             spriteBatch.Begin();
             main.Draw(gameTime, spriteBatch);
             spriteBatch.End();
