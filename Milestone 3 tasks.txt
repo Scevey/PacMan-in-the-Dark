@@ -1,0 +1,5 @@
+Sungmin: work on map, drawings for ghosts
+Anthony: finish gamestates (IE. hiscores, pause menu)
+Jeremy: Do ghost class(different types of AIs? Ex. One that chases, random paths,etc), make tool functional with game
+Mike: Making the map (paths laid out), ghost AI?(if time), fix pacman functionality so he stops when he hits a wall and 
+can turn around whenever
