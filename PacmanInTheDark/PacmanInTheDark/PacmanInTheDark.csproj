@@ -39,6 +39,7 @@
     <Compile Include="GamePiece.cs" />
     <Compile Include="Ghost.cs" />
     <Compile Include="Gui.cs" />
+    <Compile Include="LinkedList.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MovableGamePiece.cs" />
