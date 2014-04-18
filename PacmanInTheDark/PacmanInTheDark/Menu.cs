@@ -116,12 +116,12 @@ namespace PacmanInTheDark
                         gui.Update();
                         pacman.UpdateFrame(gameTime);
                         pacman.Move();
+                        //if (pacman.gameover == true) gameState = GameState.Gameover;
                     }
                     break;
                 default:
                     break;
             }
-
 
         }
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)

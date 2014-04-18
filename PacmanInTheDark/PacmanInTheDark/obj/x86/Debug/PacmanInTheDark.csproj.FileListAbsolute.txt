@@ -90,3 +90,25 @@ C:\Users\Anthony\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\ob
 C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Arial.xnb
 C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\blackCover.xnb
 C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\topBar.xnb
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.exe
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.pdb
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\SDL.dll
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\back.xnb
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\exit.xnb
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\menu.xnb
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\options.xnb
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\optionsMenu.xnb
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\background.xnb
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\start.xnb
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\tool.xnb
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\PacManSheet.xnb
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Arial.xnb
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\blackCover.xnb
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\topBar.xnb
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\PacmanInTheDark.exe
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\PacmanInTheDark.pdb
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Lidgren.Network.dll
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\MonoGame.Framework.dll
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\OpenTK.dll
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Tao.Sdl.dll
+Z:\IGMProfile\GDDAPS2 Pacman Game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.csprojResolveAssemblyReference.cache

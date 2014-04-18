@@ -45,6 +45,7 @@
     <Compile Include="MovableGamePiece.cs" />
     <Compile Include="Pacman.cs" />
     <Compile Include="Path.cs" />
+    <Compile Include="Pellet.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

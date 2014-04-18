@@ -46,7 +46,7 @@ namespace PacmanInTheDark
         {
             #region path change block - exits the method if a path change occurs
 
-            // Retrieves nextDirection - set based off of user keyboard input
+            // Retrieves nextDirection - set based off of user keyboard input or in ghost's case, random
             GetNextDirection();
 
             //iterates through all the paths intersecting with the current path

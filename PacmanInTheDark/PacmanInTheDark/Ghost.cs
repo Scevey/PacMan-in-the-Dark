@@ -15,7 +15,7 @@ namespace PacmanInTheDark
     class Ghost : MovableGamePiece
     {
         //Random variable used to decide which path/direction ghost has
-        Random randy;
+        Random randy = new Random();
 
         //Ghost image
         Texture2D ghostImg;
@@ -23,6 +23,31 @@ namespace PacmanInTheDark
         {
             get { return ghostImg; }
             set { ghostImg = value; }
+        }
+
+        // Is ghost slowed?
+        bool isSlowed = false;
+        public bool IsSlowed
+        {
+            get { return isSlowed; }
+            set { isSlowed = value; }
+        }
+
+        // Used to retrieve original speed after ghost has been slowed
+        float originalSpeed;
+        public float OriginalSpeed
+        {
+            get { return originalSpeed; }
+        }
+        float originalPos; //starting position
+        public float OriginalPos
+        {
+            get { return originalPos; }
+        }
+        Path originalPath; //starting path
+        public Path OriginalPath
+        {
+            get { return originalPath; }
         }
 
         /// <summary>
@@ -34,8 +59,11 @@ namespace PacmanInTheDark
         public Ghost(Texture2D myGhostImg, Path path, float pos, float speed)
             : base(path, pos, speed)
         {
-            //Starting image for ghost
+            //Starting information for ghost
             GhostImg = myGhostImg;
+            originalSpeed = speed;
+            originalPos = pos;
+            originalPath = path;
         }
 
         /// <summary>
@@ -44,45 +72,6 @@ namespace PacmanInTheDark
         /// <param name="direction">0-3</param>
         public void Move(byte direction)
         {
-            bool isEven = ((PathPos % 2) == 0);
-            //TODO
-            //Add textures for each direction and change whether pos. is even/odd (two different images to give animation)
-            //Change path accordingly
-            switch (direction)
-            {
-                case 0: //Up
-                    //if (isEven) 
-                    //{
-                    //    GhostImg =   
-                    //    PathChange(...)
-                    //}
-                    //else GhostImg = 
-                    break;
-                case 1: //Left
-                    //if (isEven) 
-                    //{
-                    //    GhostImg =   
-                    //    PathChange(...)
-                    //}
-                    //else GhostImg = 
-                    break;
-                case 2: //Down
-                    //if (isEven) 
-                    //{
-                    //    GhostImg =   
-                    //    PathChange(...)
-                    //}
-                    //else GhostImg = 
-                    break;
-                case 3: //Right
-                    //if (isEven) 
-                    //{
-                    //    GhostImg =   
-                    //    PathChange(...)
-                    //}
-                    //else GhostImg = 
-                    break;
-            }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -90,9 +79,47 @@ namespace PacmanInTheDark
 
         }
 
+        /// <summary>
+        /// Pick ghost's next direction (RANDOM GHOST)
+        /// </summary>
         public override void GetNextDirection()
         {
-            //return null;
+            // Note: Do we want to have ghost be able to not have a not direction? AKA nextDirection = Direction.None?
+            int randomDirection = randy.Next(1, 5);
+            switch (randomDirection) // Changes next direction randomly
+            {
+                case 1:
+                    NextDirection = Direction.Up;
+                    break;
+                case 2:
+                    NextDirection = Direction.Left;
+                    break;
+                case 3:
+                    NextDirection = Direction.Down;
+                    break;
+                case 4:
+                    NextDirection = Direction.Right;
+                    break;
+            }
+        }
+
+        ///// <summary>
+        ///// Pick ghost's next direction (CHASING GHOST)
+        ///// </summary>
+        //public override void GetNextDirection()
+        //{
+        //
+        //}
+
+        /// <summary>
+        /// Slow ghost down by a certain proportion
+        /// </summary>
+        /// <param name="speed"></param>
+        /// <returns></returns>
+        public float SlowGhost()
+        {
+            float newSpeed = OriginalSpeed / 10;  //Subject to change...we can make the ratio whatever we want
+            return newSpeed;
         }
     }
 }

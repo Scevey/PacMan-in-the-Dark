@@ -39,6 +39,18 @@ namespace PacmanInTheDark
             set { pacmanImg = value; }
         }
 
+        //Pacmans starting information
+        float originalPos; //starting position
+        public float OriginalPos
+        {
+            get { return originalPos; }
+        }
+        Path originalPath; //starting path
+        public Path OriginalPath
+        {
+            get { return originalPath; }
+        }
+
         //Draw related attributes
         int frame; // what frame to draw
         int frameSizeX, frameSizeY; // size of frame in pixels
@@ -49,8 +61,6 @@ namespace PacmanInTheDark
         const int yPosOffSet = 155; // how off pacman's y coordinate is from the map
         const int xPosOffSet = 0; // how off pacman's x coordinate is from the map
         Vector2 pacmanPos; //position of PacMan in pixels
-
-        byte imageReset = 0;
 
         //Keyboard state
         KeyboardState kState;
@@ -68,7 +78,10 @@ namespace PacmanInTheDark
             //Pacman starts with 100 health and 3 lives
             Health = 100;
             Lives = 3;
-            
+            // Starting position and path for pacman
+            originalPos = pos;
+            originalPath = path;
+
             //Starting image for pacman
             PacmanImg = myPacman;
             numFrames = 3;
@@ -99,10 +112,27 @@ namespace PacmanInTheDark
             {
                 lives -= 1;
                 Health = 100;
+
                 //TODO
-                //Reset Pacman pos. and path               
+                //Reset Pacman pos. and path      
             }
-            //else gameState.Gameover();
+        }
+
+        /// <summary>
+        /// Is pacman still alive?
+        /// </summary>
+        /// <returns></returns>
+        public bool isGameOver()
+        {
+            if (Lives <= 0)
+            {
+                return true;
+            }
+            else
+            {
+                LoseLife();
+                return false;
+            }
         }
 
         //updates the frame to display
@@ -144,7 +174,6 @@ namespace PacmanInTheDark
         /// </summary>
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            //TO DO
             //get to pacmanPos coordinates
             Point location = new Point(0, 0);
 
