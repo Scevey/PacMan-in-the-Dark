@@ -22,6 +22,20 @@ namespace PacmanInTheDark
             set { direction = value; }
         }
 
+        //the previous direction of movement
+        Direction lastDirection;
+        public Direction LastDirection
+        {
+            get
+            {
+                return lastDirection;
+            }
+            set
+            {
+                lastDirection = value;
+            }
+        }
+
         // Next direction that pacman will be going, used for next path
         Direction nextDirection;
         public Direction NextDirection
@@ -68,6 +82,9 @@ namespace PacmanInTheDark
 
             #region movement block - this block will not be reached if a path change occurs
 
+            //does nothing if 
+            if (direction == Direction.None) return;
+
             if (CurrentPath.Orientation == Orientation.Horizontal)
             {
                 if (direction == Direction.Left)
@@ -75,26 +92,29 @@ namespace PacmanInTheDark
                     //if the piece is within one move of the edge of the path...
                     if (PathPos < speed)
                     {
-                        //...turn it around
-                        PathPos = speed - PathPos; //this positions the piece so as to make it seem like it had turned around at the end of the path rather than within one movement of the end
-                        direction = Direction.Right;
+                        //... place it at the end of the path and stop its motion
+                        PathPos = 0;
+                        lastDirection = direction;
+                        direction = Direction.None;
                         return;
                     }
                     PathPos -= speed;
                 }
-                else
+                else if (direction == Direction.Right)
                 {
-                    if(PathPos>(CurrentPath.Length-speed))
+                    if (PathPos > (CurrentPath.Length - speed))
                     {
-                        //CurrentPath.Length-PathPos is the "remaining length" of the path
-                        //speed - "remaining length" is how far the piece would be from the end of the path if it had continued to the end of the path before turning around ("overrun")
-                        //CurrentPath.Length - "overrun" is what PathPos must be set to to account for the overrun
-                        //I'll simplify this later
-                        PathPos = CurrentPath.Length-(speed-(CurrentPath.Length-PathPos));
-                        direction = Direction.Left;
+                        PathPos = CurrentPath.Length;
+                        lastDirection = direction;
+                        direction = Direction.None;
                         return;
                     }
                     PathPos += speed;
+                }
+                else
+                {
+                    direction = Direction.None;
+                    return;
                 }
             }
 
@@ -103,28 +123,29 @@ namespace PacmanInTheDark
                 if (direction == Direction.Down)
                 {
                     if (PathPos > (CurrentPath.Length - speed))
-                    {
-                        //CurrentPath.Length-PathPos is the "remaining length" of the path
-                        //speed - "remaining length" is how far the piece would be from the end of the path if it had continued to the end of the path before turning around ("overrun")
-                        //CurrentPath.Length - "overrun" is what PathPos must be set to to account for the overrun
-                        //I'll simplify this later
-                        PathPos = CurrentPath.Length - (speed - (CurrentPath.Length - PathPos));
-                        direction = Direction.Up;
+                    {                        
+                        PathPos = CurrentPath.Length;
+                        lastDirection = direction;
+                        direction = Direction.None;
                         return;
                     }
                     PathPos += speed;
                 }
-                else
-                {
-                    //if the piece is within one move of the edge of the path...
+                else if (direction == Direction.Up)
+                {                    
                     if (PathPos < speed)
-                    {
-                        //...turn it around
-                        PathPos = speed - PathPos; //this positions the piece so as to make it seem like it had turned around at the end of the path rather than within one movement of the end
-                        direction = Direction.Down;
+                    {                        
+                        PathPos = 0;
+                        lastDirection = direction;
+                        direction = Direction.None;
                         return;
                     }
                     PathPos -= speed;
+                }
+                else
+                {
+                    direction = Direction.None;
+                    return;
                 }
             }
 

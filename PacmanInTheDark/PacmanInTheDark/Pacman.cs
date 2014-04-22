@@ -184,20 +184,20 @@ namespace PacmanInTheDark
             pacmanPos.X = location.X + xPosOffSet;
             pacmanPos.Y = location.Y + yPosOffSet;
 
-            if (Direction == Direction.Up)
+            if (Direction == Direction.Up || (Direction == Direction.None && LastDirection == Direction.Up))
             {
                 spriteBatch.Draw(pacmanImg, pacmanPos, new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
             }
-            else if (Direction == Direction.Down)
+            else if (Direction == Direction.Down || (Direction == Direction.None && LastDirection == Direction.Down))
             {
                 spriteBatch.Draw(pacmanImg, pacmanPos, new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White,
                                  0, Vector2.Zero, 1, SpriteEffects.FlipVertically, 0);
             }
-            else if (Direction == Direction.Left)
+            else if (Direction == Direction.Left || (Direction == Direction.None && LastDirection == Direction.Left))
             {
                 spriteBatch.Draw(pacmanImg, pacmanPos, new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
             }
-            else if (Direction == Direction.Right)
+            else if (Direction == Direction.Right || (Direction == Direction.None && LastDirection == Direction.Right))
             {
                 spriteBatch.Draw(pacmanImg, pacmanPos, new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White,
                                  0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
@@ -215,6 +215,23 @@ namespace PacmanInTheDark
         public override void GetNextDirection()
         {
             kState = Keyboard.GetState();
+
+            //moving from stationary
+            if (Direction == Direction.None)
+            {
+                if (kState.IsKeyDown(Keys.W) == true) Direction = Direction.Up;
+                if (kState.IsKeyDown(Keys.A) == true) Direction = Direction.Left;
+                if (kState.IsKeyDown(Keys.S) == true) Direction = Direction.Down;
+                if (kState.IsKeyDown(Keys.D) == true) Direction = Direction.Right;
+            }
+
+            //for reversal
+            if (kState.IsKeyDown(Keys.W) == true && Direction == Direction.Down) Direction = Direction.Up;
+            if (kState.IsKeyDown(Keys.A) == true && Direction == Direction.Right) Direction = Direction.Left;
+            if (kState.IsKeyDown(Keys.S) == true && Direction == Direction.Up) Direction = Direction.Down;
+            if (kState.IsKeyDown(Keys.D) == true && Direction == Direction.Left) Direction = Direction.Right;
+
+            //for path changes
             if (kState.IsKeyDown(Keys.W) == true) NextDirection = Direction.Up;
             if (kState.IsKeyDown(Keys.A) == true) NextDirection = Direction.Left;
             if (kState.IsKeyDown(Keys.S) == true) NextDirection = Direction.Down;
