@@ -22,7 +22,7 @@ namespace PacmanInTheDark
         //Draw related attributes
         SpriteFont Font;
         Texture2D covered;
-
+        Path currentPath;
         //gamestates
         enum GameState { MainMenu, OptionMenu, InGame }
         
@@ -53,6 +53,7 @@ namespace PacmanInTheDark
             Font = content.Load<SpriteFont>("Arial");
             covered = content.Load<Texture2D>("blackCover");
             pacman = new Pacman(pacmanImage, gameMap.Paths[0], 0, .05f);
+            currentPath = (pacman.CurrentPath);
 
             //load, center and add click events for all in start list
             foreach (Gui gui in startMenu)
@@ -116,6 +117,7 @@ namespace PacmanInTheDark
                         gui.Update();
                         pacman.UpdateFrame(gameTime);
                         pacman.Move();
+                        currentPath = (pacman.CurrentPath);
                         //if (pacman.gameover == true) gameState = GameState.Gameover;
                     }
                     break;

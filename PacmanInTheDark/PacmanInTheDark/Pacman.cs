@@ -130,7 +130,6 @@ namespace PacmanInTheDark
             }
             else
             {
-                LoseLife();
                 return false;
             }
         }
