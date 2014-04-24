@@ -24,8 +24,8 @@ namespace PacmanInTheDark
         SpriteBatch spriteBatch;
         //map field - after milestone 2 this will be part of the Game class, not the top level class
         //it's here for testing purposes only
-        Map gameMap;
-        Menu main = new Menu();
+        //Map gameMap;
+        Menu main;
 
         public Game1()
             : base()
@@ -33,6 +33,8 @@ namespace PacmanInTheDark
             graphics = new GraphicsDeviceManager(this);
             
             Content.RootDirectory = "Content";
+
+
         }
 
         /// <summary>
@@ -44,8 +46,9 @@ namespace PacmanInTheDark
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            gameMap = new Map("map.txt");
+            //gameMap = new Map("map.txt", graphics.GraphicsDevice);
             //gives window set size
+            main = new Menu(GraphicsDevice);
             graphics.PreferredBackBufferHeight = 923;
             graphics.PreferredBackBufferWidth = 768;
             base.Initialize();

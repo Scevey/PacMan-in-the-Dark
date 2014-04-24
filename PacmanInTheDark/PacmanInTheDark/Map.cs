@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using Microsoft.Xna.Framework.Graphics;
+using System.Drawing;
 
 namespace PacmanInTheDark
 {
     class Map
     {
         #region Fields
-        //list of paths
+        /// <summary>
+        /// list of paths
+        /// </summary>
         List<Path> paths;
 
-        //property for the path list
+        /// <summary>
+        /// property for the path list
+        /// </summary>
         public List<Path> Paths
         {
             get
@@ -21,6 +27,11 @@ namespace PacmanInTheDark
             }
         }
 
+        /// <summary>
+        /// The map's background. Can be loaded from a file if one exists, or generated on the fly.
+        /// </summary>
+        Texture2D mapBG;
+
         //list of pellets
         //TODO
 
@@ -28,6 +39,9 @@ namespace PacmanInTheDark
 
         #region Properties
 
+        /// <summary>
+        /// Gets a point representing the dimensions of the map
+        /// </summary>
         public Point MapSize
         {
             get
@@ -42,14 +56,26 @@ namespace PacmanInTheDark
                         maxY = p.End.Y;
                 }
 
-                return new Point(maxX, maxY);
+                return new Point(maxX+1, maxY+1);
             }
         }
 
         #endregion
 
-        //takes a map file name, does stuff
-        public Map(string filename)
+        /// <summary>
+        /// takes a map file name, does stuff
+        /// </summary>
+        /// <param name="filename">string representing the path to the map file</param>
+        public Map(string filename)//, Texture2D _mapBG)
+        {
+            paths = new List<Path>();
+            Parse(filename);
+            CalculateIntersects(paths);
+            //mapBG = _mapBG;
+            //CheckPellets(paths);
+        }
+
+        public Map(string filename, GraphicsDevice gd)
         {
             paths = new List<Path>();
             Parse(filename);
@@ -57,7 +83,10 @@ namespace PacmanInTheDark
             //CheckPellets(paths);
         }
 
-        //parses map file and populates path and pellet lists. All I/O occurs here
+        /// <summary>
+        /// parses map file and populates path and pellet lists. All I/O occurs here
+        /// </summary>
+        /// <param name="filename">string representing the path to the map file</param>
         void Parse(string filename)
         {
             //this section may be revised after milestone 2
@@ -111,7 +140,10 @@ namespace PacmanInTheDark
             }
         }
 
-        //populates the intersection dictionaries of all the paths in the path list
+        /// <summary>
+        /// populates the intersection dictionaries of all the paths in the path list
+        /// </summary>
+        /// <param name="pathList">The list of paths contained in the map</param>
         void CalculateIntersects(List<Path> pathList)
         {
             //checks every path in the path list for intersections with every other path
@@ -127,7 +159,39 @@ namespace PacmanInTheDark
             }
         }
 
-        //removes from the pellet list any pellets not on a path
+        public static Texture2D DrawMap(Map m, GraphicsDevice gd)
+        {
+            const int lineWidth = 1;
+            const int padding = 1;
+            const int scaleFactor = padding * 2 + lineWidth;
+            Color lineColor = Color.Blue;
+
+            Texture2D tempBG = new Texture2D(gd, (int)(m.MapSize.X) * scaleFactor, (int)(m.MapSize.Y) * scaleFactor);
+            uint[] textureData = new uint[tempBG.Width * tempBG.Height];
+
+            foreach (Path p in m.paths)
+            {
+                Point projStart = new Point(p.Start.X * scaleFactor + padding, p.Start.Y * scaleFactor + padding);
+                Point projEnd = new Point(p.End.X * scaleFactor + padding, p.End.Y * scaleFactor + padding);
+
+                for (int x = (int)projStart.X; x <= (int)projEnd.X; x++)
+                {
+                    for (int y = (int)projStart.Y; y <= (int)projEnd.Y; y++)
+                    {
+                        textureData[x+y*tempBG.Width] = (uint)Color.Blue.ToArgb();
+                    }
+                }
+            }
+
+            tempBG.SetData<uint>(textureData);
+
+            return tempBG;
+        }
+
+        /// <summary>
+        /// removes from the pellet list any pellets not on a path
+        /// </summary>
+        /// <param name="pathList">The list of paths contained in the map</param>
         void CheckPellets(List<Path> pathList) //TODO add pellet list parameter
         {
             //TODO

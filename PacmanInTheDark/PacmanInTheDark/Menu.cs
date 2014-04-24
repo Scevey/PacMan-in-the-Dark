@@ -15,14 +15,16 @@ namespace PacmanInTheDark
     //Sungmin Park
     class Menu
     {
-        ///create a map object
+        //create a map object
         Map gameMap = new Map("map.txt");
         //Pacman object
         Pacman pacman;
         //Draw related attributes
         SpriteFont Font;
         Texture2D covered;
+        Texture2D bg;
         Path currentPath;
+        GraphicsDevice gd;
         //gamestates
         enum GameState { MainMenu, OptionMenu, InGame }
         
@@ -31,7 +33,7 @@ namespace PacmanInTheDark
         List<Gui> optionMenu = new List<Gui>();
         List<Gui> inGame = new List<Gui>();
         GameState gameState;
-        public Menu()
+        public Menu(GraphicsDevice _gd)
         {
             //add gui for images to lists based on states
             startMenu.Add(new Gui("menu"));
@@ -44,7 +46,8 @@ namespace PacmanInTheDark
 
             inGame.Add(new Gui("topBar"));
             //inGame.Add(new Gui("background"));    commented out to use a sample map 
-
+            gd = _gd;
+            
         }
         public void LoadContent(ContentManager content)
         {
@@ -52,8 +55,11 @@ namespace PacmanInTheDark
             Texture2D pacmanImage = content.Load<Texture2D>("PacManSheet");
             Font = content.Load<SpriteFont>("Arial");
             covered = content.Load<Texture2D>("blackCover");
+            //gameMap = new Map("map.txt", covered);
             pacman = new Pacman(pacmanImage, gameMap.Paths[0], 0, .05f);
             currentPath = (pacman.CurrentPath);
+            bg = Map.DrawMap(gameMap, gd);
+            
 
             //load, center and add click events for all in start list
             foreach (Gui gui in startMenu)
