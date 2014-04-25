@@ -172,6 +172,7 @@ namespace PacmanInTheDark
                     {
                         element.Draw(spriteBatch);
                         //sample map that will later be replaced by the Gui "background"
+                        /*
                         //black horizontal Lines
                         spriteBatch.Draw(covered, new Vector2(0, 155), new Rectangle(0, 0, 600, 5), Color.White);
                         spriteBatch.Draw(covered, new Vector2(0, 255), new Rectangle(0, 0, 300, 5), Color.White);
@@ -182,8 +183,11 @@ namespace PacmanInTheDark
                         spriteBatch.Draw(covered, new Vector2(300, 255), new Rectangle(0, 0, 5, 500), Color.White);
                         spriteBatch.Draw(covered, new Vector2(400, 255), new Rectangle(0, 0, 5, 500), Color.White);
                         spriteBatch.Draw(covered, new Vector2(595, 155), new Rectangle(0, 0, 5, 100), Color.White);
+                        */
                     }
                     //info on topBar (will change later on to update the lives,score,pellets left, and hunger bar
+                    // Draw Map Paths slightly shifts left as drawn
+                    spriteBatch.Draw(bg, new Rectangle(20, 200, 1230, 530), Color.White);
                     //related to lives
                     spriteBatch.DrawString(Font, "Lives", new Vector2(42, 45), Color.White);
                     //related to score

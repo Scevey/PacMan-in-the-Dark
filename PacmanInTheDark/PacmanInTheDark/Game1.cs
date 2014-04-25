@@ -47,8 +47,8 @@ namespace PacmanInTheDark
             //gameMap = new Map("map.txt", graphics.GraphicsDevice);
             //gives window set size
             main = new Menu(GraphicsDevice);
-            graphics.PreferredBackBufferHeight = 923;
-            graphics.PreferredBackBufferWidth = 768;
+            graphics.PreferredBackBufferHeight = 780;
+            graphics.PreferredBackBufferWidth = 1340;
             base.Initialize();
         }
 

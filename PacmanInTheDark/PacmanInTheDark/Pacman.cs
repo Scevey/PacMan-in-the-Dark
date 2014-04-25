@@ -177,7 +177,7 @@ namespace PacmanInTheDark
             Point location = new Point(0, 0);
 
             // convert path location to screen location
-            location = Point.MapToScreen(MapPos, new Point(5, 5), new Point(500, 500));
+            location = Point.MapToScreen(MapPos, new Point(28, 26), new Point(1180, 500));
 
             // store converted points into a Vector2D
             pacmanPos.X = location.X + xPosOffSet;
