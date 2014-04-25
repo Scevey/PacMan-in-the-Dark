@@ -13,3 +13,9 @@ C:\Users\Jeremy\Documents\gdaps2-pacman-game\ToolForPacman\ToolForPacman\obj\Deb
 Z:\IGMProfile\GDDAPS2 Pacman Game\ToolForPacman\ToolForPacman\bin\Debug\ToolForPacman.exe.config
 Z:\IGMProfile\GDDAPS2 Pacman Game\ToolForPacman\ToolForPacman\obj\Debug\ToolForPacman.exe
 Z:\IGMProfile\GDDAPS2 Pacman Game\ToolForPacman\ToolForPacman\obj\Debug\ToolForPacman.pdb
+Z:\IGMProfile\GDDAPS2 Pacman Game\ToolForPacman\ToolForPacman\obj\Debug\ToolForPacman.csprojResolveAssemblyReference.cache
+Z:\IGMProfile\GDDAPS2 Pacman Game\ToolForPacman\ToolForPacman\obj\Debug\ToolForPacman.ToolEditorForm.resources
+Z:\IGMProfile\GDDAPS2 Pacman Game\ToolForPacman\ToolForPacman\obj\Debug\ToolForPacman.Properties.Resources.resources
+Z:\IGMProfile\GDDAPS2 Pacman Game\ToolForPacman\ToolForPacman\obj\Debug\ToolForPacman.csproj.GenerateResource.Cache
+Z:\IGMProfile\GDDAPS2 Pacman Game\ToolForPacman\ToolForPacman\bin\Debug\ToolForPacman.exe
+Z:\IGMProfile\GDDAPS2 Pacman Game\ToolForPacman\ToolForPacman\bin\Debug\ToolForPacman.pdb

@@ -8,11 +8,14 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using System.IO;
+using System.Diagnostics;
 
 namespace PacmanInTheDark
 {
     //Anthony Giallella
     //Sungmin Park
+    //Jeremy Hall
     class Menu
     {
         //create a map object
@@ -27,6 +30,14 @@ namespace PacmanInTheDark
         GraphicsDevice gd;
         //gamestates
         enum GameState { MainMenu, OptionMenu, InGame }
+        
+        // attributes for starting values of the game
+        float speed;
+        int ghosts;
+        int lives;
+        int health;
+        int hunger;
+        int light;
         
         //lists of gui for different states
         List<Gui> startMenu = new List<Gui>();
@@ -51,15 +62,19 @@ namespace PacmanInTheDark
         }
         public void LoadContent(ContentManager content)
         {
+            // Loads values from editor file
+            LoadEditorValues();
             //load in a pacmanImage and use it to create a pacman object
             Texture2D pacmanImage = content.Load<Texture2D>("PacManSheet");
             Font = content.Load<SpriteFont>("Arial");
             covered = content.Load<Texture2D>("blackCover");
             //gameMap = new Map("map.txt", covered);
-            pacman = new Pacman(pacmanImage, gameMap.Paths[0], 0, .05f);
+            pacman = new Pacman(pacmanImage, gameMap.Paths[0], 0, speed);
+            pacman.Health = health;
+            pacman.Lives = lives;
+            
             currentPath = (pacman.CurrentPath);
             bg = Map.DrawMap(gameMap, gd);
-            
 
             //load, center and add click events for all in start list
             foreach (Gui gui in startMenu)
@@ -210,6 +225,36 @@ namespace PacmanInTheDark
             if (element == "exit")
             {
                 Environment.Exit(0);
+            }
+        }
+
+        /// <summary>
+        /// Loads in all of the values from the editor
+        /// </summary>
+        public void LoadEditorValues()
+        {
+            try
+            {
+                // Creates reader to read in editor values
+                StreamReader reader = new StreamReader("editor.txt");
+
+                // Set attributes
+                speed = (float.Parse(reader.ReadLine()) / 10);
+                ghosts = int.Parse(reader.ReadLine());
+                lives = int.Parse(reader.ReadLine());
+                health = int.Parse(reader.ReadLine());
+                hunger = int.Parse(reader.ReadLine());
+                light = int.Parse(reader.ReadLine());
+
+                reader.Close();
+            }
+            catch (FileNotFoundException fnfE)
+            {
+                Debug.WriteLine("Error: " + fnfE.Message);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
             }
         }
     }

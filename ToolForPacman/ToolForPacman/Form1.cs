@@ -39,7 +39,7 @@ namespace ToolForPacman
         bool saveSuccessful = false;
 
         //Name of the saved file
-        string saveFile = "Editor.txt";
+        string saveFile = "..\\..\\..\\..\\PacmanInTheDark\\PacmanInTheDark\\bin\\WindowsGL\\Debug\\Editor.txt";
 
         //attributes
         int speed;
