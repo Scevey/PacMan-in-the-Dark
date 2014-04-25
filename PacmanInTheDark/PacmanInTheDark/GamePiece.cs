@@ -78,6 +78,6 @@ namespace PacmanInTheDark
             //TODO add declaration for spritesheet
         }
 
-        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch, Point topLeft, Point bottomRight);
     }
 }

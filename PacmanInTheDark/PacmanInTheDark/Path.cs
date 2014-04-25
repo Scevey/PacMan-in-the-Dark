@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -122,15 +123,18 @@ namespace PacmanInTheDark
 
             float det = A1 * B2 - A2 * B1;
 
+            intersects = false;
+
             if (det == 0)
             {
                 intersect = new Point(-1, -1);
-                intersects = false;
             }
             else
             {
                 intersect = new Point((B2 * C1 - B1 * C2) / det, (A1 * C2 - A2 * C1) / det);
-                intersects = true;
+
+                if (PointOnPath(intersect, this) && PointOnPath(intersect, path))
+                    intersects = true;
             }
             return intersects;
         }
@@ -172,6 +176,12 @@ namespace PacmanInTheDark
 
             return p;
         }
-        //we may want to add more methods here, but I don't what else we'll need at this point
+
+        static bool PointOnPath(Point p, Path path)
+        {
+            if (p.X == path.Start.X && p.X == path.End.X && p.Y >= path.Start.Y && p.Y <= path.End.Y) return true;
+            if (p.Y == path.Start.Y && p.Y == path.End.Y && p.X >= path.Start.X && p.X <= path.End.X) return true;
+            return false;
+        }
     }
 }

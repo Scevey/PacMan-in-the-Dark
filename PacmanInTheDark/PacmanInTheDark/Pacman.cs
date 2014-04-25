@@ -171,13 +171,13 @@ namespace PacmanInTheDark
         /// <summary>
         /// Update Pacman Image
         /// </summary>
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Point topLeft, Point bottomRight)
         {
             //get to pacmanPos coordinates
             Point location = new Point(0, 0);
 
             // convert path location to screen location
-            location = Point.MapToScreen(MapPos, new Point(28, 26), new Point(1180, 500));
+            location = Point.MapToScreen(MapPos, topLeft, bottomRight);
 
             // store converted points into a Vector2D
             pacmanPos.X = location.X + xPosOffSet;

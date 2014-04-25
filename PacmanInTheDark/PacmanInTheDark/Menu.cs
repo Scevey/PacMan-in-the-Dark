@@ -38,6 +38,9 @@ namespace PacmanInTheDark
         int health;
         int hunger;
         int light;
+
+        //window sizes
+
         
         //lists of gui for different states
         List<Gui> startMenu = new List<Gui>();
@@ -201,7 +204,7 @@ namespace PacmanInTheDark
                     spriteBatch.Draw(covered, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
 
                     //draws pacman to the screen
-                    pacman.Draw(gameTime, spriteBatch);
+                    pacman.Draw(gameTime, spriteBatch, new Point(28,26), new Point(1180,500));
                     break;
                 default:
                     break;

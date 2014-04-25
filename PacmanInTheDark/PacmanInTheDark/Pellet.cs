@@ -12,7 +12,7 @@ namespace PacmanInTheDark
         {
 
         }
-        public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
+        public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, Point topLeft, Point bottomRight)
         {
             throw new NotImplementedException();
         }
