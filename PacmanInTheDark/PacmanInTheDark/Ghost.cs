@@ -148,9 +148,13 @@ namespace PacmanInTheDark
             return newSpeed;
         }
 
-        public override void PacmanCollision(Pacman pac)
+        public override void Collision(Pacman pac)
         {
-            pac.GhostCollision(this);
+            pac.Collision(this);
+        }
+        public override void Collision(Ghost ghost)
+        {
+            return;
         }
     }
 }

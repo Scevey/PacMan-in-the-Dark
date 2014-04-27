@@ -185,17 +185,17 @@ namespace PacmanInTheDark
         void CheckPellets(List<Pellet> pelletList)
         {
             //for every pellet in the list...
-            foreach (Pellet p in pelletList)
+            for(int p1index = 0; p1index<pelletList.Count;p1index++)
             {
                 //check every other pellet in the list
-                foreach (Pellet p2 in pelletList)
+                for(int p2index = 0; p2index<pelletList.Count;p2index++)
                 {
                     //do nothing if the two pellets being examined are in fact the same pellet
-                    if (p == p2)
+                    if (pelletList[p1index] == pelletList[p2index])
                         continue;
                     //otherwise, remove the second if they are on top of each other
-                    if (p.MapPos == p2.MapPos)
-                        pelletList.Remove(p2);
+                    if (pelletList[p1index].MapPos == pelletList[p2index].MapPos)
+                        pelletList.RemoveAt(p2index);
                 }
             }
         }
@@ -207,7 +207,7 @@ namespace PacmanInTheDark
             const int lineWidth = 1; //the width in pixels of the path lines
             const int padding = 1; //the number of pixels from the edge of the map tile that the line starts
             const int scaleFactor = padding * 2 + lineWidth; //a scale factor based on the above parameters
-            Color lineColor = Color.Red; //the line color
+            Color lineColor = Color.Blue; //the line color
 
             //create the texture and an array of color values
             Texture2D tempBG = new Texture2D(gd, (int)(m.MapSize.X) * scaleFactor, (int)(m.MapSize.Y) * scaleFactor);
@@ -225,7 +225,7 @@ namespace PacmanInTheDark
                 {
                     for (int y = (int)projStart.Y; y <= (int)projEnd.Y; y++)
                     {
-                        textureData[x+y*tempBG.Width] = (uint)Color.Blue.ToArgb();
+                        textureData[x+y*tempBG.Width] = (uint)lineColor.ToArgb();
                     }
                 }
             }

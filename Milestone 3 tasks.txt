@@ -1,5 +1,7 @@
-Sungmin: work on map, drawings for ghosts
-Anthony: finish gamestates (IE. hiscores, pause menu)
-Jeremy: Do ghost class(different types of AIs? Ex. One that chases, random paths,etc), make tool functional with game
-Mike: Making the map (paths laid out), ghost AI?(if time), fix pacman functionality so he stops when he hits a wall and 
-can turn around whenever
+Sungmin: just continue with your drawing stuff (pellets drawing (code, & sprite), ghosts drawing (code & sprite), 
+add two lines for paths (one to represent walls)
+Anthony: finish gamestates (IE. hiscores, pause menu), display gameover text when we lose
+Jeremy: add scores class (includes hiscores text file), add ending condition for pellets, collision 
+Mike: big pellet, fix the small pellets on intersection paths, finish warps, add pellet count, add line weights
+
+GENERAL: scalable screen, add pellets to map file, varying lightness, hunger bar

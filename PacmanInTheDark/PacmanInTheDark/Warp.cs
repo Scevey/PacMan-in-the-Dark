@@ -5,34 +5,26 @@ using System.Text;
 
 namespace PacmanInTheDark
 {
-    class Pellet : GamePiece
+    class Warp : GamePiece
     {
-        bool active;
-        bool Active
-        {
-            get
-            {
-                return active;
-            }
-        }
-        public Pellet(Path p, float pos)
-            : base(p,pos)
-        {
+        Warp warp2;
+        public Warp(Path path, float pos)
+            : base(path, pos)
+        {        }
 
-        }
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, Point topLeft, Point bottomRight)
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void Collision(Pacman pac)
         {
-            throw new NotImplementedException();
+            pac.WarpCollision(warp2);
         }
 
         public override void Collision(Ghost ghost)
         {
-            throw new NotImplementedException();
+            ghost.WarpCollision(warp2);
         }
     }
 }

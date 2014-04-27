@@ -149,7 +149,7 @@ namespace PacmanInTheDark
                             if(gp == pacman)
                                 continue;
                             if (Point.Distance(gp.MapPos, pacman.MapPos) <= pacman.Speed)
-                                gp.PacmanCollision(pacman);
+                                gp.Collision(pacman);
                         }
 
                         currentPath = (pacman.CurrentPath);

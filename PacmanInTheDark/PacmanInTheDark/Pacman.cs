@@ -238,9 +238,9 @@ namespace PacmanInTheDark
         }
 
         //leave this as a stub
-        public override void PacmanCollision(Pacman pac){}
+        public override void Collision(Pacman pac){}
 
-        public void GhostCollision(Ghost g)
+        public override void Collision(Ghost g)
         {
             throw new NotImplementedException();
         }

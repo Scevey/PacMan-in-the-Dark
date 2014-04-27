@@ -92,6 +92,7 @@ namespace PacmanInTheDark
         /// Called when the piece collides with pacman
         /// </summary>
         /// <param name="pac">The variable for the pacman the piece collided with</param>
-        public abstract void PacmanCollision(Pacman pac);
+        public abstract void Collision(Pacman pac);
+        public abstract void Collision(Ghost ghost);
     }
 }

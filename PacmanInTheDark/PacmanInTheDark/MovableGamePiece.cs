@@ -194,6 +194,12 @@ namespace PacmanInTheDark
         }
 
         //determines the direction in which the piece will be moving after the next path change
-        public abstract void GetNextDirection();       
+        public abstract void GetNextDirection();
+
+        public void WarpCollision(Warp outWarp)
+        {
+            CurrentPath = outWarp.CurrentPath;
+            PathPos = outWarp.PathPos;
+        }
     }
 }
