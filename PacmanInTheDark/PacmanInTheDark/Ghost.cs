@@ -70,7 +70,7 @@ namespace PacmanInTheDark
         /// Update Ghost's image based off of corresponding direction and location on path
         /// </summary>
         /// <param name="direction">0-3</param>
-        public void Move(byte direction)
+        public void UpdateImage(byte direction)
         {
         }
 
@@ -84,7 +84,33 @@ namespace PacmanInTheDark
         /// </summary>
         public override void GetNextDirection()
         {
-            // Note: Do we want to have ghost be able to not have a not direction? AKA nextDirection = Direction.None?
+            //if the ghost isn't moving, reverse its direction
+            if (Direction == Direction.None)
+            {
+                if (LastDirection == Direction.Up)
+                    Direction = Direction.Down;
+                if (LastDirection == Direction.Down)
+                    Direction = Direction.Up;
+                if (LastDirection == Direction.Left)
+                    Direction = Direction.Right;
+                if (LastDirection == Direction.Right)
+                    Direction = Direction.Left;
+            }
+
+            bool validDir = false;
+
+            //checks to see if the chosen direction is a valid exit direction from the current path
+            foreach (Path p in this.CurrentPath.IntersectionDictionary.Keys)
+            {
+                if (CurrentPath.PathEnterable(p, NextDirection))
+                    validDir = true;
+            }
+
+            //if it is, do nothing
+            if (validDir)
+                return;
+
+            //otherwise, choose a new next direction
             int randomDirection = randy.Next(1, 5);
             switch (randomDirection) // Changes next direction randomly
             {
@@ -120,6 +146,11 @@ namespace PacmanInTheDark
         {
             float newSpeed = OriginalSpeed / 10;  //Subject to change...we can make the ratio whatever we want
             return newSpeed;
+        }
+
+        public override void PacmanCollision(Pacman pac)
+        {
+            pac.GhostCollision(this);
         }
     }
 }

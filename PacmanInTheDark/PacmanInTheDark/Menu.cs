@@ -141,6 +141,17 @@ namespace PacmanInTheDark
                         gui.Update();
                         pacman.UpdateFrame(gameTime);
                         pacman.Move();
+
+                        //check for collisions with pacman in pacman's current path
+                        foreach (GamePiece gp in pacman.CurrentPath.pieces)
+                        {
+                            //do nothing if the piece in question is pacman himself
+                            if(gp == pacman)
+                                continue;
+                            if (Point.Distance(gp.MapPos, pacman.MapPos) <= pacman.Speed)
+                                gp.PacmanCollision(pacman);
+                        }
+
                         currentPath = (pacman.CurrentPath);
                         //if (pacman.gameover == true) gameState = GameState.Gameover;
                     }

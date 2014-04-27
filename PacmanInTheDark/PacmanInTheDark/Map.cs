@@ -33,7 +33,7 @@ namespace PacmanInTheDark
         Texture2D mapBG;
 
         //list of pellets
-        //TODO
+        List<Pellet> pellets;
 
         #endregion
 
@@ -69,19 +69,20 @@ namespace PacmanInTheDark
         public Map(string filename)//, Texture2D _mapBG)
         {
             paths = new List<Path>();
+            pellets = new List<Pellet>();
             Parse(filename);
             CalculateIntersects(paths);
-            //mapBG = _mapBG;
-            //CheckPellets(paths);
+            CheckPellets(pellets);
         }
 
-        public Map(string filename, GraphicsDevice gd)
-        {
-            paths = new List<Path>();
-            Parse(filename);
-            CalculateIntersects(paths);
-            //CheckPellets(paths);
-        }
+        //public Map(string filename, GraphicsDevice gd)
+        //{
+        //    paths = new List<Path>();
+        //    pellets = new List<Pellet>();
+        //    Parse(filename);
+        //    CalculateIntersects(paths);
+        //    //CheckPellets(paths);
+        //}
 
         /// <summary>
         /// parses map file and populates path and pellet lists. All I/O occurs here
@@ -111,19 +112,39 @@ namespace PacmanInTheDark
 
                 while ((line = input.ReadLine()) != null)
                 {
-                    //splits the string by the space
-                    string[] pointSplit = line.Split(' ');
-                    Point[] points = new Point[pointSplit.Length];
-
-                    //iterates through the string-form points and converts them to actual points
-                    for (int i = 0; i < pointSplit.Length; i++)
+                    //it's a path if the line contains a space
+                    if (line.Contains(' '))
                     {
-                        string[] stringPoint = pointSplit[i].Split(',');
-                        points[i] = new Point(int.Parse(stringPoint[0]), int.Parse(stringPoint[1]));
-                    }
+                        //splits the string by the space
+                        string[] pointSplit = line.Trim().Split(' ');
+                        Point[] points = new Point[pointSplit.Length];
 
-                    //creates a path from the points and adds it to the path list
-                    paths.Add(new Path(points[0], points[1]));
+                        //iterates through the string-form points and converts them to actual points
+                        for (int i = 0; i < pointSplit.Length; i++)
+                        {
+                            string[] stringPoint = pointSplit[i].Split(',');
+                            points[i] = new Point(int.Parse(stringPoint[0]), int.Parse(stringPoint[1]));
+                        }
+
+                        //creates a path from the points and adds it to the path list
+                        paths.Add(new Path(points[0], points[1]));
+                    }
+                        //it's a pellet if it doesn't
+                    else
+                    {
+                        //split the string into components and make a point
+                        string[] coordSplit = line.Split(',');
+                        Point pelletPoint = new Point(int.Parse(coordSplit[0]), int.Parse(coordSplit[1]));
+
+                        //iterate through the path list
+                        foreach (Path p in paths)
+                        {
+                            //if the point is on a path
+                            if(Path.PointOnPath(pelletPoint, p))
+                                //create a new pellet on that path at the proper position
+                                pellets.Add(new Pellet(p, Point.Distance(p.Start, pelletPoint)));
+                        }
+                    }
                 }
             }
             catch (IOException ioe)
@@ -159,21 +180,47 @@ namespace PacmanInTheDark
             }
         }
 
+        //removes duplicate pellets
+        //duplicates will naturally occurr at path intersections
+        void CheckPellets(List<Pellet> pelletList)
+        {
+            //for every pellet in the list...
+            foreach (Pellet p in pelletList)
+            {
+                //check every other pellet in the list
+                foreach (Pellet p2 in pelletList)
+                {
+                    //do nothing if the two pellets being examined are in fact the same pellet
+                    if (p == p2)
+                        continue;
+                    //otherwise, remove the second if they are on top of each other
+                    if (p.MapPos == p2.MapPos)
+                        pelletList.Remove(p2);
+                }
+            }
+        }
+
+        //generates a Texture2D for a map file
         public static Texture2D DrawMap(Map m, GraphicsDevice gd)
         {
-            const int lineWidth = 1;
-            const int padding = 1;
-            const int scaleFactor = padding * 2 + lineWidth;
-            Color lineColor = Color.Blue;
+            //constants dealing with drawing style
+            const int lineWidth = 1; //the width in pixels of the path lines
+            const int padding = 1; //the number of pixels from the edge of the map tile that the line starts
+            const int scaleFactor = padding * 2 + lineWidth; //a scale factor based on the above parameters
+            Color lineColor = Color.Red; //the line color
 
+            //create the texture and an array of color values
             Texture2D tempBG = new Texture2D(gd, (int)(m.MapSize.X) * scaleFactor, (int)(m.MapSize.Y) * scaleFactor);
             uint[] textureData = new uint[tempBG.Width * tempBG.Height];
 
+            //interate through the path list
             foreach (Path p in m.paths)
             {
+                //create Points for the start and end of the line in the texture's grid-space
                 Point projStart = new Point(p.Start.X * scaleFactor + padding, p.Start.Y * scaleFactor + padding);
                 Point projEnd = new Point(p.End.X * scaleFactor + padding, p.End.Y * scaleFactor + padding);
 
+                //iterate through the color array and do stuff
                 for (int x = (int)projStart.X; x <= (int)projEnd.X; x++)
                 {
                     for (int y = (int)projStart.Y; y <= (int)projEnd.Y; y++)
@@ -183,18 +230,10 @@ namespace PacmanInTheDark
                 }
             }
 
+            //transfer the color array to the texture
             tempBG.SetData<uint>(textureData);
 
             return tempBG;
-        }
-
-        /// <summary>
-        /// removes from the pellet list any pellets not on a path
-        /// </summary>
-        /// <param name="pathList">The list of paths contained in the map</param>
-        void CheckPellets(List<Path> pathList) //TODO add pellet list parameter
-        {
-            //TODO
         }
     }
 }

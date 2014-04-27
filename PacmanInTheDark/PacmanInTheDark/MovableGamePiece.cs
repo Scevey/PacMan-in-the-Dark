@@ -46,6 +46,13 @@ namespace PacmanInTheDark
 
         //speed variable
         float speed; //represents a number of tiles. It will be really small
+        public float Speed
+        {
+            get
+            {
+                return speed;
+            }
+        }
 
         #endregion
 
@@ -176,10 +183,14 @@ namespace PacmanInTheDark
             else
                 PathPos = PathPos + overrun;
 
+            //removes the piece from the current path's piece list
+            CurrentPath.pieces.Remove(this);
+
             //sets the current path to the new path
             CurrentPath = newPath;
 
-            
+            //adds the piece to the new current path's piece list
+            CurrentPath.pieces.Add(this);
         }
 
         //determines the direction in which the piece will be moving after the next path change

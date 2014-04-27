@@ -39,6 +39,7 @@ namespace PacmanInTheDark
         }
 
         //TODO add variable for spritesheet
+        //or don't, I guess we don't need it
 
         #endregion
 
@@ -53,8 +54,7 @@ namespace PacmanInTheDark
             }
         }
 
-        //field for the position of the piece in map-space
-        //don't attempt to set this to a value, it isn't actually stored in memory. It isn't even a real variable
+        //property for the position of the piece in map-space
         public Point MapPos
         {
             get
@@ -74,10 +74,24 @@ namespace PacmanInTheDark
         {
             currentPath = path;
             pathPos = pos;
+            currentPath.pieces.Add(this);
 
             //TODO add declaration for spritesheet
         }
 
+        /// <summary>
+        /// Draws the piece to the screen or something
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="spriteBatch"></param>
+        /// <param name="topLeft"></param>
+        /// <param name="bottomRight"></param>
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch, Point topLeft, Point bottomRight);
+
+        /// <summary>
+        /// Called when the piece collides with pacman
+        /// </summary>
+        /// <param name="pac">The variable for the pacman the piece collided with</param>
+        public abstract void PacmanCollision(Pacman pac);
     }
 }

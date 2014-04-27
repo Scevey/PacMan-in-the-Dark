@@ -49,6 +49,10 @@ namespace PacmanInTheDark
             }
         }
 
+        //a list of all GamePieces on the path
+        //used for collision detection
+        public List<GamePiece> pieces;
+
         #endregion
 
         #region Properties
@@ -95,6 +99,7 @@ namespace PacmanInTheDark
             }
 
             intersectionDictionary = new Dictionary<Path, Point>();
+            pieces = new List<GamePiece>();
         }
 
         //takes a path, adds that path's info to the dictionary if it intersects. If not, does nothing
@@ -177,7 +182,7 @@ namespace PacmanInTheDark
             return p;
         }
 
-        static bool PointOnPath(Point p, Path path)
+        public static bool PointOnPath(Point p, Path path)
         {
             if (p.X == path.Start.X && p.X == path.End.X && p.Y >= path.Start.Y && p.Y <= path.End.Y) return true;
             if (p.Y == path.Start.Y && p.Y == path.End.Y && p.X >= path.Start.X && p.X <= path.End.X) return true;

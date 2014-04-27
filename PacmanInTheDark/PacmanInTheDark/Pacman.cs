@@ -236,5 +236,13 @@ namespace PacmanInTheDark
             if (kState.IsKeyDown(Keys.S) == true) NextDirection = Direction.Down;
             if (kState.IsKeyDown(Keys.D) == true) NextDirection = Direction.Right;
         }
+
+        //leave this as a stub
+        public override void PacmanCollision(Pacman pac){}
+
+        public void GhostCollision(Ghost g)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
