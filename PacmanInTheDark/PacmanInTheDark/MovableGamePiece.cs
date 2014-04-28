@@ -60,6 +60,10 @@ namespace PacmanInTheDark
             : base(path, pos)
         {
             speed = _speed;
+            if (path.Orientation == Orientation.Horizontal)
+                direction = Direction.Left;
+            else
+                direction = Direction.Up;
         }
 
         //handles movement
