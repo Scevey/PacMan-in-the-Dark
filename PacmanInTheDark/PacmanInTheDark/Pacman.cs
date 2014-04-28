@@ -17,8 +17,8 @@ namespace PacmanInTheDark
     class Pacman : MovableGamePiece
     {
         // Life/hunger bar (Lost over time - can be restored with pellets)
-        int health;
-        public int Health
+        float health;
+        public float Health
         {
             get { return health; }
             set { health = value; }
@@ -98,7 +98,7 @@ namespace PacmanInTheDark
         /// Used to decrease Pacman health
         /// </summary>
         /// <param name="decreaseHealthBy">Amount of health lost</param>
-        public void LoseHealth(int healthLost)
+        public void LoseHealth(float healthLost)
         {
             if (Health > 0) Health -= healthLost;
             else this.LoseLife();
@@ -111,11 +111,13 @@ namespace PacmanInTheDark
         {
             if (Lives > 0)
             {
+                // Lose a life and reset health
                 lives -= 1;
                 Health = 100;
 
-                //TODO
-                //Reset Pacman pos. and path      
+                // Move pacman back to original starting spot
+                PathPos = OriginalPos;
+                CurrentPath = OriginalPath;  
             }
         }
 

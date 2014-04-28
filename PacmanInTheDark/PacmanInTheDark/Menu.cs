@@ -39,12 +39,12 @@ namespace PacmanInTheDark
         enum GameState { MainMenu, OptionMenu, Info, InGame, Pause, EndGame, Hiscores }
         
         // attributes for starting values of the game
-        float speed;
-        int ghosts;
-        int lives;
-        int health;
-        int hunger;
-        int light;
+        float speed; // how fast pacman travels
+        int ghosts; // how many ghosts the game starts with
+        int lives; // how many lives pacman starts with
+        float health; // how much health pacman has
+        int hunger; // how fast the bar drains
+        int light; // the level of light
 
         //window sizes
 
@@ -109,13 +109,32 @@ namespace PacmanInTheDark
             pacman = new Pacman(pacmanImage, gameMap.Paths[6], 7.5f, speed);
             pacman.Health = health;
             pacman.Lives = lives;
-            // Ghosts (only 1 for right now)
-            Clyde = new Ghost(ghostImage, gameMap.Paths[12], 2f, .1f);
-            /*
-            Blinky = new Ghost(ghostImage, gameMap.Paths[12], 0, .1f);
-            Pinky = new Ghost(ghostImage, gameMap.Paths[12], 0, .1f);
-            Inky = new Ghost(ghostImage, gameMap.Paths[12], 0, .1f);
-            */
+
+            // Create the specified amount of ghosts from the editor
+            switch(ghosts)
+            {
+                case 0: // Should never be 0, but in case -- just create all
+                    break;
+                case 1: // Creates one ghost
+                    Clyde = new Ghost(ghostImage, gameMap.Paths[12], 2f, .1f);
+                    break;
+                case 2: // Creates two ghosts
+                    Clyde = new Ghost(ghostImage, gameMap.Paths[12], 2f, .1f);
+                    Blinky = new Ghost(ghostImage, gameMap.Paths[12], 0, .1f);
+                    break;
+                case 3: // Creates three ghosts
+                    Clyde = new Ghost(ghostImage, gameMap.Paths[12], 2f, .1f);
+                    Blinky = new Ghost(ghostImage, gameMap.Paths[12], 0, .1f);
+                    Pinky = new Ghost(ghostImage, gameMap.Paths[12], 0, .1f);
+                    break;
+                case 4: // Creates four ghosts
+                    Clyde = new Ghost(ghostImage, gameMap.Paths[12], 2f, .1f);
+                    Blinky = new Ghost(ghostImage, gameMap.Paths[12], 0, .1f);
+                    Pinky = new Ghost(ghostImage, gameMap.Paths[12], 0, .1f);
+                    Inky = new Ghost(ghostImage, gameMap.Paths[12], 0, .1f);
+                    break;
+            }
+
             currentPath = (pacman.CurrentPath);
             bg = Map.DrawMap(gameMap, gd);
 
@@ -469,7 +488,7 @@ namespace PacmanInTheDark
                 speed = (float.Parse(reader.ReadLine()) / 10);
                 ghosts = int.Parse(reader.ReadLine());
                 lives = int.Parse(reader.ReadLine());
-                health = int.Parse(reader.ReadLine());
+                health = float.Parse(reader.ReadLine());
                 hunger = int.Parse(reader.ReadLine());
                 light = int.Parse(reader.ReadLine());
 
@@ -479,7 +498,7 @@ namespace PacmanInTheDark
             catch (FileNotFoundException)
             {
                 speed = 1;
-                ghosts = 4;
+                ghosts = 3;
                 lives = 3;
                 health = 100;
                 hunger = 1;
