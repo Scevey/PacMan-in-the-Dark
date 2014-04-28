@@ -8,7 +8,7 @@ namespace PacmanInTheDark
     class Pellet : GamePiece
     {
         bool active;
-        bool Active
+        public bool Active
         {
             get
             {
@@ -27,7 +27,8 @@ namespace PacmanInTheDark
 
         public override void Collision(Pacman pac)
         {
-            throw new NotImplementedException();
+            // collides with pacman - becomes inactive
+            this.active = false;
         }
 
         public override void Collision(Ghost ghost)

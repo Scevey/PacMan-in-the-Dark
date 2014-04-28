@@ -60,6 +60,21 @@ namespace PacmanInTheDark
             }
         }
 
+        /// <summary>
+        /// Gets the total amount of pellets active on the map
+        /// </summary>
+        public int PelletCount
+        {
+            get
+            {
+                int count = 0;
+                for (int i = 0; i < pellets.Count; i++)
+                {
+                    if (pellets[i].Active == true) count++;
+                }
+                return count;
+            }
+        }
         #endregion
 
         /// <summary>

@@ -29,7 +29,7 @@ namespace PacmanInTheDark
         Path currentPath;
         GraphicsDevice gd;
         //gamestates
-        enum GameState { MainMenu, OptionMenu, InGame }
+        enum GameState { MainMenu, OptionMenu, InGame, Hiscores }
         
         // attributes for starting values of the game
         float speed;
@@ -206,10 +206,10 @@ namespace PacmanInTheDark
                     spriteBatch.DrawString(Font, "Lives", new Vector2(42, 45), Color.White);
                     //related to score
                     spriteBatch.DrawString(Font, "Score", new Vector2(190, 45), Color.White);
-                    spriteBatch.DrawString(Font, "0000000", new Vector2(175, 85), Color.White);
+                    spriteBatch.DrawString(Font, "Pellet", new Vector2(175, 85), Color.White);
                     //related to pellets left
                     spriteBatch.DrawString(Font, "Left", new Vector2(390, 45), Color.White);
-                    spriteBatch.DrawString(Font, " 00 ", new Vector2(390, 85), Color.White);
+                    spriteBatch.DrawString(Font, Convert.ToString(gameMap.PelletCount), new Vector2(390, 85), Color.White);
                     //related to hunger bar
                     spriteBatch.DrawString(Font, "Hunger", new Vector2(590, 45), Color.White);
                     spriteBatch.Draw(covered, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
