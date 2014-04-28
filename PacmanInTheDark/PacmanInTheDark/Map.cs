@@ -165,6 +165,7 @@ namespace PacmanInTheDark
                             if(Path.PointOnPath(pelletPoint, p))
                                 //create a new pellet on that path at the proper position
                                 pellets.Add(new Pellet(p, Point.Distance(p.Start, pelletPoint)));
+                            
                         }
                     }
                 }

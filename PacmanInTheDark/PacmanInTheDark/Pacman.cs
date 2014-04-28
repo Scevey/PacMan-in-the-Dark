@@ -39,6 +39,14 @@ namespace PacmanInTheDark
             get { return pacmanImg; }
             set { pacmanImg = value; }
         }
+        
+        // Pacman's vission
+        Texture2D vision;
+        public Texture2D Vision
+        {
+            get { return vision; }
+            set { vision = value; }
+        }
 
         //Pacmans starting information
         float originalPos; //starting position
@@ -61,6 +69,9 @@ namespace PacmanInTheDark
         int currentFrameX, currentFrameY; // location on spire sheet of the frame
         const int yPosOffSet = 155; // how off pacman's y coordinate is from the map
         const int xPosOffSet = 0; // how off pacman's x coordinate is from the map
+        const int xVisionOffSet = 350;
+        const int yVisionOffSet = 225;
+        Vector2 visionPos; // position of pacman's vision
         Vector2 pacmanPos; //position of PacMan in pixels
 
         //Keyboard state
@@ -73,7 +84,7 @@ namespace PacmanInTheDark
         /// <param name="myLives">Starting lives</param>
         /// <param name="path">Starting path</param>
         /// <param name="pos">Starting pos on path</param>
-        public Pacman(Texture2D myPacman, Path path, float pos, float speed)
+        public Pacman(Texture2D myPacman, Texture2D visionImg, Path path, float pos, float speed)
             : base(path, pos, speed)
         {
             //Pacman starts with 100 health and 3 lives
@@ -85,6 +96,7 @@ namespace PacmanInTheDark
 
             //Starting image for pacman
             PacmanImg = myPacman;
+            vision = visionImg;
             numFrames = 3;
             frame = numFrames;
             currentFrameX = 0;
@@ -217,6 +229,12 @@ namespace PacmanInTheDark
             pacmanPos.X = location.X + xPosOffSet;
             pacmanPos.Y = location.Y + yPosOffSet;
 
+            visionPos.X = pacmanPos.X - xVisionOffSet;
+            visionPos.Y = pacmanPos.Y - yVisionOffSet;
+            //Pacmans Glow
+            spriteBatch.Draw(vision, new Rectangle((int)visionPos.X + (int)(-xVisionOffSet * 3.25), (int)visionPos.Y + (int)(-yVisionOffSet * 2.2), 3000, 1500), Color.White);
+            spriteBatch.Draw(vision, new Rectangle((int)visionPos.X + (int)(-xVisionOffSet * 1.1), (int)visionPos.Y + (int)(-yVisionOffSet * 1.05), 1500, 1000), Color.White);
+            //spriteBatch.Draw(vision, visionPos, Color.White);
             if (Direction == Direction.Up || (Direction == Direction.None && LastDirection == Direction.Up))
             {
                 spriteBatch.Draw(pacmanImg, new Rectangle((int)pacmanPos.X, (int)pacmanPos.Y, 50, 50), new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
@@ -238,6 +256,7 @@ namespace PacmanInTheDark
             {
                 spriteBatch.Draw(pacmanImg, new Rectangle((int)pacmanPos.X, (int)pacmanPos.Y, 50, 50), new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
             }
+            
         }
 
         /// <summary>

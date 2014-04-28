@@ -25,6 +25,12 @@ namespace PacmanInTheDark
             set { ghostImg = value; }
         }
 
+        Texture2D glowImg;
+        public Texture2D GlowImg
+        {
+            get { return glowImg; }
+            set { glowImg = value; }
+        }
         // Is ghost slowed?
         bool isSlowed = false;
         public bool IsSlowed
@@ -56,7 +62,7 @@ namespace PacmanInTheDark
         /// <param name="myGhostImg">Starting image</param>
         /// <param name="path">Starting path</param>
         /// <param name="pos">Starting pos. on path</param>
-        public Ghost(Texture2D myGhostImg, Path path, float pos, float speed)
+        public Ghost(Texture2D myGhostImg, Texture2D glow, Path path, float pos, float speed)
             : base(path, pos, speed)
         {
             //Starting information for ghost
@@ -66,6 +72,7 @@ namespace PacmanInTheDark
             originalPath = path;
 
             //Starting image for Ghost
+            glowImg = glow;
             ghostImg = myGhostImg;
             frame = 2;
             currentFrameX = 0;
@@ -82,10 +89,12 @@ namespace PacmanInTheDark
         int timeSinceLastFrame; // elapsed time on this frame
         int millisecondsPerFrame; // how long to display a frame
         int currentFrameX, currentFrameY; // location on spire sheet of the frame
-        const int yPosOffSet = 155; // how off pacman's y coordinate is from the map
-        const int xPosOffSet = 5; // how off pacman's x coordinate is from the map
-        Vector2 ghostPos; //position of PacMan in pixels
-
+        const int yPosOffSet = 155; // how off ghost's y coordinate is from the map
+        const int xPosOffSet = 5; // how off ghost's x coordinate is from the map
+        const int xglowOffSet = 50; // how off ghosts' glow x coord is from the map
+        const int yglowOffset = 50; // how off ghosts' glow y coord is from the map
+        Vector2 ghostPos; //position of ghost in pixels
+        Vector2 glowPos; // position of ghost glow in pixels
         //updates the frame to display
         public void UpdateFrame(GameTime gameTime)
         {
@@ -168,7 +177,7 @@ namespace PacmanInTheDark
         // Working draw
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Point MapCoord, Point PixelCoord, int frameY)
         {
-            //get to pacmanPos coordinates
+            //get to ghostPos coordinates
             Point location = new Point(0, 0);
 
             // convert path location to screen location
@@ -178,6 +187,10 @@ namespace PacmanInTheDark
             ghostPos.X = location.X + xPosOffSet;
             ghostPos.Y = location.Y + yPosOffSet;
 
+            glowPos.X = ghostPos.X - xglowOffSet;
+            glowPos.Y = ghostPos.Y - yglowOffset;
+
+            spriteBatch.Draw(GlowImg, new Rectangle((int)glowPos.X, (int)glowPos.Y, 140, 150), new Rectangle(frameY, 0, frameSizeX, frameSizeY), Color.White);
             if (Direction == Direction.Up || (Direction == Direction.None && LastDirection == Direction.Up))
             {
                 spriteBatch.Draw(ghostImg, new Rectangle((int)ghostPos.X, (int)ghostPos.Y, 40, 40), new Rectangle(currentFrameX, frameY, frameSizeX, frameSizeY), Color.White);
@@ -199,6 +212,7 @@ namespace PacmanInTheDark
             {
                 spriteBatch.Draw(ghostImg, new Rectangle((int)ghostPos.X, (int)ghostPos.Y, 40, 40), new Rectangle(currentFrameX, frameY, frameSizeX, frameSizeY), Color.White);
             }
+            
         }
 
         /// <summary>

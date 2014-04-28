@@ -31,8 +31,10 @@ namespace PacmanInTheDark
         Ghost Clyde; // Orange Ghost
         //Draw related attributes
         SpriteFont Font;
-        Texture2D covered;
-        Texture2D bg;
+        Texture2D pacmanImage; // pacmans image
+        Texture2D vision; // pacmans sight image
+        Texture2D pelletImg; // pellet image
+        Texture2D bg; // path image
         Path currentPath;
         GraphicsDevice gd;
         //gamestates
@@ -100,38 +102,39 @@ namespace PacmanInTheDark
         {
             // Loads values from editor file
             LoadEditorValues();
-            //load in a pacmanImage and use it to create a pacman object
-            Texture2D pacmanImage = content.Load<Texture2D>("PacManSheet");
-            Texture2D ghostImage = content.Load<Texture2D>("ghostSheet");
+            pacmanImage = content.Load<Texture2D>("PacManSheet"); // load pacman sprite sheet
+            Texture2D ghostImage = content.Load<Texture2D>("ghostSheet"); // load ghost sprite sheet
+            Texture2D glowImage = content.Load<Texture2D>("glowSheet"); // load ghost glow sheet
+            pelletImg = content.Load<Texture2D>("Pellet"); // load pellet image
+            vision = content.Load<Texture2D>("Vision"); // load pacman sight image
             Font = content.Load<SpriteFont>("Arial");
-            covered = content.Load<Texture2D>("blackCover");
-            //gameMap = new Map("map.txt", covered);
-            pacman = new Pacman(pacmanImage, gameMap.Paths[6], 7.5f, speed);
+
+            pacman = new Pacman(pacmanImage, vision, gameMap.Paths[6], 7.5f, speed);
             pacman.Health = health;
             pacman.Lives = lives;
-
+            
             // Create the specified amount of ghosts from the editor
             switch(ghosts)
             {
                 case 0: // Should never be 0, but in case -- just create all
                     break;
                 case 1: // Creates one ghost
-                    Clyde = new Ghost(ghostImage, gameMap.Paths[12], 2f, .1f);
+                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 2f, .1f);
                     break;
                 case 2: // Creates two ghosts
-                    Clyde = new Ghost(ghostImage, gameMap.Paths[12], 2f, .1f);
-                    Blinky = new Ghost(ghostImage, gameMap.Paths[12], 0, .1f);
+                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 2f, .1f);
+                    Blinky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
                     break;
                 case 3: // Creates three ghosts
-                    Clyde = new Ghost(ghostImage, gameMap.Paths[12], 2f, .1f);
-                    Blinky = new Ghost(ghostImage, gameMap.Paths[12], 0, .1f);
-                    Pinky = new Ghost(ghostImage, gameMap.Paths[12], 0, .1f);
+                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 2f, .1f);
+                    Blinky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
+                    Pinky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
                     break;
                 case 4: // Creates four ghosts
-                    Clyde = new Ghost(ghostImage, gameMap.Paths[12], 2f, .1f);
-                    Blinky = new Ghost(ghostImage, gameMap.Paths[12], 0, .1f);
-                    Pinky = new Ghost(ghostImage, gameMap.Paths[12], 0, .1f);
-                    Inky = new Ghost(ghostImage, gameMap.Paths[12], 0, .1f);
+                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 2f, .1f);
+                    Blinky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
+                    Pinky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
+                    Inky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
                     break;
             }
 
@@ -334,54 +337,67 @@ namespace PacmanInTheDark
                     break;
                 case GameState.InGame:
                     //draws gameplay
+                    spriteBatch.Draw(bg, new Rectangle(0, 170, 1230, 530), Color.White);
+                    // Ghost Drawing
+                    Clyde.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180,500), 0);
+                    /*
+                    Blinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 100);
+                    Pinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 200);
+                    Inky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 300);
+                    */
+                    for (int i = 0; i < gameMap.Pellets.Count; i++)
+                    {
+                        if (gameMap.Pellets[i].Active == true)
+                        {
+                            gameMap.Pellets[i].Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), pelletImg);
+
+                        }
+                    }
+                    //draws pacman to the screen
+                    pacman.Draw(gameTime, spriteBatch, new Point(28,26), new Point(1180,500));
                     foreach (Gui element in inGame)
                     {
                         element.Draw(spriteBatch);
                     }
                     //info on topBar (will change later on to update the lives,score,pellets left, and hunger bar
-                    spriteBatch.Draw(bg, new Rectangle(0, 170, 1230, 530), Color.White);
                     //related to lives
                     spriteBatch.DrawString(Font, "Lives", new Vector2(42, 45), Color.White);
+                    for (int i = 0; i < pacman.Lives; i++)
+                    {
+                        spriteBatch.Draw(pacmanImage, new Rectangle(10 + (i * 25), 80, 30, 30), new Rectangle(0, 0, 100, 100), Color.White);
+                    }
                     //related to score
                     spriteBatch.DrawString(Font, "Score", new Vector2(190, 45), Color.White);
-                    spriteBatch.DrawString(Font, "Pellet", new Vector2(175, 85), Color.White);
+                    spriteBatch.DrawString(Font, "00000", new Vector2(185, 85), Color.White);
                     //related to pellets left
                     spriteBatch.DrawString(Font, "Left", new Vector2(390, 45), Color.White);
                     spriteBatch.DrawString(Font, Convert.ToString(gameMap.PelletCount), new Vector2(390, 85), Color.White);
                     //related to hunger bar
                     spriteBatch.DrawString(Font, "Hunger", new Vector2(590, 45), Color.White);
-                    spriteBatch.Draw(covered, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
-
-                    //draws pacman to the screen
-                    pacman.Draw(gameTime, spriteBatch, new Point(28,26), new Point(1180,500));
+                    spriteBatch.Draw(vision, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
+                    break;
+                case GameState.Pause:
+                    // Draws Map paths
+                    spriteBatch.Draw(bg, new Rectangle(0, 170, 1230, 530), Color.White);
+                    //keep game elements drawn but not updated behind pause menu
+                    spriteBatch.Draw(vision, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
                     Clyde.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180,500), 0);
                     /*
                     Blinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 100);
                     Pinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 200);
                     Inky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 300);
                     */
-                    break;
-                case GameState.Pause:
-                    //keep game elements drawn but not updated behind pause menu
+                    pacman.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500));
                     foreach (Gui element in inGame)
                     {
                         element.Draw(spriteBatch);
                     }
-                    spriteBatch.Draw(bg, new Rectangle(0, 170, 1230, 530), Color.White);
                     spriteBatch.DrawString(Font, "Lives", new Vector2(42, 45), Color.White);
                     spriteBatch.DrawString(Font, "Score", new Vector2(190, 45), Color.White);
-                    spriteBatch.DrawString(Font, "Pellet", new Vector2(175, 85), Color.White);
+                    spriteBatch.DrawString(Font, "00000", new Vector2(185, 85), Color.White);
                     spriteBatch.DrawString(Font, "Left", new Vector2(390, 45), Color.White);
                     spriteBatch.DrawString(Font, Convert.ToString(gameMap.PelletCount), new Vector2(390, 85), Color.White);
                     spriteBatch.DrawString(Font, "Hunger", new Vector2(590, 45), Color.White);
-                    spriteBatch.Draw(covered, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
-                    pacman.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500));
-                    Clyde.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180,500), 0);
-                    /*
-                    Blinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 100);
-                    Pinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 200);
-                    Inky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 300);
-                    */
                     //brings up pause menu
                     foreach (Gui element in pauseMenu)
                     {
@@ -389,6 +405,15 @@ namespace PacmanInTheDark
                     }
                     break;
                 case GameState.EndGame:
+                    //draws pacman to the screen
+                    pacman.Draw(gameTime, spriteBatch, new Point(28,26), new Point(1180,500));
+                    // Draw Ghost to the screen
+                    Clyde.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180,500), 0);
+                    /*
+                    Blinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 100);
+                    Pinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 200);
+                    Inky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 300);
+                    */
                     foreach (Gui element in inGame)
                     {
                         element.Draw(spriteBatch);
@@ -399,22 +424,13 @@ namespace PacmanInTheDark
                     spriteBatch.DrawString(Font, "Lives", new Vector2(42, 45), Color.White);
                     //related to score
                     spriteBatch.DrawString(Font, "Score", new Vector2(190, 45), Color.White);
-                    spriteBatch.DrawString(Font, "Pellet", new Vector2(175, 85), Color.White);
+                    spriteBatch.DrawString(Font, "00000", new Vector2(185, 85), Color.White);
                     //related to pellets left
                     spriteBatch.DrawString(Font, "Left", new Vector2(390, 45), Color.White);
                     spriteBatch.DrawString(Font, Convert.ToString(gameMap.PelletCount), new Vector2(390, 85), Color.White);
                     //related to hunger bar
                     spriteBatch.DrawString(Font, "Hunger", new Vector2(590, 45), Color.White);
-                    spriteBatch.Draw(covered, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
-
-                    //draws pacman to the screen
-                    pacman.Draw(gameTime, spriteBatch, new Point(28,26), new Point(1180,500));
-                    Clyde.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180,500), 0);
-                    /*
-                    Blinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 100);
-                    Pinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 200);
-                    Inky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 300);
-                    */
+                    spriteBatch.Draw(vision, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
                     foreach (Gui element in end)
                     {
                         element.Draw(spriteBatch);
