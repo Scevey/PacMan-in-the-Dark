@@ -64,19 +64,141 @@ namespace PacmanInTheDark
             originalSpeed = speed;
             originalPos = pos;
             originalPath = path;
+
+            //Starting image for Ghost
+            ghostImg = myGhostImg;
+            frame = 2;
+            currentFrameX = 0;
+            currentFrameY = 0;
+            frameSizeX = 100;
+            frameSizeY = 100;
+            millisecondsPerFrame = 75;
+        }
+
+
+        //Draw related attributes
+        int frame; // what frame to draw
+        int frameSizeX, frameSizeY; // size of frame in pixels
+        int timeSinceLastFrame; // elapsed time on this frame
+        int millisecondsPerFrame; // how long to display a frame
+        int currentFrameX, currentFrameY; // location on spire sheet of the frame
+        const int yPosOffSet = 155; // how off pacman's y coordinate is from the map
+        const int xPosOffSet = 5; // how off pacman's x coordinate is from the map
+        Vector2 ghostPos; //position of PacMan in pixels
+
+        //updates the frame to display
+        public void UpdateFrame(GameTime gameTime)
+        {
+            // increment the elapsed time
+            timeSinceLastFrame += gameTime.ElapsedGameTime.Milliseconds;
+
+            // time for the next frame
+            if (timeSinceLastFrame > millisecondsPerFrame)
+            {
+
+                if (Direction == Direction.Up)
+                {
+                    timeSinceLastFrame = 0; // reset elapsed time
+                    frame++;
+                    if (frame % 2 == 0)
+                    {
+                        frame = 0;
+                    }
+                    else
+                    {
+                        frame = 1;
+                    }
+                    currentFrameX = frameSizeX * frame;
+                }
+                if (Direction == Direction.Right)
+                {
+                    timeSinceLastFrame = 0; // reset elapsed time
+                    frame++;
+                    if (frame % 2 == 0)
+                    {
+                        frame = 2;
+                    }
+                    else
+                    {
+                        frame = 3;
+                    }
+                    currentFrameX = frameSizeX * frame;
+                }
+                if (Direction == Direction.Down)
+                {
+                    timeSinceLastFrame = 0; // reset elapsed time
+                    frame++;
+                    if (frame % 2 == 0)
+                    {
+                        frame = 4;
+                    }
+                    else
+                    {
+                        frame = 5;
+                    }
+                    currentFrameX = frameSizeX * frame;
+                }
+                if (Direction == Direction.Left)
+                {
+                    timeSinceLastFrame = 0; // reset elapsed time
+                    frame++;
+                    if (frame % 2 == 0)
+                    {
+                        frame = 6;
+                    }
+                    else
+                    {
+                        frame = 7;
+                    }
+                    currentFrameX = frameSizeX * frame;
+                }
+                if (Direction == Direction.None)
+                {
+                }
+            }
         }
 
         /// <summary>
-        /// Update Ghost's image based off of corresponding direction and location on path
+        /// Update Pacman Image
         /// </summary>
-        /// <param name="direction">0-3</param>
-        public void UpdateImage(byte direction)
+        // Stub Draw
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Point MapCoord, Point PixelCoord)
         {
         }
-
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Point topLeft, Point bottomRight)
+        // Working draw
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Point MapCoord, Point PixelCoord, int frameY)
         {
+            //get to pacmanPos coordinates
+            Point location = new Point(0, 0);
 
+            // convert path location to screen location
+            location = Point.MapToScreen(MapPos, MapCoord, PixelCoord);
+
+            // store converted points into a Vector2D
+            ghostPos.X = location.X + xPosOffSet;
+            ghostPos.Y = location.Y + yPosOffSet;
+
+            if (Direction == Direction.Up || (Direction == Direction.None && LastDirection == Direction.Up))
+            {
+                spriteBatch.Draw(ghostImg, new Rectangle((int)ghostPos.X, (int)ghostPos.Y, 40, 40), new Rectangle(currentFrameX, frameY, frameSizeX, frameSizeY), Color.White);
+            }
+            else if (Direction == Direction.Down || (Direction == Direction.None && LastDirection == Direction.Down))
+            {
+                spriteBatch.Draw(ghostImg, new Rectangle((int)ghostPos.X, (int)ghostPos.Y, 40, 40), new Rectangle(currentFrameX, frameY, frameSizeX, frameSizeY), Color.White);
+
+            }
+            else if (Direction == Direction.Left || (Direction == Direction.None && LastDirection == Direction.Left))
+            {
+                spriteBatch.Draw(ghostImg, new Rectangle((int)ghostPos.X, (int)ghostPos.Y, 40, 40), new Rectangle(currentFrameX, frameY, frameSizeX, frameSizeY), Color.White);
+            }
+            else if (Direction == Direction.Right || (Direction == Direction.None && LastDirection == Direction.Right))
+            {
+                spriteBatch.Draw(ghostImg, new Rectangle((int)ghostPos.X, (int)ghostPos.Y, 40, 40), new Rectangle(currentFrameX, frameY, frameSizeX, frameSizeY), Color.White);
+            }
+            else
+            {
+                spriteBatch.Draw(ghostImg, new Rectangle((int)ghostPos.X, (int)ghostPos.Y, 40, 40), new Rectangle(currentFrameX, frameY, frameSizeX, frameSizeY), Color.White);
+            }
         }
 
         /// <summary>

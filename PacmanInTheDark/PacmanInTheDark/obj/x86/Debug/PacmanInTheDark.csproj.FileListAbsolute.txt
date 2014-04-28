@@ -40,14 +40,7 @@ C:\Users\Jeremy\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin
 C:\Users\Jeremy\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Tao.Sdl.dll
 C:\Users\Jeremy\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.csprojResolveAssemblyReference.cache
 C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\SDL.dll
-C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\back.xnb
 C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\exit.xnb
-C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\menu.xnb
-C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\options.xnb
-C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\optionsMenu.xnb
-C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\background.xnb
-C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\start.xnb
-C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\tool.xnb
 C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\PacmanInTheDark.exe
 C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\PacmanInTheDark.pdb
 C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Lidgren.Network.dll
@@ -183,3 +176,18 @@ D:\Users\Mike\My Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bi
 D:\Users\Mike\My Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\OpenTK.dll
 D:\Users\Mike\My Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Tao.Sdl.dll
 D:\Users\Mike\My Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.csprojResolveAssemblyReference.cache
+C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Back Button.xnb
+C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Back Button2.xnb
+C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Exit Button.xnb
+C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\HighScore Exit.xnb
+C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\HighScore.xnb
+C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Info Button.xnb
+C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Info.xnb
+C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Main Button.xnb
+C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Option Base.xnb
+C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Option.xnb
+C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Pause Base.xnb
+C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Start Button.xnb
+C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Start Menu Base.xnb
+C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\ghostSheet.xnb
+C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\glowSheet.xnb

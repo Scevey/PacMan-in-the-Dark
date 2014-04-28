@@ -24,8 +24,11 @@ namespace PacmanInTheDark
         //TODO add get .xnb for couple files and add them to content and uncomment the code for them
         //create a map object
         Map gameMap = new Map("map.txt");
-        //Pacman object
-        Pacman pacman;
+        Pacman pacman;//Pacman object
+        Ghost Blinky; // Red Ghost
+        Ghost Pinky; // Pink ghost
+        Ghost Inky; // Blue Ghost
+        Ghost Clyde; // Orange Ghost
         //Draw related attributes
         SpriteFont Font;
         Texture2D covered;
@@ -91,13 +94,20 @@ namespace PacmanInTheDark
             LoadEditorValues();
             //load in a pacmanImage and use it to create a pacman object
             Texture2D pacmanImage = content.Load<Texture2D>("PacManSheet");
+            Texture2D ghostImage = content.Load<Texture2D>("ghostSheet");
             Font = content.Load<SpriteFont>("Arial");
             covered = content.Load<Texture2D>("blackCover");
             //gameMap = new Map("map.txt", covered);
-            pacman = new Pacman(pacmanImage, gameMap.Paths[0], 0, speed);
+            pacman = new Pacman(pacmanImage, gameMap.Paths[6], 7.5f, speed);
             pacman.Health = health;
             pacman.Lives = lives;
-            
+            // Ghosts (only 1 for right now)
+            Clyde = new Ghost(ghostImage, gameMap.Paths[12], 2f, .1f);
+            /*
+            Blinky = new Ghost(ghostImage, gameMap.Paths[12], 0, .1f);
+            Pinky = new Ghost(ghostImage, gameMap.Paths[12], 0, .1f);
+            Inky = new Ghost(ghostImage, gameMap.Paths[12], 0, .1f);
+            */
             currentPath = (pacman.CurrentPath);
             bg = Map.DrawMap(gameMap, gd);
 
@@ -217,6 +227,19 @@ namespace PacmanInTheDark
                         pacman.UpdateFrame(gameTime);
                         pacman.Move();
 
+                        Clyde.UpdateFrame(gameTime);
+                        /* 1 ghost for now
+                        Blinky.UpdateFrame(gameTime);
+                        Pinky.UpdateFrame(gameTime);
+                        Inky.UpdateFrame(gameTime);
+                        */
+                        Clyde.Move();
+                        /* 1 ghost for now
+                        Blinky.Move();
+                        Pinky.Move();
+                        Inky.Move();
+                         */
+
                         //check for collisions with pacman in pacman's current path
                         foreach (GamePiece gp in pacman.CurrentPath.pieces)
                         {
@@ -284,23 +307,9 @@ namespace PacmanInTheDark
                     foreach (Gui element in inGame)
                     {
                         element.Draw(spriteBatch);
-                        //sample map that will later be replaced by the Gui "background"
-                        /*
-                        //black horizontal Lines
-                        spriteBatch.Draw(covered, new Vector2(0, 155), new Rectangle(0, 0, 600, 5), Color.White);
-                        spriteBatch.Draw(covered, new Vector2(0, 255), new Rectangle(0, 0, 300, 5), Color.White);
-                        spriteBatch.Draw(covered, new Vector2(400, 255), new Rectangle(0, 0, 200, 5), Color.White);
-                        spriteBatch.Draw(covered, new Vector2(300, 750), new Rectangle(0, 0, 100, 5), Color.White);
-                        //black vertical Lines
-                        spriteBatch.Draw(covered, new Vector2(0, 155), new Rectangle(0, 0, 5, 100), Color.White);
-                        spriteBatch.Draw(covered, new Vector2(300, 255), new Rectangle(0, 0, 5, 500), Color.White);
-                        spriteBatch.Draw(covered, new Vector2(400, 255), new Rectangle(0, 0, 5, 500), Color.White);
-                        spriteBatch.Draw(covered, new Vector2(595, 155), new Rectangle(0, 0, 5, 100), Color.White);
-                        */
                     }
                     //info on topBar (will change later on to update the lives,score,pellets left, and hunger bar
-                    // Draw Map Paths slightly shifts left as drawn
-                    spriteBatch.Draw(bg, new Rectangle(20, 200, 1230, 530), Color.White);
+                    spriteBatch.Draw(bg, new Rectangle(0, 170, 1230, 530), Color.White);
                     //related to lives
                     spriteBatch.DrawString(Font, "Lives", new Vector2(42, 45), Color.White);
                     //related to score
@@ -315,6 +324,12 @@ namespace PacmanInTheDark
 
                     //draws pacman to the screen
                     pacman.Draw(gameTime, spriteBatch, new Point(28,26), new Point(1180,500));
+                    Clyde.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180,500), 0);
+                    /*
+                    Blinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 100);
+                    Pinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 200);
+                    Inky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 300);
+                    */
                     break;
                 case GameState.Pause:
                     //keep game elements drawn but not updated behind pause menu
@@ -322,7 +337,7 @@ namespace PacmanInTheDark
                     {
                         element.Draw(spriteBatch);
                     }
-                    spriteBatch.Draw(bg, new Rectangle(20, 200, 1230, 530), Color.White);
+                    spriteBatch.Draw(bg, new Rectangle(0, 170, 1230, 530), Color.White);
                     spriteBatch.DrawString(Font, "Lives", new Vector2(42, 45), Color.White);
                     spriteBatch.DrawString(Font, "Score", new Vector2(190, 45), Color.White);
                     spriteBatch.DrawString(Font, "Pellet", new Vector2(175, 85), Color.White);
@@ -331,6 +346,12 @@ namespace PacmanInTheDark
                     spriteBatch.DrawString(Font, "Hunger", new Vector2(590, 45), Color.White);
                     spriteBatch.Draw(covered, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
                     pacman.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500));
+                    Clyde.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180,500), 0);
+                    /*
+                    Blinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 100);
+                    Pinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 200);
+                    Inky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 300);
+                    */
                     //brings up pause menu
                     foreach (Gui element in pauseMenu)
                     {

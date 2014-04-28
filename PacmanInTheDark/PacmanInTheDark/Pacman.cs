@@ -143,18 +143,9 @@ namespace PacmanInTheDark
             // time for the next frame
             if (timeSinceLastFrame > millisecondsPerFrame)
             {
-                if (Direction == Direction.Up || Direction == Direction.Down)
-                {
-                    currentFrameY = 100;
-                    timeSinceLastFrame = 0; // reset elapsed time
-                    frame++;
-                    if (frame >= numFrames)
-                    {
-                        frame = 0;
-                    }
-                    currentFrameX = frameSizeX * frame;
-                }
-                else
+
+
+                if (Direction == Direction.Left)
                 {
                     currentFrameY = 0;
                     timeSinceLastFrame = 0; // reset elapsed time
@@ -165,19 +156,59 @@ namespace PacmanInTheDark
                     }
                     currentFrameX = frameSizeX * frame;
                 }
+                if (Direction == Direction.Up)
+                {
+                    currentFrameY = 100;
+                    timeSinceLastFrame = 0; // reset elapsed time
+                    frame++;
+                    if (frame >= numFrames)
+                    {
+                        frame = 0;
+                    }
+                    currentFrameX = frameSizeX * frame;
+                }
+                if (Direction == Direction.Right)
+                {
+
+                    currentFrameY = 200;
+                    timeSinceLastFrame = 0; // reset elapsed time
+                    frame++;
+                    if (frame >= numFrames)
+                    {
+                        frame = 0;
+                    }
+                    currentFrameX = frameSizeX * frame;
+                }
+                if (Direction == Direction.Down)
+                {
+                    currentFrameY = 300;
+                    timeSinceLastFrame = 0; // reset elapsed time
+                    frame++;
+                    if (frame >= numFrames)
+                    {
+                        frame = 0;
+                    }
+                    currentFrameX = frameSizeX * frame;
+                }
+                if (Direction == Direction.None)
+                {
+                }
             }
         }
 
         /// <summary>
         /// Update Pacman Image
         /// </summary>
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Point topLeft, Point bottomRight)
+        /// <summary>
+        /// Update Pacman Image
+        /// </summary>
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Point MapCoord, Point PixelCoord)
         {
             //get to pacmanPos coordinates
             Point location = new Point(0, 0);
 
             // convert path location to screen location
-            location = Point.MapToScreen(MapPos, topLeft, bottomRight);
+            location = Point.MapToScreen(MapPos, MapCoord, PixelCoord);
 
             // store converted points into a Vector2D
             pacmanPos.X = location.X + xPosOffSet;
@@ -185,26 +216,24 @@ namespace PacmanInTheDark
 
             if (Direction == Direction.Up || (Direction == Direction.None && LastDirection == Direction.Up))
             {
-                spriteBatch.Draw(pacmanImg, pacmanPos, new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
+                spriteBatch.Draw(pacmanImg, new Rectangle((int)pacmanPos.X, (int)pacmanPos.Y, 50, 50), new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
             }
             else if (Direction == Direction.Down || (Direction == Direction.None && LastDirection == Direction.Down))
             {
-                spriteBatch.Draw(pacmanImg, pacmanPos, new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White,
-                                 0, Vector2.Zero, 1, SpriteEffects.FlipVertically, 0);
+                spriteBatch.Draw(pacmanImg, new Rectangle((int)pacmanPos.X, (int)pacmanPos.Y, 50, 50), new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
+
             }
             else if (Direction == Direction.Left || (Direction == Direction.None && LastDirection == Direction.Left))
             {
-                spriteBatch.Draw(pacmanImg, pacmanPos, new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
+                spriteBatch.Draw(pacmanImg, new Rectangle((int)pacmanPos.X, (int)pacmanPos.Y, 50, 50), new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
             }
             else if (Direction == Direction.Right || (Direction == Direction.None && LastDirection == Direction.Right))
             {
-                spriteBatch.Draw(pacmanImg, pacmanPos, new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White,
-                                 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+                spriteBatch.Draw(pacmanImg, new Rectangle((int)pacmanPos.X, (int)pacmanPos.Y, 50, 50), new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
             }
             else
             {
-                spriteBatch.Draw(pacmanImg, pacmanPos, new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White,
-                                 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+                spriteBatch.Draw(pacmanImg, new Rectangle((int)pacmanPos.X, (int)pacmanPos.Y, 50, 50), new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
             }
         }
 
