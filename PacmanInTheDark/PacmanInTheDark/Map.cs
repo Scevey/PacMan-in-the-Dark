@@ -34,6 +34,13 @@ namespace PacmanInTheDark
 
         //list of pellets
         List<Pellet> pellets;
+        public List<Pellet> Pellets
+        {
+            get
+            {
+                return pellets;
+            }
+        }
 
         #endregion
 
