@@ -69,6 +69,21 @@ namespace PacmanInTheDark
         //handles movement
         public void Move()
         {
+            //allows collision at intersection points
+            //checks every path intersecting with the current path
+            foreach (Path p in CurrentPath.IntersectionDictionary.Keys)
+            {
+                //if the piece is within one move of the intersection point...
+                if (Point.Distance(this.MapPos, CurrentPath.IntersectionDictionary[p]) <= this.speed)
+                    //add it to that path's piece list
+                    p.pieces.Add(this);
+                else
+                {
+                    //otherwise, remove it
+                    p.pieces.Remove(this);
+                }
+            }
+
             #region path change block - exits the method if a path change occurs
 
             // Retrieves nextDirection - set based off of user keyboard input or in ghost's case, random
