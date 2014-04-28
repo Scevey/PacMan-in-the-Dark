@@ -21,7 +21,7 @@ namespace PacmanInTheDark
     class Menu
     {
 
-        //TODO add get .xnb for couple files and add them to content and uncomment the code for them
+        //TODO fix info image size, scale down highscore main menu button to match exit
         //create a map object
         Map gameMap = new Map("map.txt");
         Pacman pacman;//Pacman object
@@ -55,36 +55,44 @@ namespace PacmanInTheDark
         List<Gui> infoMenu = new List<Gui>();
         List<Gui> inGame = new List<Gui>(); 
         List<Gui> pauseMenu = new List<Gui>();
-        //List<Gui> end = new List<Gui>();
+        List<Gui> end = new List<Gui>();
         List<Gui> highScore = new List<Gui>();
 
         GameState gameState;
         public Menu(GraphicsDevice _gd)
         {
             //add gui for images to lists based on states
+            //main menu images
             startMenu.Add(new Gui("Start Menu Base"));
             startMenu.Add(new Gui("Start Button"));
             startMenu.Add(new Gui("Option"));
             
+            //option menu images
             optionMenu.Add(new Gui("Option Base"));
             optionMenu.Add(new Gui("Back Button"));
             optionMenu.Add(new Gui("Exit Button"));
             optionMenu.Add(new Gui("Info Button"));
 
+            //game description images
             infoMenu.Add(new Gui("Info"));
             infoMenu.Add(new Gui("Back Button"));
 
             inGame.Add(new Gui("topBar"));
             //inGame.Add(new Gui("background"));    commented out to use a sample map 
 
+            //pause menu images
             pauseMenu.Add(new Gui("Pause Base"));
             pauseMenu.Add(new Gui("Exit Button"));
             pauseMenu.Add(new Gui("Back Button2"));
 
-            //endGame.Add(new Gui("End Screen Base"));
-            //endGame.Add(new Gui("High Score Button));
+            //game over images
+            end.Add(new Gui("End Screen Base"));
+            end.Add(new Gui("HighScore Button"));
+
+            //post game images
             highScore.Add(new Gui("HighScore"));
             highScore.Add(new Gui("HighScore Exit"));
+            highScore.Add(new Gui("Main Button"));
             gd = _gd;
             
         }
@@ -132,9 +140,9 @@ namespace PacmanInTheDark
             }
 
             //adjust position
-            optionMenu.Find(x => x.ImgName == "Back Button").MoveElement(-100, -50);
-            optionMenu.Find(x => x.ImgName == "Exit Button").MoveElement(100, 50);
-            optionMenu.Find(x => x.ImgName == "Info Button").MoveElement(-100, -75);
+            optionMenu.Find(x => x.ImgName == "Back Button").MoveElement(0, 225);
+            optionMenu.Find(x => x.ImgName == "Exit Button").MoveElement(0, 40);
+            optionMenu.Find(x => x.ImgName == "Info Button").MoveElement(0,-150);
 
             foreach (Gui gui in infoMenu)
             {
@@ -144,7 +152,7 @@ namespace PacmanInTheDark
             }
 
             //adjust position
-            optionMenu.Find(x => x.ImgName == "Back Button").MoveElement(0, 250);
+            infoMenu.Find(x => x.ImgName == "Back Button").MoveElement(0, 250);
             
             
             //load, center and add click events for all in ingame list
@@ -165,12 +173,13 @@ namespace PacmanInTheDark
             pauseMenu.Find(x => x.ImgName == "Back Button2").MoveElement(0, -50);
             pauseMenu.Find(x => x.ImgName == "Exit Button").MoveElement(0, 115);
 
-            //foreach (Gui gui in endGame)
-            //{
-            //  gui.LoadContnent(content);
-            //  gui.Center(780,1340);
-            //  gui.clickEvent += OnClick;
-            //}
+            foreach (Gui gui in end)
+            {
+                gui.LoadContent(content);
+                gui.Center(780, 1340);
+                gui.clickEvent += OnClick;
+            }
+            end.Find(x => x.ImgName == "HighScore Button").MoveElement(0, 25);
             foreach (Gui gui in highScore)
             {
                 gui.LoadContent(content);
@@ -179,7 +188,8 @@ namespace PacmanInTheDark
             }
 
             //adjust position
-            highScore.Find(x => x.ImgName == "HighScore Exit").MoveElement(0, 225);
+            highScore.Find(x => x.ImgName == "Main Button").MoveElement(-125, 225);
+            highScore.Find(x => x.ImgName == "HighScore Exit").MoveElement(125, 225);
 
             //adjust position
             //inGame.Find(x => x.ImgName == "background").Center(768, 768);      commented out to use a sample map
@@ -221,7 +231,7 @@ namespace PacmanInTheDark
                         }
                         if (pacman.isGameOver() == true)
                         {
-                            gameState = GameState.Hiscores;
+                            gameState = GameState.EndGame;
                         }
                         gui.Update();
                         pacman.UpdateFrame(gameTime);
@@ -260,11 +270,12 @@ namespace PacmanInTheDark
                         gui.Update();
                     }
                     break;
-                //case GameState.endGame:
-                //    foreach (Gui gui in end)
-                //    {
-                //        gui.Update();
-                //    }
+                case GameState.EndGame:
+                    foreach (Gui gui in end)
+                    {
+                        gui.Update();
+                    }
+                    break;
                 case GameState.Hiscores:
                     foreach (Gui gui in highScore)
                     {
@@ -358,12 +369,38 @@ namespace PacmanInTheDark
                         element.Draw(spriteBatch);
                     }
                     break;
-                //case GameState.endGame:
-                //    foreach (Gui element in end)
-                //    {
-                //        element.Draw(spriteBatch);
-                //    }
-                //    break;
+                case GameState.EndGame:
+                    foreach (Gui element in inGame)
+                    {
+                        element.Draw(spriteBatch);
+                    }
+                    //info on topBar (will change later on to update the lives,score,pellets left, and hunger bar
+                    spriteBatch.Draw(bg, new Rectangle(0, 170, 1230, 530), Color.White);
+                    //related to lives
+                    spriteBatch.DrawString(Font, "Lives", new Vector2(42, 45), Color.White);
+                    //related to score
+                    spriteBatch.DrawString(Font, "Score", new Vector2(190, 45), Color.White);
+                    spriteBatch.DrawString(Font, "Pellet", new Vector2(175, 85), Color.White);
+                    //related to pellets left
+                    spriteBatch.DrawString(Font, "Left", new Vector2(390, 45), Color.White);
+                    spriteBatch.DrawString(Font, Convert.ToString(gameMap.PelletCount), new Vector2(390, 85), Color.White);
+                    //related to hunger bar
+                    spriteBatch.DrawString(Font, "Hunger", new Vector2(590, 45), Color.White);
+                    spriteBatch.Draw(covered, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
+
+                    //draws pacman to the screen
+                    pacman.Draw(gameTime, spriteBatch, new Point(28,26), new Point(1180,500));
+                    Clyde.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180,500), 0);
+                    /*
+                    Blinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 100);
+                    Pinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 200);
+                    Inky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 300);
+                    */
+                    foreach (Gui element in end)
+                    {
+                        element.Draw(spriteBatch);
+                    }
+                    break;
                 case GameState.Hiscores:
                     foreach (Gui element in highScore)
                     {
@@ -408,10 +445,14 @@ namespace PacmanInTheDark
             {
                 Environment.Exit(0);
             }
-            //if (element == "HighScore Button"
-            //{
-                //gamestate = GameState.HiScores
-            //}
+            if (element == "HighScore Button")
+            {
+                gameState = GameState.Hiscores;
+            }
+            if (element == "Main Button")
+            {
+                gameState = GameState.MainMenu;
+            }
         }
 
         /// <summary>

@@ -13,6 +13,7 @@ namespace PacmanInTheDark
 {
     //Jeremy Hall
     //Sungmin Park
+    //Anthony Giallella
     class Pacman : MovableGamePiece
     {
         // Life/hunger bar (Lost over time - can be restored with pellets)
@@ -269,9 +270,11 @@ namespace PacmanInTheDark
         //leave this as a stub
         public override void Collision(Pacman pac){}
 
+        //checks to see if game over and lose life, will go to game over state if isGO = true
         public override void Collision(Ghost g)
         {
-            throw new NotImplementedException();
+            LoseLife();
+            isGameOver();
         }
     }
 }

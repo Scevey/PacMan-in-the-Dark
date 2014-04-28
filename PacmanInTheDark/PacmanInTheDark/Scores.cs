@@ -6,6 +6,8 @@ using System.IO;
 
 namespace PacmanInTheDark
 {
+    //Jeremy Hall
+    //Anthony Giallella
     // Deals with keeping track of hiscores
     class Scores
     {
@@ -80,7 +82,7 @@ namespace PacmanInTheDark
                 StreamWriter writescores = new StreamWriter("Scores.txt");
                 foreach (ScoresStruct ss in hiScores)
                 {
-                    writescores.WriteLine(ss.Name, ss.Score);
+                    writescores.WriteLine(ss.Name + "," + ss.Score);
                 }
             }
             catch (Exception)
