@@ -16,8 +16,12 @@ namespace PacmanInTheDark
     //Anthony Giallella
     //Sungmin Park
     //Jeremy Hall
+
+    //handles the creation of menus and manage gamestates
     class Menu
     {
+
+        //TODO add get .xnb for couple files and add them to content and uncomment the code for them
         //create a map object
         Map gameMap = new Map("map.txt");
         //Pacman object
@@ -29,7 +33,7 @@ namespace PacmanInTheDark
         Path currentPath;
         GraphicsDevice gd;
         //gamestates
-        enum GameState { MainMenu, OptionMenu, InGame, Hiscores }
+        enum GameState { MainMenu, OptionMenu, Info, InGame, Pause, EndGame, Hiscores }
         
         // attributes for starting values of the game
         float speed;
@@ -45,21 +49,39 @@ namespace PacmanInTheDark
         //lists of gui for different states
         List<Gui> startMenu = new List<Gui>();
         List<Gui> optionMenu = new List<Gui>();
-        List<Gui> inGame = new List<Gui>();
+        List<Gui> infoMenu = new List<Gui>();
+        List<Gui> inGame = new List<Gui>(); 
+        List<Gui> pauseMenu = new List<Gui>();
+        //List<Gui> end = new List<Gui>();
+        List<Gui> highScore = new List<Gui>();
+
         GameState gameState;
         public Menu(GraphicsDevice _gd)
         {
             //add gui for images to lists based on states
-            startMenu.Add(new Gui("menu"));
-            startMenu.Add(new Gui("start"));
-            startMenu.Add(new Gui("options"));
+            startMenu.Add(new Gui("Start Menu Base"));
+            startMenu.Add(new Gui("Start Button"));
+            startMenu.Add(new Gui("Option"));
             
-            optionMenu.Add(new Gui("optionsMenu"));
-            optionMenu.Add(new Gui("back"));
-            optionMenu.Add(new Gui("exit"));
+            optionMenu.Add(new Gui("Option Base"));
+            optionMenu.Add(new Gui("Back Button"));
+            optionMenu.Add(new Gui("Exit Button"));
+            optionMenu.Add(new Gui("Info Button"));
+
+            infoMenu.Add(new Gui("Info"));
+            infoMenu.Add(new Gui("Back Button"));
 
             inGame.Add(new Gui("topBar"));
             //inGame.Add(new Gui("background"));    commented out to use a sample map 
+
+            pauseMenu.Add(new Gui("Pause Base"));
+            pauseMenu.Add(new Gui("Exit Button"));
+            pauseMenu.Add(new Gui("Back Button2"));
+
+            //endGame.Add(new Gui("End Screen Base"));
+            //endGame.Add(new Gui("High Score Button));
+            highScore.Add(new Gui("HighScore"));
+            highScore.Add(new Gui("HighScore Exit"));
             gd = _gd;
             
         }
@@ -83,25 +105,37 @@ namespace PacmanInTheDark
             foreach (Gui gui in startMenu)
             {
                 gui.LoadContent(content);
-                gui.Center(600, 800);
+                gui.Center(780, 1340);
                 gui.clickEvent += OnClick;
             } 
 
             //adjust position
-            startMenu.Find(x => x.ImgName == "start").MoveElement(0, 0);
-            startMenu.Find(x => x.ImgName == "options").MoveElement(0, +125);
+            startMenu.Find(x => x.ImgName == "Start Button").MoveElement(-135, +200);
+            startMenu.Find(x => x.ImgName == "Option").MoveElement(115, 200);
             
             //load, center and add click events for all in option list
             foreach (Gui gui in optionMenu)
             {
                 gui.LoadContent(content);
-                gui.Center(400, 400);
+                gui.Center(780, 1340);
                 gui.clickEvent += OnClick;
             }
 
             //adjust position
-            optionMenu.Find(x => x.ImgName == "back").MoveElement(0, -50);
-            optionMenu.Find(x => x.ImgName == "exit").MoveElement(0, 85);
+            optionMenu.Find(x => x.ImgName == "Back Button").MoveElement(-100, -50);
+            optionMenu.Find(x => x.ImgName == "Exit Button").MoveElement(100, 50);
+            optionMenu.Find(x => x.ImgName == "Info Button").MoveElement(-100, -75);
+
+            foreach (Gui gui in infoMenu)
+            {
+                gui.LoadContent(content);
+                gui.Center(780, 1340);
+                gui.clickEvent += OnClick;
+            }
+
+            //adjust position
+            optionMenu.Find(x => x.ImgName == "Back Button").MoveElement(0, 250);
+            
             
             //load, center and add click events for all in ingame list
             foreach (Gui gui in inGame)
@@ -109,6 +143,33 @@ namespace PacmanInTheDark
                 gui.LoadContent(content);
                 gui.clickEvent += OnClick;
             }
+
+            foreach (Gui gui in pauseMenu)
+            {
+                gui.LoadContent(content);
+                gui.Center(780, 1340);
+                gui.clickEvent += OnClick;
+            }
+
+            //adjust position
+            pauseMenu.Find(x => x.ImgName == "Back Button2").MoveElement(0, -50);
+            pauseMenu.Find(x => x.ImgName == "Exit Button").MoveElement(0, 115);
+
+            //foreach (Gui gui in endGame)
+            //{
+            //  gui.LoadContnent(content);
+            //  gui.Center(780,1340);
+            //  gui.clickEvent += OnClick;
+            //}
+            foreach (Gui gui in highScore)
+            {
+                gui.LoadContent(content);
+                gui.Center(780, 1340);
+                gui.clickEvent += OnClick;
+            }
+
+            //adjust position
+            highScore.Find(x => x.ImgName == "HighScore Exit").MoveElement(0, 225);
 
             //adjust position
             //inGame.Find(x => x.ImgName == "background").Center(768, 768);      commented out to use a sample map
@@ -134,10 +195,24 @@ namespace PacmanInTheDark
                         gui.Update();
                     }
                     break;
+                case GameState.Info:
+                    foreach (Gui gui in infoMenu)
+                    {
+                        gui.Update();
+                    }
+                    break;
                 case GameState.InGame:
                     //call gui to update and change, call pacman functionality
                     foreach (Gui gui in inGame)
                     {
+                        if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                        {
+                            gameState = GameState.Pause;
+                        }
+                        if (pacman.isGameOver() == true)
+                        {
+                            gameState = GameState.Hiscores;
+                        }
                         gui.Update();
                         pacman.UpdateFrame(gameTime);
                         pacman.Move();
@@ -156,6 +231,23 @@ namespace PacmanInTheDark
                         //if (pacman.gameover == true) gameState = GameState.Gameover;
                     }
                     break;
+                case GameState.Pause:
+                    foreach(Gui gui in pauseMenu)
+                    {
+                        gui.Update();
+                    }
+                    break;
+                //case GameState.endGame:
+                //    foreach (Gui gui in end)
+                //    {
+                //        gui.Update();
+                //    }
+                case GameState.Hiscores:
+                    foreach (Gui gui in highScore)
+                    {
+                        gui.Update();
+                    }
+                    break;
                 default:
                     break;
             }
@@ -167,21 +259,28 @@ namespace PacmanInTheDark
             switch (gameState)
             {
                 case GameState.MainMenu:
-                    //change images based on state
+                    //draws start screen
                     foreach (Gui element in startMenu)
                     {
                         element.Draw(spriteBatch);
                     }
                     break;
                 case GameState.OptionMenu:
-                    //change images based on state
+                    //draws option menu
                     foreach (Gui element in optionMenu)
                     {
                         element.Draw(spriteBatch);
                     }
                     break;
+                case GameState.Info:
+                    //draws game info
+                    foreach (Gui element in infoMenu)
+                    {
+                        element.Draw(spriteBatch);
+                    }
+                    break;
                 case GameState.InGame:
-                    //change images based on state
+                    //draws gameplay
                     foreach (Gui element in inGame)
                     {
                         element.Draw(spriteBatch);
@@ -217,6 +316,39 @@ namespace PacmanInTheDark
                     //draws pacman to the screen
                     pacman.Draw(gameTime, spriteBatch, new Point(28,26), new Point(1180,500));
                     break;
+                case GameState.Pause:
+                    //keep game elements drawn but not updated behind pause menu
+                    foreach (Gui element in inGame)
+                    {
+                        element.Draw(spriteBatch);
+                    }
+                    spriteBatch.Draw(bg, new Rectangle(20, 200, 1230, 530), Color.White);
+                    spriteBatch.DrawString(Font, "Lives", new Vector2(42, 45), Color.White);
+                    spriteBatch.DrawString(Font, "Score", new Vector2(190, 45), Color.White);
+                    spriteBatch.DrawString(Font, "Pellet", new Vector2(175, 85), Color.White);
+                    spriteBatch.DrawString(Font, "Left", new Vector2(390, 45), Color.White);
+                    spriteBatch.DrawString(Font, Convert.ToString(gameMap.PelletCount), new Vector2(390, 85), Color.White);
+                    spriteBatch.DrawString(Font, "Hunger", new Vector2(590, 45), Color.White);
+                    spriteBatch.Draw(covered, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
+                    pacman.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500));
+                    //brings up pause menu
+                    foreach (Gui element in pauseMenu)
+                    {
+                        element.Draw(spriteBatch);
+                    }
+                    break;
+                //case GameState.endGame:
+                //    foreach (Gui element in end)
+                //    {
+                //        element.Draw(spriteBatch);
+                //    }
+                //    break;
+                case GameState.Hiscores:
+                    foreach (Gui element in highScore)
+                    {
+                        element.Draw(spriteBatch);
+                    }
+                    break;
                 default:
                     break;
             }
@@ -226,24 +358,39 @@ namespace PacmanInTheDark
         public void OnClick(string element)
         {
             //name of image
-            if (element == "start")
+            if (element == "Start Button")
             {
                 //what to do on click
                 gameState = GameState.InGame;
             }
-            if (element == "options")
+            if (element == "Option")
             {
                 gameState = GameState.OptionMenu;
             }
-            if (element == "back")
+            if (element == "Back Button")
             {
                 gameState = GameState.MainMenu;
             }
-
-            if (element == "exit")
+            if (element == "Back Button2")
+            {
+                gameState = GameState.InGame;
+            }
+            if (element == "Info Button")
+            {
+                gameState = GameState.Info;
+            }
+            if (element == "Exit Button")
             {
                 Environment.Exit(0);
             }
+            if (element == "HighScore Exit")
+            {
+                Environment.Exit(0);
+            }
+            //if (element == "HighScore Button"
+            //{
+                //gamestate = GameState.HiScores
+            //}
         }
 
         /// <summary>
@@ -266,10 +413,17 @@ namespace PacmanInTheDark
 
                 reader.Close();
             }
-            catch (FileNotFoundException fnfE)
+            //set values if fnf
+            catch (FileNotFoundException)
             {
-                Debug.WriteLine("Error: " + fnfE.Message);
+                speed = 1;
+                ghosts = 4;
+                lives = 3;
+                health = 100;
+                hunger = 1;
+                light = 3;
             }
+            //other exceptions
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);

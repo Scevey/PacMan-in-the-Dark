@@ -73,5 +73,20 @@ namespace PacmanInTheDark
                 hiScores.Add(error);
             }
         }
+        void WriteScores()
+        {
+            try
+            {
+                StreamWriter writescores = new StreamWriter("Scores.txt");
+                foreach (ScoresStruct ss in hiScores)
+                {
+                    writescores.WriteLine(ss.Name, ss.Score);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
     }
 }

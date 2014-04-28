@@ -86,8 +86,6 @@ namespace PacmanInTheDark
         protected override void Update(GameTime gameTime)
         {
 
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
             main.Update(gameTime);
             // TODO: Add your update logic here
             //menu.Update();
