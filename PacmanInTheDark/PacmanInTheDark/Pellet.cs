@@ -24,7 +24,7 @@ namespace PacmanInTheDark
         public Pellet(Path p, float pos)
             : base(p,pos)
         {
-
+            this.active = true;
         }
 
         const int yPosOffSet = 152; // how off pacman's y coordinate is from the map
@@ -33,6 +33,11 @@ namespace PacmanInTheDark
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Point mapCoord, Point pixelCoord)
         {
+            //leave this line in
+            if (!active) return;
+
+            //add code here
+
         }
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Point MapCoord, Point PixelCoord , Texture2D image)
         {
@@ -50,13 +55,17 @@ namespace PacmanInTheDark
         }
         public override void Collision(Pacman pac)
         {
+            //leave this line
+            if (!active) return;
+
             // collides with pacman - becomes inactive
             this.active = false;
+
+            //add code here
         }
 
         public override void Collision(Ghost ghost)
         {
-            throw new NotImplementedException();
         }
     }
 }
