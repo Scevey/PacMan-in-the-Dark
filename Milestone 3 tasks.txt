@@ -1,7 +1,7 @@
-Sungmin: just continue with your drawing stuff (pellets drawing (code, & sprite), ghosts drawing (code & sprite), 
+Sungmin: just continue with your drawing stuff (pellets drawing (code, & sprite), ghosts drawing (code & sprite),
 add two lines for paths (one to represent walls)
 Anthony: finish gamestates (IE. hiscores, pause menu), display gameover text when we lose
-Jeremy: add scores class (includes hiscores text file), add ending condition for pellets, collision 
-Mike: big pellet, fix the small pellets on intersection paths, finish warps, add pellet count, add line weights
+Jeremy: add scores class (includes hiscores text file), add ending condition for pellets, collision
+Mike: big pellet, finish warps
 
 GENERAL: scalable screen, add pellets to map file, varying lightness, hunger bar

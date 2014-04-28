@@ -86,8 +86,8 @@ namespace PacmanInTheDark
             paths = new List<Path>();
             pellets = new List<Pellet>();
             Parse(filename);
-            CalculateIntersects(paths);
-            CheckPellets(pellets);
+            CalculateIntersects();
+            CheckPellets();
         }
 
         //public Map(string filename, GraphicsDevice gd)
@@ -179,13 +179,13 @@ namespace PacmanInTheDark
         /// <summary>
         /// populates the intersection dictionaries of all the paths in the path list
         /// </summary>
-        /// <param name="pathList">The list of paths contained in the map</param>
-        void CalculateIntersects(List<Path> pathList)
+        /// <param name="paths">The list of paths contained in the map</param>
+        void CalculateIntersects()
         {
             //checks every path in the path list for intersections with every other path
-            foreach (Path p in pathList)
+            foreach (Path p in paths)
             {
-                foreach (Path p2 in pathList)
+                foreach (Path p2 in paths)
                 {
                     //does nothing if the two paths being checked are the same path
                     if (p == p2)
@@ -195,32 +195,57 @@ namespace PacmanInTheDark
             }
         }
 
-        //removes duplicate pellets
-        //duplicates will naturally occurr at path intersections
-        void CheckPellets(List<Pellet> pelletList)
+        /// <summary>
+        /// removes duplicate pellets. duplicates will naturally occurr at path intersections. check pellets on intersection points too
+        /// </summary>
+        void CheckPellets()
         {
             //for every pellet in the list...
-            for(int p1index = 0; p1index<pelletList.Count;p1index++)
+            for(int p1index = 0; p1index<pellets.Count;p1index++)
             {
                 //check every other pellet in the list
-                for(int p2index = 0; p2index<pelletList.Count;p2index++)
+                for(int p2index = 0; p2index<pellets.Count;p2index++)
                 {
                     //do nothing if the two pellets being examined are in fact the same pellet
-                    if (pelletList[p1index] == pelletList[p2index])
+                    if (pellets[p1index] == pellets[p2index])
                         continue;
                     //otherwise, remove the second if they are on top of each other
-                    if (pelletList[p1index].MapPos == pelletList[p2index].MapPos)
-                        pelletList.RemoveAt(p2index);
+                    if (pellets[p1index].MapPos == pellets[p2index].MapPos)
+                        pellets.RemoveAt(p2index);
+                }
+            }
+
+            //for every path
+            foreach (Path p in paths)
+            {
+                //check every pellet
+                foreach (Pellet pel in pellets)
+                {
+                    //for every intersection point on the path
+                    foreach (Point ip in p.IntersectionDictionary.Values)
+                    {
+                        //compare the position of the point and the pellet point
+                        if (pel.MapPos == ip && !p.pieces.Contains(pel))
+                        {
+                            //if they're the same and the pellet isn't in the path's piece list, add it to the list
+                            p.pieces.Add(pel);
+                        }
+                    }
                 }
             }
         }
 
-        //generates a Texture2D for a map file
+        /// <summary>
+        /// generates a Texture2D for a map file
+        /// </summary>
+        /// <param name="m">the map to draw</param>
+        /// <param name="gd">the active graphics device</param>
+        /// <returns>returns a texture representation of the map</returns>
         public static Texture2D DrawMap(Map m, GraphicsDevice gd)
         {
             //constants dealing with drawing style
-            const int lineWidth = 1; //the width in pixels of the path lines
-            const int padding = 1; //the number of pixels from the edge of the map tile that the line starts
+            const int lineWidth = 10; //the width in pixels of the path lines
+            const int padding = 10; //the number of pixels from the edge of the map tile that the line starts
             const int scaleFactor = padding * 2 + lineWidth; //a scale factor based on the above parameters
             Color lineColor = Color.Blue; //the line color
 
@@ -236,9 +261,9 @@ namespace PacmanInTheDark
                 Point projEnd = new Point(p.End.X * scaleFactor + padding, p.End.Y * scaleFactor + padding);
 
                 //iterate through the color array and do stuff
-                for (int x = (int)projStart.X; x <= (int)projEnd.X; x++)
+                for (int x = (int)projStart.X; x < (int)projEnd.X+lineWidth; x++)
                 {
-                    for (int y = (int)projStart.Y; y <= (int)projEnd.Y; y++)
+                    for (int y = (int)projStart.Y; y < (int)projEnd.Y+lineWidth; y++)
                     {
                         textureData[x+y*tempBG.Width] = (uint)lineColor.ToArgb();
                     }
