@@ -62,6 +62,8 @@ namespace PacmanInTheDark
         List<Gui> highScore = new List<Gui>();
 
         GameState gameState;
+
+        //add gui items to each list
         public Menu(GraphicsDevice _gd)
         {
             //add gui for images to lists based on states
@@ -319,18 +321,21 @@ namespace PacmanInTheDark
                         //if (pacman.gameover == true) gameState = GameState.Gameover;
                     }
                     break;
+                    //update pause menu
                 case GameState.Pause:
                     foreach(Gui gui in pauseMenu)
                     {
                         gui.Update();
                     }
                     break;
+                    //update end game screen
                 case GameState.EndGame:
                     foreach (Gui gui in end)
                     {
                         gui.Update();
                     }
                     break;
+                    //update highscores page
                 case GameState.Hiscores:
                     foreach (Gui gui in highScore)
                     {
@@ -439,6 +444,7 @@ namespace PacmanInTheDark
                         element.Draw(spriteBatch);
                     }
                     break;
+                    //draw the end game screen with game behind it
                 case GameState.EndGame:
                     //draws pacman to the screen
                     pacman.Draw(gameTime, spriteBatch, new Point(28,26), new Point(1180,500));
@@ -471,6 +477,7 @@ namespace PacmanInTheDark
                         element.Draw(spriteBatch);
                     }
                     break;
+                    //draw highscores
                 case GameState.Hiscores:
                     foreach (Gui element in highScore)
                     {
