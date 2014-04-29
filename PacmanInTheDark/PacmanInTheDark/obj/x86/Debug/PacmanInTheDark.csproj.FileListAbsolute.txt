@@ -123,7 +123,6 @@ C:\Users\Mike\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x
 C:\Users\Mike\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.pdb
 C:\Users\Mike\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.csprojResolveAssemblyReference.cache
 C:\Users\Jeremy\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Arial.xnb
-C:\Users\Jeremy\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\blackCover.xnb
 C:\Users\Jeremy\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\topBar.xnb
 C:\Users\Anthony\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Arial.xnb
 C:\Users\Anthony\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\blackCover.xnb
@@ -208,3 +207,5 @@ C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDa
 C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\HighScore Button.xnb
 C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Pellet.xnb
 C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Vision.xnb
+C:\Users\Jeremy\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Pellet.xnb
+C:\Users\Jeremy\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Vision.xnb

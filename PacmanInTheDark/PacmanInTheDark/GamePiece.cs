@@ -38,9 +38,6 @@ namespace PacmanInTheDark
             }
         }
 
-        //TODO add variable for spritesheet
-        //or don't, I guess we don't need it
-
         #endregion
 
         #region Properties

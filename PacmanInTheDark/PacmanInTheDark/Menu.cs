@@ -22,6 +22,7 @@ namespace PacmanInTheDark
     {
 
         //TODO fix info image size, scale down highscore main menu button to match exit
+
         //create a map object
         Map gameMap = new Map("map.txt");
         Pacman pacman;//Pacman object
@@ -98,10 +99,17 @@ namespace PacmanInTheDark
             gd = _gd;
             
         }
+
+        /// <summary>
+        /// Loads all required starting content for game
+        /// </summary>
+        /// <param name="content"></param>
         public void LoadContent(ContentManager content)
         {
             // Loads values from editor file
             LoadEditorValues();
+
+            // Load various images
             pacmanImage = content.Load<Texture2D>("PacManSheet"); // load pacman sprite sheet
             Texture2D ghostImage = content.Load<Texture2D>("ghostSheet"); // load ghost sprite sheet
             Texture2D glowImage = content.Load<Texture2D>("glowSheet"); // load ghost glow sheet
@@ -109,12 +117,33 @@ namespace PacmanInTheDark
             vision = content.Load<Texture2D>("Vision"); // load pacman sight image
             Font = content.Load<SpriteFont>("Arial");
 
+            // Create pacman and set initial info
             pacman = new Pacman(pacmanImage, vision, gameMap.Paths[6], 7.5f, speed);
             pacman.Health = health;
             pacman.Lives = lives;
-            
+
+            // Change pacman's light level based off of value from the editor
+            #region
+            /*switch (light)
+            {
+                case 0: // invalid case, set to default light
+
+                    break;
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+            }*/
+            #endregion
+
             // Create the specified amount of ghosts from the editor
-            switch(ghosts)
+            #region
+            switch (ghosts)
             {
                 case 0: // Should never be 0, but in case -- just create all
                     break;
@@ -137,7 +166,9 @@ namespace PacmanInTheDark
                     Inky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
                     break;
             }
+            #endregion 
 
+            // Set the starting path and create the map
             currentPath = (pacman.CurrentPath);
             bg = Map.DrawMap(gameMap, gd);
 
@@ -256,6 +287,8 @@ namespace PacmanInTheDark
                             gameState = GameState.EndGame;
                         }
                         gui.Update();
+
+                        // Move objects (ghost(s), pacman)
                         pacman.UpdateFrame(gameTime);
                         pacman.Move();
 
@@ -345,6 +378,8 @@ namespace PacmanInTheDark
                     Pinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 200);
                     Inky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 300);
                     */
+
+                    // Check each pellet to see if it's active and if it is, draw it
                     for (int i = 0; i < gameMap.Pellets.Count; i++)
                     {
                         if (gameMap.Pellets[i].Active == true)

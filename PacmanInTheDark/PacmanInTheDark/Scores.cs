@@ -75,11 +75,15 @@ namespace PacmanInTheDark
                 hiScores.Add(error);
             }
         }
+
+        /// <summary>
+        /// Writes the hiscore(s) to the text file for future use
+        /// </summary>
         void WriteScores()
         {
             try
             {
-                StreamWriter writescores = new StreamWriter("Scores.txt");
+                StreamWriter writescores = new StreamWriter("scores.txt");
                 foreach (ScoresStruct ss in hiScores)
                 {
                     writescores.WriteLine(ss.Name + "," + ss.Score);

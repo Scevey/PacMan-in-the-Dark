@@ -14,6 +14,8 @@ namespace PacmanInTheDark
     //Jeremy Hall
     class Ghost : MovableGamePiece
     {
+        // Attributes and properties
+        #region
         //Random variable used to decide which path/direction ghost has
         Random randy = new Random();
 
@@ -55,7 +57,7 @@ namespace PacmanInTheDark
         {
             get { return originalPath; }
         }
-
+        #endregion
         /// <summary>
         /// Constructor to create Ghost
         /// </summary>
@@ -168,7 +170,7 @@ namespace PacmanInTheDark
         }
 
         /// <summary>
-        /// Update Pacman Image
+        /// Update Ghost Image
         /// </summary>
         // Stub Draw
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Point MapCoord, Point PixelCoord)
@@ -284,10 +286,18 @@ namespace PacmanInTheDark
             return newSpeed;
         }
 
+        /// <summary>
+        /// Collision with pacman
+        /// </summary>
+        /// <param name="pac"></param>
         public override void Collision(Pacman pac)
         {
             pac.Collision(this);
         }
+        /// <summary>
+        /// Collision with ghost
+        /// </summary>
+        /// <param name="ghost"></param>
         public override void Collision(Ghost ghost)
         {
             return;
