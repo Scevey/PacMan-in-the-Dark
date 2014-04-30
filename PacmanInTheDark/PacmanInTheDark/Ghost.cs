@@ -92,7 +92,7 @@ namespace PacmanInTheDark
         int millisecondsPerFrame; // how long to display a frame
         int currentFrameX, currentFrameY; // location on spire sheet of the frame
         const int yPosOffSet = 155; // how off ghost's y coordinate is from the map
-        const int xPosOffSet = 5; // how off ghost's x coordinate is from the map
+        const int xPosOffSet = -5; // how off ghost's x coordinate is from the map
         const int xglowOffSet = 50; // how off ghosts' glow x coord is from the map
         const int yglowOffset = 50; // how off ghosts' glow y coord is from the map
         Vector2 ghostPos; //position of ghost in pixels

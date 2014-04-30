@@ -265,7 +265,7 @@ namespace PacmanInTheDark
         {
             //constants dealing with drawing style
             const int lineWidth = 10; //the width in pixels of the path lines
-            const int padding = 10; //the number of pixels from the edge of the map tile that the line starts
+            const int padding = 5; //the number of pixels from the edge of the map tile that the line starts
             const int scaleFactor = padding * 2 + lineWidth; //a scale factor based on the above parameters
             Color lineColor = Color.Blue; //the line color
 

@@ -229,8 +229,8 @@ namespace PacmanInTheDark
             visionPos.X = pacmanPos.X - xVisionOffSet;
             visionPos.Y = pacmanPos.Y - yVisionOffSet;
             //Pacmans Glow
-            spriteBatch.Draw(vision, new Rectangle((int)visionPos.X + (int)(-xVisionOffSet * 3.25), (int)visionPos.Y + (int)(-yVisionOffSet * 2.2), 3000, 1500), Color.White);
-            spriteBatch.Draw(vision, new Rectangle((int)visionPos.X + (int)(-xVisionOffSet * 1.1), (int)visionPos.Y + (int)(-yVisionOffSet * 1.05), 1500, 1000), Color.White);
+            //spriteBatch.Draw(vision, new Rectangle((int)visionPos.X + (int)(-xVisionOffSet * 3.25), (int)visionPos.Y + (int)(-yVisionOffSet * 2.2), 3000, 1500), Color.White);
+            //spriteBatch.Draw(vision, new Rectangle((int)visionPos.X + (int)(-xVisionOffSet * 1.1), (int)visionPos.Y + (int)(-yVisionOffSet * 1.05), 1500, 1000), Color.White);
             //spriteBatch.Draw(vision, visionPos, Color.White);
             if (Direction == Direction.Up || (Direction == Direction.None && LastDirection == Direction.Up))
             {

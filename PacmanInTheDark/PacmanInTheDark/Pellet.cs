@@ -28,7 +28,7 @@ namespace PacmanInTheDark
         }
 
         const int yPosOffSet = 152; // how off pacman's y coordinate is from the map
-        const int xPosOffSet = -2; // how off pacman's x coordinate is from the map
+        const int xPosOffSet = -10; // how off pacman's x coordinate is from the map
         Vector2 pelletPos; // position of pellet
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Point mapCoord, Point pixelCoord)
