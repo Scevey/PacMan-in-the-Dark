@@ -68,6 +68,18 @@ namespace PacmanInTheDark
         }
 
         /// <summary>
+        /// Gets a float representing the ratio between the map's width and its height
+        /// </summary>
+        public float MapRatio
+        {
+            get
+            {
+                Point size = MapSize;
+                return size.X / size.Y;
+            }
+        }
+
+        /// <summary>
         /// Gets the total amount of pellets active on the map
         /// </summary>
         public int PelletCount

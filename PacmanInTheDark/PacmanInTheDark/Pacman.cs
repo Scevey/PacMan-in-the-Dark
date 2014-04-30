@@ -68,7 +68,7 @@ namespace PacmanInTheDark
         int millisecondsPerFrame; // how long to display a frame
         int currentFrameX, currentFrameY; // location on spire sheet of the frame
         const int yPosOffSet = 155; // how off pacman's y coordinate is from the map
-        const int xPosOffSet = 0; // how off pacman's x coordinate is from the map
+        const int xPosOffSet = -10; // how off pacman's x coordinate is from the map
         const int xVisionOffSet = 350;
         const int yVisionOffSet = 225;
         Vector2 visionPos; // position of pacman's vision
@@ -219,11 +219,8 @@ namespace PacmanInTheDark
         /// </summary>
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Point MapCoord, Point PixelCoord)
         {
-            //get to pacmanPos coordinates
-            Point location = new Point(0, 0);
-
             // convert path location to screen location
-            location = Point.MapToScreen(MapPos, MapCoord, PixelCoord);
+            Point location = Point.MapToScreen(MapPos, MapCoord, PixelCoord);
 
             // store converted points into a Vector2D
             pacmanPos.X = location.X + xPosOffSet;

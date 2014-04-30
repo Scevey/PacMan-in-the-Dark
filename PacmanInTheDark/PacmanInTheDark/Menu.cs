@@ -38,6 +38,9 @@ namespace PacmanInTheDark
         Texture2D bg; // path image
         Path currentPath;
         GraphicsDevice gd;
+        //gameplay window dimensions
+        const int maxWidth = 800;
+        const int maxHeight = 600;
         //gamestates
         enum GameState { MainMenu, OptionMenu, Info, InGame, Pause, EndGame, Hiscores }
         
@@ -98,6 +101,8 @@ namespace PacmanInTheDark
             highScore.Add(new Gui("HighScore"));
             highScore.Add(new Gui("HighScore Exit"));
             highScore.Add(new Gui("Main Button"));
+
+            //graphics device
             gd = _gd;
             
         }
@@ -375,9 +380,32 @@ namespace PacmanInTheDark
                     break;
                 case GameState.InGame:
                     //draws gameplay
-                    spriteBatch.Draw(bg, new Rectangle(0, 170, 1230, 530), Color.White);
+                    //original values 1230, 530
+                    int windowWidth;
+                    int windowHeight;
+                    float screenRatio = maxWidth/maxHeight;
+
+                    if (gameMap.MapRatio > screenRatio)
+                    {
+                        windowWidth = maxWidth;
+                        windowHeight = (int)(maxHeight / gameMap.MapRatio);
+                    }
+                    else if (gameMap.MapRatio == screenRatio)
+                    {
+                        windowWidth = maxWidth;
+                        windowHeight = maxHeight;
+                    }
+                    else
+                    {
+                        windowWidth = (int)(maxWidth*gameMap.MapRatio);
+                        windowHeight = maxHeight;
+                    }
+
+                    spriteBatch.Draw(bg, new Rectangle(0, 170, windowWidth, windowHeight), Color.White);
+
                     // Ghost Drawing
-                    Clyde.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180,500), 0);
+                    Clyde.Draw(gameTime, spriteBatch, gameMap.MapSize, new Point(windowWidth,windowHeight), 0);
+
                     /*
                     Blinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 100);
                     Pinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 200);
@@ -389,16 +417,17 @@ namespace PacmanInTheDark
                     {
                         if (gameMap.Pellets[i].Active == true)
                         {
-                            gameMap.Pellets[i].Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), pelletImg);
+                            gameMap.Pellets[i].Draw(gameTime, spriteBatch, gameMap.MapSize, new Point(windowWidth, windowHeight), pelletImg);
 
                         }
                     }
                     //draws pacman to the screen
-                    pacman.Draw(gameTime, spriteBatch, new Point(28,26), new Point(1180,500));
+                    pacman.Draw(gameTime, spriteBatch, gameMap.MapSize, new Point(windowWidth,windowHeight));
                     foreach (Gui element in inGame)
                     {
                         element.Draw(spriteBatch);
                     }
+
                     //info on topBar (will change later on to update the lives,score,pellets left, and hunger bar
                     //related to lives
                     spriteBatch.DrawString(Font, "Lives", new Vector2(42, 45), Color.White);
@@ -406,12 +435,15 @@ namespace PacmanInTheDark
                     {
                         spriteBatch.Draw(pacmanImage, new Rectangle(10 + (i * 25), 80, 30, 30), new Rectangle(0, 0, 100, 100), Color.White);
                     }
+
                     //related to score
                     spriteBatch.DrawString(Font, "Score", new Vector2(190, 45), Color.White);
                     spriteBatch.DrawString(Font, "00000", new Vector2(185, 85), Color.White);
+
                     //related to pellets left
                     spriteBatch.DrawString(Font, "Left", new Vector2(390, 45), Color.White);
                     spriteBatch.DrawString(Font, Convert.ToString(gameMap.PelletCount), new Vector2(390, 85), Color.White);
+
                     //related to hunger bar
                     spriteBatch.DrawString(Font, "Hunger", new Vector2(590, 45), Color.White);
                     spriteBatch.Draw(vision, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
@@ -461,14 +493,18 @@ namespace PacmanInTheDark
                     }
                     //info on topBar (will change later on to update the lives,score,pellets left, and hunger bar
                     spriteBatch.Draw(bg, new Rectangle(0, 170, 1230, 530), Color.White);
+
                     //related to lives
                     spriteBatch.DrawString(Font, "Lives", new Vector2(42, 45), Color.White);
+
                     //related to score
                     spriteBatch.DrawString(Font, "Score", new Vector2(190, 45), Color.White);
                     spriteBatch.DrawString(Font, "00000", new Vector2(185, 85), Color.White);
+
                     //related to pellets left
                     spriteBatch.DrawString(Font, "Left", new Vector2(390, 45), Color.White);
                     spriteBatch.DrawString(Font, Convert.ToString(gameMap.PelletCount), new Vector2(390, 85), Color.White);
+
                     //related to hunger bar
                     spriteBatch.DrawString(Font, "Hunger", new Vector2(590, 45), Color.White);
                     spriteBatch.Draw(vision, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
