@@ -155,22 +155,22 @@ namespace PacmanInTheDark
                 case 0: // Should never be 0, but in case -- just create all
                     break;
                 case 1: // Creates one ghost
-                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[0], 2f, .1f);
+                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 2f, .1f);
                     break;
                 case 2: // Creates two ghosts
-                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[0], 2f, .1f);
-                    Blinky = new Ghost(ghostImage, glowImage, gameMap.Paths[0], 0, .1f);
+                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 2f, .1f);
+                    Blinky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
                     break;
                 case 3: // Creates three ghosts
-                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[0], 2f, .1f);
-                    Blinky = new Ghost(ghostImage, glowImage, gameMap.Paths[0], 0, .1f);
-                    Pinky = new Ghost(ghostImage, glowImage, gameMap.Paths[0], 0, .1f);
+                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 2f, .1f);
+                    Blinky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
+                    Pinky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
                     break;
                 case 4: // Creates four ghosts
-                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[0], 2f, .1f);
-                    Blinky = new Ghost(ghostImage, glowImage, gameMap.Paths[0], 0, .1f);
-                    Pinky = new Ghost(ghostImage, glowImage, gameMap.Paths[0], 0, .1f);
-                    Inky = new Ghost(ghostImage, glowImage, gameMap.Paths[0], 0, .1f);
+                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 2f, .1f);
+                    Blinky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
+                    Pinky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
+                    Inky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
                     break;
             }
             #endregion 

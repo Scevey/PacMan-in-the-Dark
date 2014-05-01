@@ -27,8 +27,8 @@ namespace PacmanInTheDark
             this.active = true;
         }
 
-        const int yPosOffSet = 152; // how off pacman's y coordinate is from the map
-        const int xPosOffSet = -10; // how off pacman's x coordinate is from the map
+        const int yPosOffSet = 157; // how off the pellet's y coordinate is from the map
+        const int xPosOffSet = -5; // how off the pellet's x coordinate is from the map
         Vector2 pelletPos; // position of pellet
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Point mapCoord, Point pixelCoord)
@@ -51,7 +51,7 @@ namespace PacmanInTheDark
             pelletPos.X = location.X + xPosOffSet;
             pelletPos.Y = location.Y + yPosOffSet;
 
-            spriteBatch.Draw(image, new Rectangle((int)pelletPos.X, (int)pelletPos.Y, 50, 50), Color.White);
+            spriteBatch.Draw(image, new Rectangle((int)pelletPos.X, (int)pelletPos.Y, 40, 40), Color.White);
         }
         public override void Collision(Pacman pac)
         {
