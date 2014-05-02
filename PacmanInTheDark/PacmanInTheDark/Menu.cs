@@ -42,7 +42,7 @@ namespace PacmanInTheDark
         const int maxWidth = 800;
         const int maxHeight = 600;
         //gamestates
-        enum GameState { MainMenu, OptionMenu, Info, InGame, Pause, EndGame, Hiscores }
+        enum GameState { MainMenu, OptionMenu, Info, InGame, Pause, EndGame, HighScores }
         
         // attributes for starting values of the game
         float speed; // how fast pacman travels
@@ -54,6 +54,9 @@ namespace PacmanInTheDark
 
         //window sizes
 
+        // hi score attributes
+        int currentScore = 0;
+        Scores hiScores = new Scores(); // Load the score, then use the property to access each individual score
         
         //lists of gui for different states
         List<Gui> startMenu = new List<Gui>();
@@ -74,7 +77,8 @@ namespace PacmanInTheDark
             startMenu.Add(new Gui("Start Menu Base"));
             startMenu.Add(new Gui("Start Button"));
             startMenu.Add(new Gui("Option"));
-            
+            hiScores.LoadScores();
+
             //option menu images
             optionMenu.Add(new Gui("Option Base"));
             optionMenu.Add(new Gui("Back Button"));
@@ -87,7 +91,7 @@ namespace PacmanInTheDark
 
             inGame.Add(new Gui("topBar"));
             //inGame.Add(new Gui("background"));    commented out to use a sample map 
-
+            
             //pause menu images
             pauseMenu.Add(new Gui("Pause Base"));
             pauseMenu.Add(new Gui("Exit Button"));
@@ -319,11 +323,9 @@ namespace PacmanInTheDark
                             if(gp == pacman)
                                 continue;
                             if (Point.Distance(gp.MapPos, pacman.MapPos) <= pacman.Speed)
-                                gp.Collision(pacman);
+                                gp.Collision(pacman);                                
                         }
-
                         currentPath = (pacman.CurrentPath);
-                        //if (pacman.gameover == true) gameState = GameState.Gameover;
                     }
                     break;
                     //update pause menu
@@ -341,7 +343,7 @@ namespace PacmanInTheDark
                     }
                     break;
                     //update highscores page
-                case GameState.Hiscores:
+                case GameState.HighScores:
                     foreach (Gui gui in highScore)
                     {
                         gui.Update();
@@ -418,7 +420,6 @@ namespace PacmanInTheDark
                         if (gameMap.Pellets[i].Active == true)
                         {
                             gameMap.Pellets[i].Draw(gameTime, spriteBatch, gameMap.MapSize, new Point(windowWidth, windowHeight), pelletImg);
-
                         }
                     }
                     //draws pacman to the screen
@@ -514,7 +515,7 @@ namespace PacmanInTheDark
                     }
                     break;
                     //draw highscores
-                case GameState.Hiscores:
+                case GameState.HighScores:
                     foreach (Gui element in highScore)
                     {
                         element.Draw(spriteBatch);
@@ -560,7 +561,7 @@ namespace PacmanInTheDark
             }
             if (element == "HighScore Button")
             {
-                gameState = GameState.Hiscores;
+                gameState = GameState.HighScores;
             }
             if (element == "Main Button")
             {

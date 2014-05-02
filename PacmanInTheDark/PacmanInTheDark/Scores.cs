@@ -13,15 +13,21 @@ namespace PacmanInTheDark
     {
         // Holds all of the hi scores
         List<ScoresStruct> hiScores = new List<ScoresStruct>();
+        // property to retrieve all of the scores
+        public List<ScoresStruct> HiScores
+        {
+            get { return hiScores; }
+            set { hiScores = value; }
+        }
 
         // Structures that contain the name of the person and their score
-        struct ScoresStruct
+        public struct ScoresStruct
         {
             public string Name;
             public int Score;
         }
 
-        // Creates a new score  struct object
+        // Creates a new score struct object
         public Scores()
         {
         }
@@ -29,15 +35,33 @@ namespace PacmanInTheDark
         /// <summary>
         /// Displays all of the scores on the hiscores page
         /// </summary>
-        void DisplayScores()
+        void SortScores()
         {
-            //TODO: sort hiscores and figure out which are highest
+            for (int i = 0; i < hiScores.Count; i++)
+            {
+                ScoresStruct s1 = hiScores[i];
+                for (int j = 0; j < hiScores.Count; j++)
+                {
+                    // Change the scores when one is greater than another
+                    if (s1.Score >= hiScores[i].Score)
+                    {
+                        // Create temporary structures to hold scores
+                        ScoresStruct temps1 = s1;
+                        ScoresStruct temps2 = hiScores[i];
+
+                        // Switch the score spots
+                        s1 = temps2;
+                        hiScores[i] = temps1;
+                    }
+                }
+            }
+
         }
 
         /// <summary>
         /// Loads in all of the scores from the text file
         /// </summary>
-        void LoadScores()
+        public void LoadScores()
         {
             try
             {
@@ -62,8 +86,9 @@ namespace PacmanInTheDark
                     // add the struct to the list
                     hiScores.Add(tempScores);
                 }
+                SortScores();
             }
-            catch (Exception) 
+            catch (Exception)
             {
                 // clear previously existing hiscores
                 hiScores.Clear();
@@ -79,15 +104,18 @@ namespace PacmanInTheDark
         /// <summary>
         /// Writes the hiscore(s) to the text file for future use
         /// </summary>
-        void WriteScores()
+        public void WriteScores(string name, int score)
         {
             try
             {
+                // Open writer
                 StreamWriter writescores = new StreamWriter("scores.txt");
-                foreach (ScoresStruct ss in hiScores)
-                {
-                    writescores.WriteLine(ss.Name + "," + ss.Score);
-                }
+
+                // Write values
+                writescores.WriteLine(name + ',' + score);
+
+                // Close writer
+                writescores.Close();
             }
             catch (Exception)
             {

@@ -226,3 +226,36 @@ D:\Users\Mike\My Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bi
 D:\Users\Mike\My Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\HighScore Button.xnb
 D:\Users\Mike\My Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Pellet.xnb
 D:\Users\Mike\My Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Vision.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.exe
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.pdb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\SDL.dll
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Arial.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\topBar.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Back Button.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Back Button2.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Exit Button.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Exit.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\HighScore Exit.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\HighScore.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Info Button.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Info.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Main Button.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Option Base.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Option.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Pause Base.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Start Button.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Start Menu Base.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\ghostSheet.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\glowSheet.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\PacManSheet.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\End Screen Base.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\HighScore Button.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Pellet.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Vision.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\PacmanInTheDark.exe
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\PacmanInTheDark.pdb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Lidgren.Network.dll
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\MonoGame.Framework.dll
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\OpenTK.dll
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Tao.Sdl.dll
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.csprojResolveAssemblyReference.cache
