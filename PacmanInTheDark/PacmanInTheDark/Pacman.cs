@@ -60,6 +60,13 @@ namespace PacmanInTheDark
             get { return originalPath; }
         }
 
+        int score;
+        public int Score
+        {
+            get { return score; }
+            set { score = value; }
+        }
+
         //Draw related attributes
         int frame; // what frame to draw
         int frameSizeX, frameSizeY; // size of frame in pixels
@@ -93,6 +100,7 @@ namespace PacmanInTheDark
             // Starting position and path for pacman
             originalPos = pos;
             originalPath = path;
+            score = 0;
 
             //Starting image for pacman
             PacmanImg = myPacman;

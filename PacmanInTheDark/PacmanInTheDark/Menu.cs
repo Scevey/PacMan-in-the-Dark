@@ -55,7 +55,6 @@ namespace PacmanInTheDark
         //window sizes
 
         // hi score attributes
-        int currentScore = 0;
         Scores hiScores = new Scores(); // Load the score, then use the property to access each individual score
         
         //lists of gui for different states
@@ -323,7 +322,7 @@ namespace PacmanInTheDark
                             if(gp == pacman)
                                 continue;
                             if (Point.Distance(gp.MapPos, pacman.MapPos) <= pacman.Speed)
-                                gp.Collision(pacman);                                
+                                gp.Collision(pacman);                               
                         }
                         currentPath = (pacman.CurrentPath);
                     }
@@ -439,7 +438,7 @@ namespace PacmanInTheDark
 
                     //related to score
                     spriteBatch.DrawString(Font, "Score", new Vector2(190, 45), Color.White);
-                    spriteBatch.DrawString(Font, "00000", new Vector2(185, 85), Color.White);
+                    spriteBatch.DrawString(Font, Convert.ToString(pacman.Score), new Vector2(185, 85), Color.White);
 
                     //related to pellets left
                     spriteBatch.DrawString(Font, "Left", new Vector2(390, 45), Color.White);
