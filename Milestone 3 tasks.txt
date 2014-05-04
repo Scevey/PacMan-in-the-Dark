@@ -1,7 +1,12 @@
-Sungmin: just continue with your drawing stuff (pellets drawing (code, & sprite), ghosts drawing (code & sprite),
-add two lines for paths (one to represent walls)
-Anthony: finish gamestates (IE. hiscores, pause menu), display gameover text when we lose
-Jeremy: add scores class (includes hiscores text file), add ending condition for pellets, collision
-Mike: big pellet, finish warps
+Things That Need to be Completed
+1. Hunger bar
+2. Big Pellet (take away darkness, slow down ghosts, MAYBE stop hunger bar?)
+3. Warp
+4. Varying light
+5. Ghost movement(have each ghost with either a different random seed or have them spawn at different times)
+6. Scores be drawn to hiscore screen
 
-GENERAL: scalable screen, add pellets to map file, varying lightness, hunger bar
+Wants
+1. Better aesthetics
+2. If someone wins, can they replay? Do they go to a new map?
+3. 
