@@ -28,6 +28,11 @@ namespace PacmanInTheDark
         }
 
         /// <summary>
+        /// a dictionarywhose keys are integer IDs and whose values are pairs of points to be connected with warps
+        /// </summary>
+        Dictionary<int,Point[]> warpPointDictionary = new Dictionary<int,Point[]>();
+
+        /// <summary>
         /// The map's background. Can be loaded from a file if one exists, or generated on the fly.
         /// </summary>
         Texture2D mapBG;
@@ -151,6 +156,27 @@ namespace PacmanInTheDark
                     {
                         //splits the string by the space
                         string[] pointSplit = line.Trim().Split(' ');
+
+                        //checks each point on the pair for a warp identifier
+                        foreach (string s in pointSplit)
+                        {
+                            //conditional for the presence of the identifier
+                            if (s.Contains('w'))
+                            {
+                                //checks the character after the w, this is the warp's ID
+                                int warpID = int.Parse(s.Substring(s.IndexOf('w')));
+
+                                //split the coordinate pair into separate coordinates
+                                string[] stringPoint = s.Split(',');
+
+                                //create an entry in the warp point dictionary for the ID if one doesn't exist
+                                if (!warpPointDictionary.ContainsKey(warpID))
+                                    warpPointDictionary.Add(warpID, new Point[2]);
+
+                                //warpPointDictionary[warpID].D = new Point(int.Parse(stringPoint[0]), int.Parse(stringPoint[1]));
+                            }
+                        }
+
                         Point[] points = new Point[pointSplit.Length];
 
                         //iterates through the string-form points and converts them to actual points
@@ -163,7 +189,8 @@ namespace PacmanInTheDark
                         //creates a path from the points and adds it to the path list
                         paths.Add(new Path(points[0], points[1]));
                     }
-                        //it's a pellet if it doesn't
+
+                    //it's a pellet if it doesn't
                     else
                     {
                         //split the string into components and make a point

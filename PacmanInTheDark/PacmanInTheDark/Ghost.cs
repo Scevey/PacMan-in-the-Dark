@@ -14,10 +14,9 @@ namespace PacmanInTheDark
     //Jeremy Hall
     class Ghost : MovableGamePiece
     {
-        // Attributes and properties
-        #region
+        #region Attributes and properties
         //Random variable used to decide which path/direction ghost has
-        Random randy = new Random();
+        static Random randy = new Random();
 
         //Ghost image
         Texture2D ghostImg;
