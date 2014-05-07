@@ -21,8 +21,6 @@ namespace PacmanInTheDark
     class Menu
     {
 
-        //TODO fix info image size, scale down highscore main menu button to match exit
-
         //create a map object
         Map gameMap = new Map("map.txt");
         Pacman pacman;//Pacman object
@@ -42,7 +40,7 @@ namespace PacmanInTheDark
         const int maxWidth = 800;
         const int maxHeight = 600;
         //gamestates
-        enum GameState { MainMenu, OptionMenu, Info, InGame, Pause, EndGame, HighScores }
+        enum GameState { MainMenu, OptionMenu, Info, InGame, Pause, EndGame, WinGame, HighScores }
         
         // attributes for starting values of the game
         float speed; // how fast pacman travels
@@ -64,6 +62,7 @@ namespace PacmanInTheDark
         List<Gui> inGame = new List<Gui>(); 
         List<Gui> pauseMenu = new List<Gui>();
         List<Gui> end = new List<Gui>();
+        List<Gui> win = new List<Gui>();
         List<Gui> highScore = new List<Gui>();
 
         GameState gameState;
@@ -86,7 +85,7 @@ namespace PacmanInTheDark
 
             //game description images
             infoMenu.Add(new Gui("Info"));
-            infoMenu.Add(new Gui("Back Button"));
+            infoMenu.Add(new Gui("Info Back"));
 
             inGame.Add(new Gui("topBar"));
             //inGame.Add(new Gui("background"));    commented out to use a sample map 
@@ -100,10 +99,15 @@ namespace PacmanInTheDark
             end.Add(new Gui("End Screen Base"));
             end.Add(new Gui("HighScore Button"));
 
+            //game won images
+            win.Add(new Gui("Win Screen Base"));
+            win.Add(new Gui("HighScore Button"));
+            //win.Add(new Gui("Continue Button"));
+
             //post game images
             highScore.Add(new Gui("HighScore"));
             highScore.Add(new Gui("HighScore Exit"));
-            highScore.Add(new Gui("Main Button"));
+            highScore.Add(new Gui("HighScore Main"));
 
             //graphics device
             gd = _gd;
@@ -215,7 +219,7 @@ namespace PacmanInTheDark
             }
 
             //adjust position
-            infoMenu.Find(x => x.ImgName == "Back Button").MoveElement(0, 250);
+            infoMenu.Find(x => x.ImgName == "Info Back").MoveElement(0, 225);
             
             
             //load, center and add click events for all in ingame list
@@ -243,6 +247,15 @@ namespace PacmanInTheDark
                 gui.clickEvent += OnClick;
             }
             end.Find(x => x.ImgName == "HighScore Button").MoveElement(0, 25);
+
+            foreach (Gui gui in win)
+            {
+                gui.LoadContent(content);
+                gui.Center(780, 1340);
+                gui.clickEvent += OnClick;
+            }
+            win.Find(x => x.ImgName == "HighScore Button").MoveElement(0, 25);
+
             foreach (Gui gui in highScore)
             {
                 gui.LoadContent(content);
@@ -251,13 +264,8 @@ namespace PacmanInTheDark
             }
 
             //adjust position
-            highScore.Find(x => x.ImgName == "Main Button").MoveElement(-125, 225);
+            highScore.Find(x => x.ImgName == "HighScore Main").MoveElement(-125, 225);
             highScore.Find(x => x.ImgName == "HighScore Exit").MoveElement(125, 225);
-
-            //adjust position
-            //inGame.Find(x => x.ImgName == "background").Center(768, 768);      commented out to use a sample map
-            //inGame.Find(x => x.ImgName == "background").MoveElement(0, 155);   commented out to use a sample map
-
         }
         public void Update(GameTime gameTime)
         {
@@ -341,6 +349,15 @@ namespace PacmanInTheDark
                         gui.Update();
                     }
                     break;
+
+                //update win game screen
+                case GameState.WinGame:
+                    foreach (Gui gui in win)
+                    {
+                        gui.Update();
+                    }
+                    break;
+
                     //update highscores page
                 case GameState.HighScores:
                     foreach (Gui gui in highScore)
@@ -354,7 +371,10 @@ namespace PacmanInTheDark
 
         }
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
+        {                    
+            int windowWidth;
+            int windowHeight;
+            float screenRatio = maxWidth/maxHeight;
             //change between game states
             switch (gameState)
             {
@@ -382,9 +402,7 @@ namespace PacmanInTheDark
                 case GameState.InGame:
                     //draws gameplay
                     //original values 1230, 530
-                    int windowWidth;
-                    int windowHeight;
-                    float screenRatio = maxWidth/maxHeight;
+
 
                     if (gameMap.MapRatio > screenRatio)
                     {
@@ -449,16 +467,38 @@ namespace PacmanInTheDark
                     spriteBatch.Draw(vision, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
                     break;
                 case GameState.Pause:
-                    // Draws Map paths
-                    spriteBatch.Draw(bg, new Rectangle(0, 170, 1230, 530), Color.White);
-                    //keep game elements drawn but not updated behind pause menu
-                    spriteBatch.Draw(vision, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
-                    Clyde.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180,500), 0);
+                    if (gameMap.MapRatio > screenRatio)
+                    {
+                        windowWidth = maxWidth;
+                        windowHeight = (int)(maxHeight / gameMap.MapRatio);
+                    }
+                    else if (gameMap.MapRatio == screenRatio)
+                    {
+                        windowWidth = maxWidth;
+                        windowHeight = maxHeight;
+                    }
+                    else
+                    {
+                        windowWidth = (int)(maxWidth * gameMap.MapRatio);
+                        windowHeight = maxHeight;
+                    }
+
+                    spriteBatch.Draw(bg, new Rectangle(0, 170, windowWidth, windowHeight), Color.White);
+                    Clyde.Draw(gameTime, spriteBatch, gameMap.MapSize, new Point(windowWidth, windowHeight), 0);
+
                     /*
                     Blinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 100);
                     Pinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 200);
                     Inky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 300);
                     */
+
+                    for (int i = 0; i < gameMap.Pellets.Count; i++)
+                    {
+                        if (gameMap.Pellets[i].Active == true)
+                        {
+                            gameMap.Pellets[i].Draw(gameTime, spriteBatch, gameMap.MapSize, new Point(windowWidth, windowHeight), pelletImg);
+                        }
+                    }
                     pacman.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500));
                     foreach (Gui element in inGame)
                     {
@@ -470,18 +510,89 @@ namespace PacmanInTheDark
                     spriteBatch.DrawString(Font, "Left", new Vector2(390, 45), Color.White);
                     spriteBatch.DrawString(Font, Convert.ToString(gameMap.PelletCount), new Vector2(390, 85), Color.White);
                     spriteBatch.DrawString(Font, "Hunger", new Vector2(590, 45), Color.White);
-                    //brings up pause menu
                     foreach (Gui element in pauseMenu)
                     {
                         element.Draw(spriteBatch);
                     }
                     break;
-                    //draw the end game screen with game behind it
+
+                //draw the end game screen with game behind it
                 case GameState.EndGame:
-                    //draws pacman to the screen
-                    pacman.Draw(gameTime, spriteBatch, new Point(28,26), new Point(1180,500));
-                    // Draw Ghost to the screen
-                    Clyde.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180,500), 0);
+                    if (gameMap.MapRatio > screenRatio)
+                    {
+                        windowWidth = maxWidth;
+                        windowHeight = (int)(maxHeight / gameMap.MapRatio);
+                    }
+                    else if (gameMap.MapRatio == screenRatio)
+                    {
+                        windowWidth = maxWidth;
+                        windowHeight = maxHeight;
+                    }
+                    else
+                    {
+                        windowWidth = (int)(maxWidth * gameMap.MapRatio);
+                        windowHeight = maxHeight;
+                    }
+
+                    spriteBatch.Draw(bg, new Rectangle(0, 170, windowWidth, windowHeight), Color.White);
+                    Clyde.Draw(gameTime, spriteBatch, gameMap.MapSize, new Point(windowWidth, windowHeight), 0);
+
+                    /*
+                    Blinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 100);
+                    Pinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 200);
+                    Inky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 300);
+                    */
+
+                    for (int i = 0; i < gameMap.Pellets.Count; i++)
+                    {
+                        if (gameMap.Pellets[i].Active == true)
+                        {
+                            gameMap.Pellets[i].Draw(gameTime, spriteBatch, gameMap.MapSize, new Point(windowWidth, windowHeight), pelletImg);
+                        }
+                    }
+                    foreach (Gui element in inGame)
+                    {
+                        element.Draw(spriteBatch);
+                    }
+                    spriteBatch.Draw(bg, new Rectangle(0, 170, 1230, 530), Color.White);
+
+                    spriteBatch.DrawString(Font, "Lives", new Vector2(42, 45), Color.White);
+
+                    spriteBatch.DrawString(Font, "Score", new Vector2(190, 45), Color.White);
+                    spriteBatch.DrawString(Font, "00000", new Vector2(185, 85), Color.White);
+
+                    spriteBatch.DrawString(Font, "Left", new Vector2(390, 45), Color.White);
+                    spriteBatch.DrawString(Font, Convert.ToString(gameMap.PelletCount), new Vector2(390, 85), Color.White);
+
+                    spriteBatch.DrawString(Font, "Hunger", new Vector2(590, 45), Color.White);
+                    spriteBatch.Draw(vision, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
+                    foreach (Gui element in end)
+                    {
+                        element.Draw(spriteBatch);
+                    }
+                    break;
+
+                case GameState.WinGame:
+                    if (gameMap.MapRatio > screenRatio)
+                    {
+                        windowWidth = maxWidth;
+                        windowHeight = (int)(maxHeight / gameMap.MapRatio);
+                    }
+                    else if (gameMap.MapRatio == screenRatio)
+                    {
+                        windowWidth = maxWidth;
+                        windowHeight = maxHeight;
+                    }
+                    else
+                    {
+                        windowWidth = (int)(maxWidth * gameMap.MapRatio);
+                        windowHeight = maxHeight;
+                    }
+
+                    spriteBatch.Draw(bg, new Rectangle(0, 170, windowWidth, windowHeight), Color.White);
+
+                    Clyde.Draw(gameTime, spriteBatch, gameMap.MapSize, new Point(windowWidth, windowHeight), 0);
+
                     /*
                     Blinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 100);
                     Pinky.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500), 200);
@@ -491,29 +602,21 @@ namespace PacmanInTheDark
                     {
                         element.Draw(spriteBatch);
                     }
-                    //info on topBar (will change later on to update the lives,score,pellets left, and hunger bar
                     spriteBatch.Draw(bg, new Rectangle(0, 170, 1230, 530), Color.White);
-
-                    //related to lives
                     spriteBatch.DrawString(Font, "Lives", new Vector2(42, 45), Color.White);
-
-                    //related to score
                     spriteBatch.DrawString(Font, "Score", new Vector2(190, 45), Color.White);
                     spriteBatch.DrawString(Font, "00000", new Vector2(185, 85), Color.White);
-
-                    //related to pellets left
                     spriteBatch.DrawString(Font, "Left", new Vector2(390, 45), Color.White);
                     spriteBatch.DrawString(Font, Convert.ToString(gameMap.PelletCount), new Vector2(390, 85), Color.White);
-
-                    //related to hunger bar
                     spriteBatch.DrawString(Font, "Hunger", new Vector2(590, 45), Color.White);
                     spriteBatch.Draw(vision, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
-                    foreach (Gui element in end)
+                    foreach (Gui element in win)
                     {
                         element.Draw(spriteBatch);
                     }
                     break;
-                    //draw highscores
+
+                //draw highscores
                 case GameState.HighScores:
                     foreach (Gui element in highScore)
                     {
@@ -550,6 +653,10 @@ namespace PacmanInTheDark
             {
                 gameState = GameState.Info;
             }
+            if (element == "Info Back")
+            {
+                gameState = GameState.OptionMenu;
+            }
             if (element == "Exit Button")
             {
                 Environment.Exit(0);
@@ -562,7 +669,7 @@ namespace PacmanInTheDark
             {
                 gameState = GameState.HighScores;
             }
-            if (element == "Main Button")
+            if (element == "HighScore Main")
             {
                 gameState = GameState.MainMenu;
             }

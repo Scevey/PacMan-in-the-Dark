@@ -259,3 +259,6 @@ F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debu
 F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\OpenTK.dll
 F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Tao.Sdl.dll
 F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.csprojResolveAssemblyReference.cache
+C:\Users\Anthony\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\HighScore Main.xnb
+C:\Users\Anthony\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Info Back.xnb
+C:\Users\Anthony\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Win Screen Base.xnb
