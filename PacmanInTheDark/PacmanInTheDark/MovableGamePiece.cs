@@ -217,7 +217,17 @@ namespace PacmanInTheDark
 
         public void WarpCollision(Warp outWarp)
         {
+            //remove the piece from the piece collection if necessary
+            if (CurrentPath.pieces.Contains(this))
+                CurrentPath.pieces.Remove(this);
+
+            //switch the current path
             CurrentPath = outWarp.CurrentPath;
+
+            //add the piece to the new path's piece collection
+            CurrentPath.pieces.Add(this);
+
+            //adjust the path position
             PathPos = outWarp.PathPos;
         }
     }

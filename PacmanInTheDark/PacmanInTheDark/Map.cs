@@ -30,7 +30,7 @@ namespace PacmanInTheDark
         /// <summary>
         /// a dictionarywhose keys are integer IDs and whose values are pairs of points to be connected with warps
         /// </summary>
-        Dictionary<int,Point[]> warpPointDictionary = new Dictionary<int,Point[]>();
+        Dictionary<int,List<Point>> warpPointDictionary = new Dictionary<int,List<Point>>();
 
         /// <summary>
         /// The map's background. Can be loaded from a file if one exists, or generated on the fly.
@@ -154,28 +154,35 @@ namespace PacmanInTheDark
                     //it's a path if the line contains a space
                     if (line.Contains(' '))
                     {
+                        #region Path parsing
                         //splits the string by the space
                         string[] pointSplit = line.Trim().Split(' ');
 
+                        #region warp parsing
                         //checks each point on the pair for a warp identifier
-                        foreach (string s in pointSplit)
+                        for (int i = 0; i<pointSplit.Length;i++)
                         {
                             //conditional for the presence of the identifier
-                            if (s.Contains('w'))
+                            if (pointSplit[i].Contains('w'))
                             {
                                 //checks the character after the w, this is the warp's ID
-                                int warpID = int.Parse(s.Substring(s.IndexOf('w')));
+                                int warpID = int.Parse(pointSplit[i].Substring(pointSplit[i].IndexOf('w')));
 
                                 //split the coordinate pair into separate coordinates
-                                string[] stringPoint = s.Split(',');
+                                string[] stringPoint = pointSplit[i].Split(',');
 
                                 //create an entry in the warp point dictionary for the ID if one doesn't exist
                                 if (!warpPointDictionary.ContainsKey(warpID))
-                                    warpPointDictionary.Add(warpID, new Point[2]);
+                                    warpPointDictionary.Add(warpID, new List<Point>());
 
-                                //warpPointDictionary[warpID].D = new Point(int.Parse(stringPoint[0]), int.Parse(stringPoint[1]));
+                                //add the point to the entry
+                                warpPointDictionary[warpID].Add(new Point(int.Parse(stringPoint[0]), int.Parse(stringPoint[1])));
+
+                                //remove the warp identifier so the string is in the proper format for the rest of the parse
+                                pointSplit[i] = pointSplit[i].Remove(pointSplit[i].IndexOf('w'));
                             }
                         }
+                        #endregion
 
                         Point[] points = new Point[pointSplit.Length];
 
@@ -188,11 +195,13 @@ namespace PacmanInTheDark
 
                         //creates a path from the points and adds it to the path list
                         paths.Add(new Path(points[0], points[1]));
+                        #endregion
                     }
 
                     //it's a pellet if it doesn't
                     else
                     {
+                        #region pellet parsing
                         //split the string into components and make a point
                         string[] coordSplit = line.Split(',');
                         Point pelletPoint = new Point(int.Parse(coordSplit[0]), int.Parse(coordSplit[1]));
@@ -204,8 +213,9 @@ namespace PacmanInTheDark
                             if(Path.PointOnPath(pelletPoint, p))
                                 //create a new pellet on that path at the proper position
                                 pellets.Add(new Pellet(p, Point.Distance(p.Start, pelletPoint)));
-                            
+
                         }
+                        #endregion
                     }
                 }
             }
@@ -279,6 +289,58 @@ namespace PacmanInTheDark
                         }
                     }
                 }
+            }
+        }
+
+        void CreateWarps()
+        {
+            //a listlist of a special format of points
+            List<List<PathPosition>> pathPosList = new List<List<PathPosition>>();
+
+            //iterates through all the point lists in the warp dictionary
+            foreach(List<Point> pl in warpPointDictionary.Values)
+            {
+                //new temp list for the listlist
+                List<PathPosition> pposList = new List<PathPosition>();
+
+                //iterates through all the points in each point list
+                //needs to be a for because we'll be removing points
+                for (int i = 0; i < pl.Count;i++)
+                {
+                    //iterates through all the paths in the path list
+                    foreach (Path path in paths)
+                    {
+                        //if the point is not on the path...
+                        if (!Path.PointOnPath(pl[i], path))
+                        {
+                            //remove it from the point list
+                            pl.Remove(pl[i]);
+
+                            //decrement the counter for the point list
+                            //you'll skip an element if this doesn't happen
+                            i--;
+                        }
+
+                        //if the point is on the path
+                        else
+                        {
+                            //create a new PathPosition and add it to the temp list
+                            pposList.Add(new PathPosition(path, Point.Distance(pl[i],path.Start)));
+                        }
+                    }
+                }
+                //add the temp list to the listlist
+                pathPosList.Add(pposList);
+            }
+
+            //iterates through the listlist
+            foreach (List<PathPosition> pposList in pathPosList)
+            {
+                //skips the sublist list if it has more or less than two PathPositions
+                if (pposList.Count != 2) continue;
+
+                //creates the warp
+                Warp newWarp = new Warp(pposList[0]._Path, pposList[0].Position, pposList[1]._Path, pposList[1].Position);
             }
         }
 

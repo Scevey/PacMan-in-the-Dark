@@ -1,9 +1,7 @@
 Things That Need to be Completed
 1. Hunger bar
 2. Big Pellet (take away darkness, slow down ghosts, MAYBE stop hunger bar?)
-3. Warp
 4. Varying light
-5. Ghost movement(have each ghost with either a different random seed or have them spawn at different times)
 6. Scores be drawn to hiscore screen
 
 Wants
