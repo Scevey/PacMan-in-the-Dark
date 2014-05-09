@@ -17,7 +17,7 @@ namespace PacmanInTheDark
         // Attributes and properties
         #region
         //Random variable used to decide which path/direction ghost has
-        Random randy = new Random();
+        static Random randy = new Random();
 
         //Ghost image
         Texture2D ghostImg;
