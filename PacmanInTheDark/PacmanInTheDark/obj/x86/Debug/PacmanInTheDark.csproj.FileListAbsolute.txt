@@ -262,3 +262,6 @@ F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\Pacm
 C:\Users\Anthony\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\HighScore Main.xnb
 C:\Users\Anthony\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Info Back.xnb
 C:\Users\Anthony\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Win Screen Base.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Info Back.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Win Screen Base.xnb
+F:\Gdaps 2 pacman in the dark\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\HighScore Main.xnb
