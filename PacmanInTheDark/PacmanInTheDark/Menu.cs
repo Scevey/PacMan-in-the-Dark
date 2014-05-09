@@ -367,9 +367,14 @@ namespace PacmanInTheDark
                         #endregion
 
                         //check for collisions with pacman in pacman's current path
+                        List<GamePiece> collisionList = new List<GamePiece>();
+                        //check for collisions with pacman in pacman's current path
                         foreach (GamePiece gp in pacman.CurrentPath.pieces)
                         {
-                            //do nothing if the piece in question is pacman himself
+                            collisionList.Add(gp);
+                        }
+                        foreach (GamePiece gp in collisionList)
+                        {
                             if (gp == pacman)
                                 continue;
                             if (Point.Distance(gp.MapPos, pacman.MapPos) <= pacman.Speed)

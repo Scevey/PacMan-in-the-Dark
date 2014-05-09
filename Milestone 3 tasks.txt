@@ -1,12 +1,8 @@
 Things That Need to be Completed
-1. Hunger bar
-2. Big Pellet (take away darkness, slow down ghosts, MAYBE stop hunger bar?)
-3. Warp
-4. Varying light
-5. Ghost movement(have each ghost with either a different random seed or have them spawn at different times)
+2. Big Pellet (take away darkness, slow down ghosts, MAYBE stop hunger bar?
 6. Scores be drawn to hiscore screen
 
 Wants
 1. Better aesthetics
 2. If someone wins, can they replay? Do they go to a new map?
-3. 
+3. Ghosts going through warps (comprehensive collision detection)
