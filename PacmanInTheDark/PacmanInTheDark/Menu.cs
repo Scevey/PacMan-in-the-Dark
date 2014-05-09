@@ -28,12 +28,15 @@ namespace PacmanInTheDark
         Ghost Pinky; // Pink ghost
         Ghost Inky; // Blue Ghost
         Ghost Clyde; // Orange Ghost
+
         //Draw related attributes
         SpriteFont Font;
+
         Texture2D pacmanImage; // pacmans image
         Texture2D vision; // pacmans sight image
         Texture2D pelletImg; // pellet image
         Texture2D bg; // path image
+
         Path currentPath;
         GraphicsDevice gd;
         //gameplay window dimensions
@@ -135,25 +138,7 @@ namespace PacmanInTheDark
             pacman = new Pacman(pacmanImage, vision, gameMap.Paths[6], 7.5f, speed);
             pacman.Health = health;
             pacman.Lives = lives;
-
-            // Change pacman's light level based off of value from the editor
-            #region
-            /*switch (light)
-            {
-                case 0: // invalid case, set to default light
-
-                    break;
-                case 1:
-
-                    break;
-                case 2:
-
-                    break;
-                case 3:
-
-                    break;
-            }*/
-            #endregion
+            pacman.Light = light;
 
             // Create the specified amount of ghosts from the editor
             #region
@@ -281,6 +266,8 @@ namespace PacmanInTheDark
             //change between game states
             switch (gameState)
             {
+                // Update MainMenu
+                #region
                 case GameState.MainMenu:
                     //call gui to update and change
                     foreach (Gui gui in startMenu)
@@ -288,6 +275,10 @@ namespace PacmanInTheDark
                         gui.Update();
                     }
                     break;
+                #endregion
+
+                // Update OptionMenu
+                #region
                 case GameState.OptionMenu:
                     //call gui to update and change
                     foreach (Gui gui in optionMenu)
@@ -295,12 +286,20 @@ namespace PacmanInTheDark
                         gui.Update();
                     }
                     break;
+                #endregion
+
+                // Update Info menu
+                #region
                 case GameState.Info:
                     foreach (Gui gui in infoMenu)
                     {
                         gui.Update();
                     }
                     break;
+                #endregion
+                
+                // Update InGame menu
+                #region
                 case GameState.InGame:
                     //call gui to update and change, call pacman functionality
                     foreach (Gui gui in inGame)
@@ -318,7 +317,8 @@ namespace PacmanInTheDark
                         // Move objects (ghost(s), pacman)
                         pacman.UpdateFrame(gameTime);
                         pacman.Move();
-
+                        pacman.LoseHealth(.4f, gameTime);
+                        pacman.NoHealth();
                         // Updates ghosts in real-time
                         #region
                         switch (ghosts)
@@ -383,7 +383,10 @@ namespace PacmanInTheDark
                         currentPath = (pacman.CurrentPath);
                     }
                     break;
+                #endregion
+
                 //update pause menu
+                #region
                 case GameState.Pause:
                     foreach (Gui gui in pauseMenu)
                     {
@@ -397,22 +400,27 @@ namespace PacmanInTheDark
                         gui.Update();
                     }
                     break;
+                #endregion
 
                 //update win game screen
+                #region
                 case GameState.WinGame:
                     foreach (Gui gui in win)
                     {
                         gui.Update();
                     }
                     break;
+                #endregion
 
                 //update highscores page
+                #region
                 case GameState.HighScores:
                     foreach (Gui gui in highScore)
                     {
                         gui.Update();
                     }
                     break;
+                #endregion
                 default:
                     break;
             }
@@ -427,6 +435,8 @@ namespace PacmanInTheDark
             //change between game states
             switch (gameState)
             {
+                // Draw Main Menu
+                #region
                 case GameState.MainMenu:
                     //draws start screen
                     foreach (Gui element in startMenu)
@@ -434,6 +444,10 @@ namespace PacmanInTheDark
                         element.Draw(spriteBatch);
                     }
                     break;
+                #endregion
+
+                // Draw Option Menu
+                #region
                 case GameState.OptionMenu:
                     //draws option menu
                     foreach (Gui element in optionMenu)
@@ -441,6 +455,10 @@ namespace PacmanInTheDark
                         element.Draw(spriteBatch);
                     }
                     break;
+                #endregion
+
+                // Draw Info Menu
+                #region
                 case GameState.Info:
                     //draws game info
                     foreach (Gui element in infoMenu)
@@ -448,10 +466,13 @@ namespace PacmanInTheDark
                         element.Draw(spriteBatch);
                     }
                     break;
+                #endregion
+
+                // Draw InGame
+                #region
                 case GameState.InGame:
                     //draws gameplay
                     //original values 1230, 530
-
 
                     if (gameMap.MapRatio > screenRatio)
                     {
@@ -526,7 +547,8 @@ namespace PacmanInTheDark
                     {
                         spriteBatch.Draw(pacmanImage, new Rectangle(10 + (i * 25), 80, 30, 30), new Rectangle(0, 0, 100, 100), Color.White);
                     }
-
+                    // Drawing Status Bar
+                    #region
                     //related to score
                     spriteBatch.DrawString(Font, "Score", new Vector2(190, 45), Color.White);
                     spriteBatch.DrawString(Font, Convert.ToString(pacman.Score), new Vector2(185, 85), Color.White);
@@ -537,8 +559,13 @@ namespace PacmanInTheDark
 
                     //related to hunger bar
                     spriteBatch.DrawString(Font, "Hunger", new Vector2(590, 45), Color.White);
-                    spriteBatch.Draw(vision, new Vector2(536, 92), new Rectangle(0, 0, 200, 25), Color.White);
+                    spriteBatch.Draw(vision, new Vector2(536, 92), new Rectangle(0, 0, (int)(200 * (pacman.Health / 100)), 25), Color.White);
+                    #endregion
                     break;
+                    #endregion
+
+                // Draw Pause Menu
+                #region
                 case GameState.Pause:
                     if (gameMap.MapRatio > screenRatio)
                     {
@@ -622,8 +649,10 @@ namespace PacmanInTheDark
                         element.Draw(spriteBatch);
                     }
                     break;
+                #endregion
 
-                //draw the end game screen with game behind it
+                // Draw the end game screen with game behind it
+                #region
                 case GameState.EndGame:
                     if (gameMap.MapRatio > screenRatio)
                     {
@@ -706,7 +735,10 @@ namespace PacmanInTheDark
                         element.Draw(spriteBatch);
                     }
                     break;
+                #endregion
 
+                // Draw WinGame State
+                #region
                 case GameState.WinGame:
                     if (gameMap.MapRatio > screenRatio)
                     {
@@ -780,14 +812,17 @@ namespace PacmanInTheDark
                         element.Draw(spriteBatch);
                     }
                     break;
+                #endregion
 
-                //draw highscores
+                // Draw Highscores Menu
+                #region
                 case GameState.HighScores:
                     foreach (Gui element in highScore)
                     {
                         element.Draw(spriteBatch);
                     }
                     break;
+                #endregion
                 default:
                     break;
             }

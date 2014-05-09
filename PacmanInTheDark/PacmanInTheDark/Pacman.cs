@@ -24,6 +24,14 @@ namespace PacmanInTheDark
             set { health = value; }
         }
 
+        // Pacman's light value
+        int light;
+        public int Light
+        {
+            get { return light; }
+            set { light = value; }
+        }
+
         // How many times you can die (start with 3)
         int lives;
         public int Lives
@@ -72,6 +80,7 @@ namespace PacmanInTheDark
         int frameSizeX, frameSizeY; // size of frame in pixels
         int numFrames; // # of frames on the spirte sheet in a row
         int timeSinceLastFrame; // elapsed time on this frame
+        int timeSinceLastHealthFrame; // elapsed time on health frame
         int millisecondsPerFrame; // how long to display a frame
         int currentFrameX, currentFrameY; // location on spire sheet of the frame
         const int yPosOffSet = 155; // how off pacman's y coordinate is from the map
@@ -118,12 +127,37 @@ namespace PacmanInTheDark
         /// Used to decrease Pacman health
         /// </summary>
         /// <param name="decreaseHealthBy">Amount of health lost</param>
-        public void LoseHealth(float healthLost)
+        public void LoseHealth(float healthLost, GameTime gameTime)
         {
-            if (Health > 0) Health -= healthLost;
-            else this.LoseLife();
+            // increment the elapsed time
+
+            timeSinceLastHealthFrame += gameTime.ElapsedGameTime.Milliseconds;
+            // time for the next frame
+            if (timeSinceLastHealthFrame > 100)
+            {
+                timeSinceLastHealthFrame = 0; // reset elapsed time
+                health = health - healthLost; // loss some health every .1 sec
+                Score = score + 1; // increase score for surviving every .1 sec
+            }
         }
-        
+
+        /// <summary>
+        /// When Pacman runs into a ghost, subtract a life
+        /// </summary>
+        public void NoHealth()
+        {
+            if (health <= 0)
+            {
+                // Lose a life and reset health
+                lives -= 1;
+                Health = 100;
+
+                // Move pacman back to original starting spot
+                PathPos = OriginalPos;
+                CurrentPath = OriginalPath;  
+            }
+        }
+
         /// <summary>
         /// When Pacman runs out of health, subtract a life
         /// </summary>
@@ -236,10 +270,27 @@ namespace PacmanInTheDark
 
             visionPos.X = pacmanPos.X - xVisionOffSet;
             visionPos.Y = pacmanPos.Y - yVisionOffSet;
-            //Pacmans Glow
-            //spriteBatch.Draw(vision, new Rectangle((int)visionPos.X + (int)(-xVisionOffSet * 3.25), (int)visionPos.Y + (int)(-yVisionOffSet * 2.2), 3000, 1500), Color.White);
-            //spriteBatch.Draw(vision, new Rectangle((int)visionPos.X + (int)(-xVisionOffSet * 1.1), (int)visionPos.Y + (int)(-yVisionOffSet * 1.05), 1500, 1000), Color.White);
-            //spriteBatch.Draw(vision, visionPos, Color.White);
+            // Change pacman's vision level based off of value from the editor
+            #region
+            switch (light)
+            {
+                case 0: // Whole map Light
+                    break;
+                case 1: // Large Light
+                    spriteBatch.Draw(vision, new Rectangle((int)visionPos.X + (int)(-xVisionOffSet * 3.25), (int)visionPos.Y + (int)(-yVisionOffSet * 2.2), 3000, 1500), Color.White);
+                    break;
+                case 2: // Medium Light
+                    spriteBatch.Draw(vision, new Rectangle((int)visionPos.X + (int)(-xVisionOffSet * 3.25), (int)visionPos.Y + (int)(-yVisionOffSet * 2.2), 3000, 1500), Color.White);
+                    spriteBatch.Draw(vision, new Rectangle((int)visionPos.X + (int)(-xVisionOffSet * 1.1), (int)visionPos.Y + (int)(-yVisionOffSet * 1.05), 1500, 1000), Color.White);
+                    break;
+                case 3: // Small Light
+                    spriteBatch.Draw(vision, new Rectangle((int)visionPos.X + (int)(-xVisionOffSet * 3.25), (int)visionPos.Y + (int)(-yVisionOffSet * 2.2), 3000, 1500), Color.White);
+                    spriteBatch.Draw(vision, new Rectangle((int)visionPos.X + (int)(-xVisionOffSet * 1.1), (int)visionPos.Y + (int)(-yVisionOffSet * 1.05), 1500, 1000), Color.White);
+                    spriteBatch.Draw(vision, visionPos, Color.White);
+                    break;
+            }
+            #endregion
+
             if (CurrentDirection == Direction.Up || (CurrentDirection == Direction.None && LastDirection == Direction.Up))
             {
                 spriteBatch.Draw(pacmanImg, new Rectangle((int)pacmanPos.X, (int)pacmanPos.Y, 50, 50), new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
