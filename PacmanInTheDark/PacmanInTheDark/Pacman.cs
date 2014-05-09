@@ -168,7 +168,7 @@ namespace PacmanInTheDark
             {
 
 
-                if (Direction == Direction.Left)
+                if (CurrentDirection == Direction.Left)
                 {
                     currentFrameY = 0;
                     timeSinceLastFrame = 0; // reset elapsed time
@@ -179,7 +179,7 @@ namespace PacmanInTheDark
                     }
                     currentFrameX = frameSizeX * frame;
                 }
-                if (Direction == Direction.Up)
+                if (CurrentDirection == Direction.Up)
                 {
                     currentFrameY = 100;
                     timeSinceLastFrame = 0; // reset elapsed time
@@ -190,7 +190,7 @@ namespace PacmanInTheDark
                     }
                     currentFrameX = frameSizeX * frame;
                 }
-                if (Direction == Direction.Right)
+                if (CurrentDirection == Direction.Right)
                 {
 
                     currentFrameY = 200;
@@ -202,7 +202,7 @@ namespace PacmanInTheDark
                     }
                     currentFrameX = frameSizeX * frame;
                 }
-                if (Direction == Direction.Down)
+                if (CurrentDirection == Direction.Down)
                 {
                     currentFrameY = 300;
                     timeSinceLastFrame = 0; // reset elapsed time
@@ -213,7 +213,7 @@ namespace PacmanInTheDark
                     }
                     currentFrameX = frameSizeX * frame;
                 }
-                if (Direction == Direction.None)
+                if (CurrentDirection == Direction.None)
                 {
                 }
             }
@@ -240,20 +240,20 @@ namespace PacmanInTheDark
             //spriteBatch.Draw(vision, new Rectangle((int)visionPos.X + (int)(-xVisionOffSet * 3.25), (int)visionPos.Y + (int)(-yVisionOffSet * 2.2), 3000, 1500), Color.White);
             //spriteBatch.Draw(vision, new Rectangle((int)visionPos.X + (int)(-xVisionOffSet * 1.1), (int)visionPos.Y + (int)(-yVisionOffSet * 1.05), 1500, 1000), Color.White);
             //spriteBatch.Draw(vision, visionPos, Color.White);
-            if (Direction == Direction.Up || (Direction == Direction.None && LastDirection == Direction.Up))
+            if (CurrentDirection == Direction.Up || (CurrentDirection == Direction.None && LastDirection == Direction.Up))
             {
                 spriteBatch.Draw(pacmanImg, new Rectangle((int)pacmanPos.X, (int)pacmanPos.Y, 50, 50), new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
             }
-            else if (Direction == Direction.Down || (Direction == Direction.None && LastDirection == Direction.Down))
+            else if (CurrentDirection == Direction.Down || (CurrentDirection == Direction.None && LastDirection == Direction.Down))
             {
                 spriteBatch.Draw(pacmanImg, new Rectangle((int)pacmanPos.X, (int)pacmanPos.Y, 50, 50), new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
 
             }
-            else if (Direction == Direction.Left || (Direction == Direction.None && LastDirection == Direction.Left))
+            else if (CurrentDirection == Direction.Left || (CurrentDirection == Direction.None && LastDirection == Direction.Left))
             {
                 spriteBatch.Draw(pacmanImg, new Rectangle((int)pacmanPos.X, (int)pacmanPos.Y, 50, 50), new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
             }
-            else if (Direction == Direction.Right || (Direction == Direction.None && LastDirection == Direction.Right))
+            else if (CurrentDirection == Direction.Right || (CurrentDirection == Direction.None && LastDirection == Direction.Right))
             {
                 spriteBatch.Draw(pacmanImg, new Rectangle((int)pacmanPos.X, (int)pacmanPos.Y, 50, 50), new Rectangle(currentFrameX, currentFrameY, frameSizeX, frameSizeY), Color.White);
             }
@@ -272,19 +272,35 @@ namespace PacmanInTheDark
             kState = Keyboard.GetState();
 
             //moving from stationary
-            if (Direction == Direction.None)
+            if (CurrentDirection == Direction.None)
             {
-                if (kState.IsKeyDown(Keys.W) == true) Direction = Direction.Up;
-                if (kState.IsKeyDown(Keys.A) == true) Direction = Direction.Left;
-                if (kState.IsKeyDown(Keys.S) == true) Direction = Direction.Down;
-                if (kState.IsKeyDown(Keys.D) == true) Direction = Direction.Right;
+                if (kState.IsKeyDown(Keys.W) == true) CurrentDirection = Direction.Up;
+                if (kState.IsKeyDown(Keys.A) == true) CurrentDirection = Direction.Left;
+                if (kState.IsKeyDown(Keys.S) == true) CurrentDirection = Direction.Down;
+                if (kState.IsKeyDown(Keys.D) == true) CurrentDirection = Direction.Right;
             }
 
             //for reversal
-            if (kState.IsKeyDown(Keys.W) == true && Direction == Direction.Down) Direction = Direction.Up;
-            if (kState.IsKeyDown(Keys.A) == true && Direction == Direction.Right) Direction = Direction.Left;
-            if (kState.IsKeyDown(Keys.S) == true && Direction == Direction.Up) Direction = Direction.Down;
-            if (kState.IsKeyDown(Keys.D) == true && Direction == Direction.Left) Direction = Direction.Right;
+            if (kState.IsKeyDown(Keys.W) == true && CurrentDirection == Direction.Down)
+            {
+                CurrentDirection = Direction.Up;
+                LastDirection = Direction.Down;
+            }
+            if (kState.IsKeyDown(Keys.A) == true && CurrentDirection == Direction.Right)
+            {
+                CurrentDirection = Direction.Left;
+                LastDirection = Direction.Down;
+            }
+            if (kState.IsKeyDown(Keys.S) == true && CurrentDirection == Direction.Up)
+            {
+                CurrentDirection = Direction.Down;
+                LastDirection = Direction.Up;
+            }
+            if (kState.IsKeyDown(Keys.D) == true && CurrentDirection == Direction.Left)
+            {
+                CurrentDirection = Direction.Right;
+                LastDirection = Direction.Left;
+            }
 
             //for path changes
             if (kState.IsKeyDown(Keys.W) == true) NextDirection = Direction.Up;

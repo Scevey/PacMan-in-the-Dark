@@ -41,7 +41,9 @@ namespace PacmanInTheDark
 
         public override void Collision(Pacman pac)
         {
-            pac.WarpCollision(warp2);
+            if(!(pac.LastDirection == pac.CurrentDirection))
+                pac.WarpCollision(warp2);
+
         }
 
         public override void Collision(Ghost ghost)

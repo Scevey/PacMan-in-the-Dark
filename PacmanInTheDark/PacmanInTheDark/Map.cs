@@ -28,6 +28,11 @@ namespace PacmanInTheDark
         }
 
         /// <summary>
+        /// a dictionarywhose keys are integer IDs and whose values are pairs of points to be connected with warps
+        /// </summary>
+        Dictionary<int, List<Point>> warpPointDictionary = new Dictionary<int, List<Point>>();
+
+        /// <summary>
         /// The map's background. Can be loaded from a file if one exists, or generated on the fly.
         /// </summary>
         Texture2D mapBG;
@@ -63,7 +68,7 @@ namespace PacmanInTheDark
                         maxY = p.End.Y;
                 }
 
-                return new Point(maxX+1, maxY+1);
+                return new Point(maxX + 1, maxY + 1);
             }
         }
 
@@ -107,6 +112,7 @@ namespace PacmanInTheDark
             Parse(filename);
             CalculateIntersects();
             CheckPellets();
+            CreateWarps();
         }
 
         //public Map(string filename, GraphicsDevice gd)
@@ -149,8 +155,36 @@ namespace PacmanInTheDark
                     //it's a path if the line contains a space
                     if (line.Contains(' '))
                     {
+                        #region Path parsing
                         //splits the string by the space
                         string[] pointSplit = line.Trim().Split(' ');
+
+                        #region warp parsing
+                        //checks each point on the pair for a warp identifier
+                        for (int i = 0; i < pointSplit.Length; i++)
+                        {
+                            //conditional for the presence of the identifier
+                            if (pointSplit[i].Contains('w'))
+                            {
+                                //checks the character after the w, this is the warp's ID
+                                int warpID = int.Parse(pointSplit[i].Substring(pointSplit[i].IndexOf('w')+1));
+
+                                //remove the warp identifier so the string is in the proper format for the rest of the parse
+                                pointSplit[i] = pointSplit[i].Remove(pointSplit[i].IndexOf('w'));
+
+                                //split the coordinate pair into separate coordinates
+                                string[] stringPoint = pointSplit[i].Split(',');
+
+                                //create an entry in the warp point dictionary for the ID if one doesn't exist
+                                if (!warpPointDictionary.ContainsKey(warpID))
+                                    warpPointDictionary.Add(warpID, new List<Point>());
+
+                                //add the point to the entry
+                                warpPointDictionary[warpID].Add(new Point(int.Parse(stringPoint[0]), int.Parse(stringPoint[1])));                                                               
+                            }
+                        }
+                        #endregion
+
                         Point[] points = new Point[pointSplit.Length];
 
                         //iterates through the string-form points and converts them to actual points
@@ -162,10 +196,13 @@ namespace PacmanInTheDark
 
                         //creates a path from the points and adds it to the path list
                         paths.Add(new Path(points[0], points[1]));
+                        #endregion
                     }
-                        //it's a pellet if it doesn't
+
+                    //it's a pellet if it doesn't
                     else
                     {
+                        #region pellet parsing
                         //split the string into components and make a point
                         string[] coordSplit = line.Split(',');
                         Point pelletPoint = new Point(int.Parse(coordSplit[0]), int.Parse(coordSplit[1]));
@@ -174,11 +211,12 @@ namespace PacmanInTheDark
                         foreach (Path p in paths)
                         {
                             //if the point is on a path
-                            if(Path.PointOnPath(pelletPoint, p))
+                            if (Path.PointOnPath(pelletPoint, p))
                                 //create a new pellet on that path at the proper position
                                 pellets.Add(new Pellet(p, Point.Distance(p.Start, pelletPoint)));
-                            
+
                         }
+                        #endregion
                     }
                 }
             }
@@ -221,10 +259,10 @@ namespace PacmanInTheDark
         void CheckPellets()
         {
             //for every pellet in the list...
-            for(int p1index = 0; p1index<pellets.Count;p1index++)
+            for (int p1index = 0; p1index < pellets.Count; p1index++)
             {
                 //check every other pellet in the list
-                for(int p2index = 0; p2index<pellets.Count;p2index++)
+                for (int p2index = 0; p2index < pellets.Count; p2index++)
                 {
                     //do nothing if the two pellets being examined are in fact the same pellet
                     if (pellets[p1index] == pellets[p2index])
@@ -255,6 +293,58 @@ namespace PacmanInTheDark
             }
         }
 
+        void CreateWarps()
+        {
+            //a listlist of a special format of points
+            List<List<PathPosition>> pathPosList = new List<List<PathPosition>>();
+
+            //iterates through all the point lists in the warp dictionary
+            foreach (List<Point> pl in warpPointDictionary.Values)
+            {
+                //new temp list for the listlist
+                List<PathPosition> pposList = new List<PathPosition>();
+
+                //iterates through all the points in each point list
+                //needs to be a for because we'll be removing points
+                for (int i = 0; i < pl.Count; i++)
+                {
+                    bool isOnPath = false;
+                    //iterates through all the paths in the path list
+                    foreach (Path path in paths)
+                    {
+                        //if the point is not on the path...
+                        if (Path.PointOnPath(pl[i], path))
+                        {
+                            isOnPath = true;
+                            //create a new PathPosition and add it to the temp list
+                            pposList.Add(new PathPosition(path, Point.Distance(pl[i], path.Start)));                            
+                        }                        
+                    }
+                    if (!isOnPath)
+                    {
+                        //remove it from the point list
+                        pl.Remove(pl[i]);
+
+                        //decrement the counter for the point list
+                        //you'll skip an element if this doesn't happen
+                        i--;
+                    }
+                }
+                //add the temp list to the listlist
+                pathPosList.Add(pposList);
+            }
+
+            //iterates through the listlist
+            foreach (List<PathPosition> pposList in pathPosList)
+            {
+                //skips the sublist list if it has more or less than two PathPositions
+                if (pposList.Count != 2) continue;
+
+                //creates the warp
+                Warp newWarp = new Warp(pposList[0]._Path, pposList[0].Position, pposList[1]._Path, pposList[1].Position);
+            }
+        }
+
         /// <summary>
         /// generates a Texture2D for a map file
         /// </summary>
@@ -281,11 +371,11 @@ namespace PacmanInTheDark
                 Point projEnd = new Point(p.End.X * scaleFactor + padding, p.End.Y * scaleFactor + padding);
 
                 //iterate through the color array and do stuff
-                for (int x = (int)projStart.X; x < (int)projEnd.X+lineWidth; x++)
+                for (int x = (int)projStart.X; x < (int)projEnd.X + lineWidth; x++)
                 {
-                    for (int y = (int)projStart.Y; y < (int)projEnd.Y+lineWidth; y++)
+                    for (int y = (int)projStart.Y; y < (int)projEnd.Y + lineWidth; y++)
                     {
-                        textureData[x+y*tempBG.Width] = (uint)lineColor.ToArgb();
+                        textureData[x + y * tempBG.Width] = (uint)lineColor.ToArgb();
                     }
                 }
             }

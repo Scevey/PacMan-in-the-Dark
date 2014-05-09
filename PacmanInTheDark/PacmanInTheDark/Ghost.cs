@@ -107,7 +107,7 @@ namespace PacmanInTheDark
             if (timeSinceLastFrame > millisecondsPerFrame)
             {
 
-                if (Direction == Direction.Up)
+                if (CurrentDirection == Direction.Up)
                 {
                     timeSinceLastFrame = 0; // reset elapsed time
                     frame++;
@@ -121,7 +121,7 @@ namespace PacmanInTheDark
                     }
                     currentFrameX = frameSizeX * frame;
                 }
-                if (Direction == Direction.Right)
+                if (CurrentDirection == Direction.Right)
                 {
                     timeSinceLastFrame = 0; // reset elapsed time
                     frame++;
@@ -135,7 +135,7 @@ namespace PacmanInTheDark
                     }
                     currentFrameX = frameSizeX * frame;
                 }
-                if (Direction == Direction.Down)
+                if (CurrentDirection == Direction.Down)
                 {
                     timeSinceLastFrame = 0; // reset elapsed time
                     frame++;
@@ -149,7 +149,7 @@ namespace PacmanInTheDark
                     }
                     currentFrameX = frameSizeX * frame;
                 }
-                if (Direction == Direction.Left)
+                if (CurrentDirection == Direction.Left)
                 {
                     timeSinceLastFrame = 0; // reset elapsed time
                     frame++;
@@ -163,7 +163,7 @@ namespace PacmanInTheDark
                     }
                     currentFrameX = frameSizeX * frame;
                 }
-                if (Direction == Direction.None)
+                if (CurrentDirection == Direction.None)
                 {
                 }
             }
@@ -193,20 +193,20 @@ namespace PacmanInTheDark
             glowPos.Y = ghostPos.Y - yglowOffset;
 
             spriteBatch.Draw(GlowImg, new Rectangle((int)glowPos.X, (int)glowPos.Y, 140, 150), new Rectangle(frameY, 0, frameSizeX, frameSizeY), Color.White);
-            if (Direction == Direction.Up || (Direction == Direction.None && LastDirection == Direction.Up))
+            if (CurrentDirection == Direction.Up || (CurrentDirection == Direction.None && LastDirection == Direction.Up))
             {
                 spriteBatch.Draw(ghostImg, new Rectangle((int)ghostPos.X, (int)ghostPos.Y, 40, 40), new Rectangle(currentFrameX, frameY, frameSizeX, frameSizeY), Color.White);
             }
-            else if (Direction == Direction.Down || (Direction == Direction.None && LastDirection == Direction.Down))
+            else if (CurrentDirection == Direction.Down || (CurrentDirection == Direction.None && LastDirection == Direction.Down))
             {
                 spriteBatch.Draw(ghostImg, new Rectangle((int)ghostPos.X, (int)ghostPos.Y, 40, 40), new Rectangle(currentFrameX, frameY, frameSizeX, frameSizeY), Color.White);
 
             }
-            else if (Direction == Direction.Left || (Direction == Direction.None && LastDirection == Direction.Left))
+            else if (CurrentDirection == Direction.Left || (CurrentDirection == Direction.None && LastDirection == Direction.Left))
             {
                 spriteBatch.Draw(ghostImg, new Rectangle((int)ghostPos.X, (int)ghostPos.Y, 40, 40), new Rectangle(currentFrameX, frameY, frameSizeX, frameSizeY), Color.White);
             }
-            else if (Direction == Direction.Right || (Direction == Direction.None && LastDirection == Direction.Right))
+            else if (CurrentDirection == Direction.Right || (CurrentDirection == Direction.None && LastDirection == Direction.Right))
             {
                 spriteBatch.Draw(ghostImg, new Rectangle((int)ghostPos.X, (int)ghostPos.Y, 40, 40), new Rectangle(currentFrameX, frameY, frameSizeX, frameSizeY), Color.White);
             }
@@ -223,16 +223,16 @@ namespace PacmanInTheDark
         public override void GetNextDirection()
         {
             //if the ghost isn't moving, reverse its direction
-            if (Direction == Direction.None)
+            if (CurrentDirection == Direction.None)
             {
                 if (LastDirection == Direction.Up)
-                    Direction = Direction.Down;
+                    CurrentDirection = Direction.Down;
                 if (LastDirection == Direction.Down)
-                    Direction = Direction.Up;
+                    CurrentDirection = Direction.Up;
                 if (LastDirection == Direction.Left)
-                    Direction = Direction.Right;
+                    CurrentDirection = Direction.Right;
                 if (LastDirection == Direction.Right)
-                    Direction = Direction.Left;
+                    CurrentDirection = Direction.Left;
             }
 
             bool validDir = false;

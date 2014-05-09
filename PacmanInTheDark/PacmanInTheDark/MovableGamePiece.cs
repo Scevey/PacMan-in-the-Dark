@@ -15,11 +15,11 @@ namespace PacmanInTheDark
         #region Fields
 
         // Current direction of pacman
-        Direction direction;
-        public Direction Direction
+        Direction currentDirection;
+        public Direction CurrentDirection
         {
-            get { return direction; }
-            set { direction = value; }
+            get { return currentDirection; }
+            protected set { currentDirection = value; }
         }
 
         //the previous direction of movement
@@ -30,7 +30,7 @@ namespace PacmanInTheDark
             {
                 return lastDirection;
             }
-            set
+            protected set
             {
                 lastDirection = value;
             }
@@ -61,9 +61,9 @@ namespace PacmanInTheDark
         {
             speed = _speed;
             if (path.Orientation == Orientation.Horizontal)
-                direction = Direction.Left;
+                currentDirection = Direction.Left;
             else
-                direction = Direction.Up;
+                currentDirection = Direction.Up;
         }
 
         //handles movement
@@ -109,68 +109,68 @@ namespace PacmanInTheDark
             #region movement block - this block will not be reached if a path change occurs
 
             //does nothing if 
-            if (direction == Direction.None) return;
+            if (currentDirection == Direction.None) return;
 
             if (CurrentPath.Orientation == Orientation.Horizontal)
             {
-                if (direction == Direction.Left)
+                if (currentDirection == Direction.Left)
                 {
                     //if the piece is within one move of the edge of the path...
                     if (PathPos < speed)
                     {
                         //... place it at the end of the path and stop its motion
                         PathPos = 0;
-                        lastDirection = direction;
-                        direction = Direction.None;
+                        lastDirection = currentDirection;
+                        currentDirection = Direction.None;
                         return;
                     }
                     PathPos -= speed;
                 }
-                else if (direction == Direction.Right)
+                else if (currentDirection == Direction.Right)
                 {
                     if (PathPos > (CurrentPath.Length - speed))
                     {
                         PathPos = CurrentPath.Length;
-                        lastDirection = direction;
-                        direction = Direction.None;
+                        lastDirection = currentDirection;
+                        currentDirection = Direction.None;
                         return;
                     }
                     PathPos += speed;
                 }
                 else
                 {
-                    direction = Direction.None;
+                    currentDirection = Direction.None;
                     return;
                 }
             }
 
             else
             {
-                if (direction == Direction.Down)
+                if (currentDirection == Direction.Down)
                 {
                     if (PathPos > (CurrentPath.Length - speed))
                     {                        
                         PathPos = CurrentPath.Length;
-                        lastDirection = direction;
-                        direction = Direction.None;
+                        lastDirection = currentDirection;
+                        currentDirection = Direction.None;
                         return;
                     }
                     PathPos += speed;
                 }
-                else if (direction == Direction.Up)
+                else if (currentDirection == Direction.Up)
                 {                    
                     if (PathPos < speed)
                     {                        
                         PathPos = 0;
-                        lastDirection = direction;
-                        direction = Direction.None;
+                        lastDirection = currentDirection;
+                        currentDirection = Direction.None;
                         return;
                     }
                     PathPos -= speed;
                 }
                 else
                 {
-                    direction = Direction.None;
+                    currentDirection = Direction.None;
                     return;
                 }
             }
@@ -191,13 +191,13 @@ namespace PacmanInTheDark
             PathPos = Point.Distance(newPath.Start, CurrentPath.IntersectionDictionary[newPath]);
 
             //sets direction to nextDirection
-            direction = nextDirection;
+            currentDirection = nextDirection;
 
             //note -- the overrun is necessary to preserve movement speed
             //without it the piece would lose a fraction of a movement at each path change
             //while it probably wouldn't be noticeable, this is cleaner
 
-            if (direction == Direction.Left || direction == Direction.Up)
+            if (currentDirection == Direction.Left || currentDirection == Direction.Up)
                 PathPos = PathPos - overrun;
             else
                 PathPos = PathPos + overrun;
@@ -217,7 +217,10 @@ namespace PacmanInTheDark
 
         public void WarpCollision(Warp outWarp)
         {
+            LastDirection = CurrentDirection;
+            CurrentPath.pieces.Remove(this);
             CurrentPath = outWarp.CurrentPath;
+            CurrentPath.pieces.Add(this);
             PathPos = outWarp.PathPos;
         }
     }

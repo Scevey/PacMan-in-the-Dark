@@ -90,4 +90,38 @@ namespace PacmanInTheDark
 
         #endregion
     }
+
+    struct PathPosition
+    {
+        Path path;
+        public Path _Path
+        {
+            get
+            {
+                return path;
+            }
+        }
+
+        float position;
+        public float Position
+        {
+            get
+            {
+                return position;
+            }
+        }
+
+        public PathPosition(Path _path, float _position)
+        {
+            path = _path;
+            position = _position;
+        }
+
+        public static implicit operator Point(PathPosition ppos)
+        {
+            //start point of the path plus the path vector times path position over path length
+            return ppos.path.Start + (ppos.path.PathVector * (ppos.position / ppos.path.Length));
+        }
+    }
+
 }
