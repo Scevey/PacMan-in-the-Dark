@@ -56,7 +56,7 @@ namespace PacmanInTheDark
         //window sizes
 
         // hi score attributes
-        Scores hiScores = new Scores(); // Load the score, then use the property to access each individual score
+        Scores hiScores;
 
         //lists of gui for different states
         List<Gui> startMenu = new List<Gui>();
@@ -78,7 +78,6 @@ namespace PacmanInTheDark
             startMenu.Add(new Gui("Start Menu Base"));
             startMenu.Add(new Gui("Start Button"));
             startMenu.Add(new Gui("Option"));
-            hiScores.LoadScores();
 
             //option menu images
             optionMenu.Add(new Gui("Option Base"));
@@ -125,6 +124,9 @@ namespace PacmanInTheDark
         {
             // Loads values from editor file
             LoadEditorValues();
+
+            // Create high scores object
+            hiScores = new Scores(); 
 
             // Load various images
             pacmanImage = content.Load<Texture2D>("PacManSheet"); // load pacman sprite sheet
@@ -209,7 +211,6 @@ namespace PacmanInTheDark
 
             //adjust position
             infoMenu.Find(x => x.ImgName == "Info Back").MoveElement(0, 225);
-
 
             //load, center and add click events for all in ingame list
             foreach (Gui gui in inGame)
@@ -365,7 +366,7 @@ namespace PacmanInTheDark
                                 break;
                         }
                         #endregion
-
+                       
                         //check for collisions with pacman in pacman's current path
                         List<GamePiece> collisionList = new List<GamePiece>();
                         //check for collisions with pacman in pacman's current path
@@ -500,6 +501,9 @@ namespace PacmanInTheDark
                             gameMap.Pellets[i].Draw(gameTime, spriteBatch, gameMap.MapSize, new Point(windowWidth, windowHeight), pelletImg);
                         }
                     }
+
+                    // Change gamestate to win b/c there are no more pellets (Change to > 0 for testing high scores)
+                    if (gameMap.PelletCount == 0) gameState = GameState.WinGame;
 
                     // Ghost Drawing
                     #region
@@ -734,6 +738,31 @@ namespace PacmanInTheDark
                     {
                         element.Draw(spriteBatch);
                     }
+
+                    // Load the hiScores -- use the property to access each individual score
+                    hiScores.LoadScores();
+                    // Check if user got a high score
+                    if (hiScores.HiScores.Count == 9) // The case that the hiscores list is full
+                    {
+                        // Needs to beat at least the lowest high score to make it
+                        if (pacman.Score > hiScores.HiScores[9].Score) // User made it
+                        {
+                            // Get user input for high score
+
+
+                            // Write the score to the file
+                            hiScores.WriteScores("", 0);
+                        }
+                    }
+                    else if (hiScores.HiScores.Count < 9) // The case that the hiscores list is not full
+                    {
+                        // User automatically makes it to high scores
+
+                        // Get user input for high score
+
+                        // Write the score to the file
+                        hiScores.WriteScores("", 0);
+                    }
                     break;
                 #endregion
 
@@ -811,6 +840,31 @@ namespace PacmanInTheDark
                     {
                         element.Draw(spriteBatch);
                     }
+
+                    // Load the hiScores -- use the property to access each individual score
+                    hiScores.LoadScores();
+                    // Check if user got a high score
+                    if (hiScores.HiScores.Count == 9) // The case that the hiscores list is full
+                    {
+                        // Needs to beat at least the lowest high score to make it
+                        if (pacman.Score > hiScores.HiScores[9].Score) // User made it
+                        {
+                            // Get user input for high score
+
+
+                            // Write the score to the file
+                            hiScores.WriteScores("", 0);
+                        }
+                    }
+                    else if (hiScores.HiScores.Count < 9) // The case that the hiscores list is not full
+                    {
+                        // User automatically makes it to high scores
+
+                        // Get user input for high score
+
+                        // Write the score to the file
+                        hiScores.WriteScores("", 0);
+                    }
                     break;
                 #endregion
 
@@ -821,6 +875,27 @@ namespace PacmanInTheDark
                     {
                         element.Draw(spriteBatch);
                     }
+                   
+                    // Load the hiScores -- use the property to access each individual score
+                    hiScores.LoadScores();
+
+                    // Draws each hi-score
+                    int x = 500; // First x spot
+                    int y = 210; // First y spot
+                    for (int i = 0; i < hiScores.HiScores.Count; i++)
+                    {
+                        // Needs to move over to otherside of high scores
+                        if (i == 5)
+                        {
+                            x += 235;
+                            y = 210;
+                        }
+                        spriteBatch.DrawString(Font, hiScores.HiScores[i].Name + " - " + hiScores.HiScores[i].Score,
+                                                new Vector2(x, y), Color.Yellow);
+                        y += 75;
+                    }
+
+
                     break;
                 #endregion
                 default:

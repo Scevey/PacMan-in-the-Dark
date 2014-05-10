@@ -30,6 +30,18 @@ namespace PacmanInTheDark
         // Creates a new score struct object
         public Scores()
         {
+            // Load and sort the scores
+            this.LoadScores();
+            this.SortScores();
+
+            // We only want the top 10 scores. Delete any others
+            if (hiScores.Count > 9)
+            {
+                for (int i = 10; i <= hiScores.Count - 1; i++)
+                {
+                    hiScores.RemoveAt(i);
+                }
+            }
         }
 
         /// <summary>
