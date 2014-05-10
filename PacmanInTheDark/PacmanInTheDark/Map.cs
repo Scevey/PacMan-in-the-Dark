@@ -203,6 +203,16 @@ namespace PacmanInTheDark
                     else
                     {
                         #region pellet parsing
+                        //check for a big pellet identifier
+                        bool big;
+                        if (line[line.Length - 1] == 'b')
+                        {
+                            big = true;
+                            line = line.Remove(line.IndexOf('b'));
+                        }
+                        else
+                            big = false;
+
                         //split the string into components and make a point
                         string[] coordSplit = line.Split(',');
                         Point pelletPoint = new Point(int.Parse(coordSplit[0]), int.Parse(coordSplit[1]));
@@ -212,8 +222,8 @@ namespace PacmanInTheDark
                         {
                             //if the point is on a path
                             if (Path.PointOnPath(pelletPoint, p))
-                                //create a new pellet on that path at the proper position
-                                pellets.Add(new Pellet(p, Point.Distance(p.Start, pelletPoint)));
+                                //create a new pellet (or big pellet) on that path at the proper position
+                                pellets.Add((!big) ? new Pellet(p, Point.Distance(p.Start, pelletPoint)) : new BigPellet(p, Point.Distance(p.Start, pelletPoint)));
 
                         }
                         #endregion

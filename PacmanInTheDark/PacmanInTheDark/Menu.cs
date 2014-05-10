@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using System.IO;
 using System.Diagnostics;
+using System.Threading;
 
 namespace PacmanInTheDark
 {
@@ -18,7 +19,7 @@ namespace PacmanInTheDark
     //Jeremy Hall
 
     //handles the creation of menus and manage gamestates
-    class Menu
+    public class Menu
     {
 
         //create a map object
@@ -383,6 +384,8 @@ namespace PacmanInTheDark
                         }
                         currentPath = (pacman.CurrentPath);
                     }
+                    // Change gamestate to win b/c there are no more pellets (Change to > 0 for testing high scores)
+                    if (gameMap.PelletCount == 0) gameState = GameState.WinGame;
                     break;
                 #endregion
 
@@ -501,9 +504,6 @@ namespace PacmanInTheDark
                             gameMap.Pellets[i].Draw(gameTime, spriteBatch, gameMap.MapSize, new Point(windowWidth, windowHeight), pelletImg);
                         }
                     }
-
-                    // Change gamestate to win b/c there are no more pellets (Change to > 0 for testing high scores)
-                    if (gameMap.PelletCount == 0) gameState = GameState.WinGame;
 
                     // Ghost Drawing
                     #region
@@ -631,7 +631,8 @@ namespace PacmanInTheDark
                         }
                     }
                     // Draw pacman
-                    pacman.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500));
+                    //pacman.Draw(gameTime, spriteBatch, new Point(28, 26), new Point(1180, 500));
+                    pacman.Draw(gameTime, spriteBatch, gameMap.MapSize, new Point(windowWidth, windowHeight));
                     foreach (Gui element in inGame)
                     {
                         element.Draw(spriteBatch);
@@ -985,6 +986,34 @@ namespace PacmanInTheDark
             {
                 Debug.WriteLine(e.Message);
             }
+        }
+
+        /// <summary>
+        /// run when a big pellet is hit. Should be run in a new thread
+        /// </summary>
+        public void BigPellet()
+        {
+            //slow all the ghosts
+            Blinky.IsSlowed = true;
+            Clyde.IsSlowed = true;
+            Pinky.IsSlowed = true;
+            Inky.IsSlowed = true;
+
+            //save the light value and set it to zero
+            int oldLight = pacman.Light;
+            pacman.Light = 0;
+
+            //wait 10 seconds
+            Thread.Sleep(10000);
+
+            //unslow the ghosts
+            Blinky.IsSlowed = false;
+            Clyde.IsSlowed = false;
+            Pinky.IsSlowed = false;
+            Inky.IsSlowed = false;
+
+            //reset the light value
+            pacman.Light = oldLight;
         }
     }
 }

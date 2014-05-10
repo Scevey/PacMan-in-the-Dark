@@ -286,6 +286,18 @@ namespace PacmanInTheDark
             return newSpeed;
         }
 
+        public new void Move()
+        {
+            if (isSlowed)
+            {
+                Speed = OriginalSpeed / 10;
+                base.Move();
+                Speed = OriginalSpeed;
+            }
+            else
+                base.Move();
+        }
+
         /// <summary>
         /// Collision with pacman
         /// </summary>

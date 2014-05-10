@@ -52,6 +52,10 @@ namespace PacmanInTheDark
             {
                 return speed;
             }
+            protected set
+            {
+                speed = value;
+            }
         }
 
         #endregion

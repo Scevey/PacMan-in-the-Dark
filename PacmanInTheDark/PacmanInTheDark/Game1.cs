@@ -25,7 +25,14 @@ namespace PacmanInTheDark
         //map field - after milestone 2 this will be part of the Game class, not the top level class
         //it's here for testing purposes only
         //Map gameMap;
-        Menu main;
+        static Menu main;
+        public static Menu Main
+        {
+            get
+            {
+                return main;
+            }
+        }
 
         public Game1()
             : base()
