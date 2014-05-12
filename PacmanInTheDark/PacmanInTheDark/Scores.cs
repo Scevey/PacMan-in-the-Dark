@@ -30,10 +30,8 @@ namespace PacmanInTheDark
         // Creates a new score struct object
         public Scores()
         {
-            // Load and sort the scores
+            // Load the scores
             this.LoadScores();
-            this.SortScores();
-
             // We only want the top 10 scores. Delete any others
             if (hiScores.Count > 9)
             {
@@ -47,24 +45,18 @@ namespace PacmanInTheDark
         /// <summary>
         /// Displays all of the scores on the hiscores page
         /// </summary>
-        void SortScores()
+        public void SortScores()
         {
             for (int i = 0; i < hiScores.Count; i++)
             {
-                ScoresStruct s1 = hiScores[i];
-                for (int j = 0; j < hiScores.Count; j++)
+                int j = i;
+                while (j > 0 && (hiScores[j - 1].Score < hiScores[j].Score))
                 {
-                    // Change the scores when one is greater than another
-                    if (s1.Score >= hiScores[i].Score)
-                    {
-                        // Create temporary structures to hold scores
-                        ScoresStruct temps1 = s1;
-                        ScoresStruct temps2 = hiScores[i];
-
-                        // Switch the score spots
-                        s1 = temps2;
-                        hiScores[i] = temps1;
-                    }
+                    //int temp = hiScores[j];
+                    ScoresStruct tempSS = hiScores[j];
+                    hiScores[j] = hiScores[j - 1];
+                    hiScores[j - 1] = tempSS;
+                    j = j - 1;
                 }
             }
 
@@ -98,6 +90,8 @@ namespace PacmanInTheDark
                     // add the struct to the list
                     hiScores.Add(tempScores);
                 }
+
+                // Sort newly loaded scores
                 SortScores();
             }
             catch (Exception)

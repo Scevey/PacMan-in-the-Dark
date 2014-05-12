@@ -764,6 +764,8 @@ namespace PacmanInTheDark
                         // Write the score to the file
                         hiScores.WriteScores("", 0);
                     }
+                    // Sort newly loaded scores
+                    hiScores.SortScores();
                     break;
                 #endregion
 
@@ -866,6 +868,8 @@ namespace PacmanInTheDark
                         // Write the score to the file
                         hiScores.WriteScores("", 0);
                     }
+                    // Sort newly loaded scores
+                    hiScores.SortScores();
                     break;
                 #endregion
 
