@@ -475,18 +475,46 @@ namespace PacmanInTheDark
                 #region
                 case GameState.WinGame:
 
-                    KeyboardState kState = Keyboard.GetState();
-                    char[] input = new char[3];
-                    while (input.Length < 3)
+                    //the currently pressed key list
+                    List<Keys> keyList = new List<Keys>();
+
+                    //the previous key list
+                    List<Keys> prevKeys = new List<Keys>();
+
+                    //the input list
+                    List<string> input = new List<string>(3);
+
+                    //keep checking until three keys are read
+                    while (input.Count < 3)
                     {
-                        kState.GetPressedKeys();
-                        for (int i = 0; i < 3; i++)
+                        //get the keyboard state
+                        KeyboardState kState = Keyboard.GetState();
+
+                        //populate the current keylist
+                        keyList = kState.GetPressedKeys().ToList();
+
+                        //if it's the same as the previous list, do nothing
+                        if (keyList == prevKeys)
+                            continue;
+
+                        //loop through the key list and remove any that overlap with the previous list
+                        for(int i = 0; i<keyList.Count;i++)
                         {
-                            input[i] = kState.GetPressedKeys().ToString().ElementAt(0);
+                                if (prevKeys.Contains(keyList[i]))
+                                {
+                                    keyList.Remove(keyList[i]);
+                                    i--;
+                                }
                         }
 
-                        initials = input[0].ToString() + input[1].ToString() + input[2].ToString();
+                        //add any new keys to the input list
+                        foreach (Keys k in keyList)
+                        {
+                            input.Add(k.ToString());
+                        }
 
+                        //pass the current list to the previous list
+                        prevKeys = keyList;
                     }
                     foreach (Gui gui in win)
                     {
