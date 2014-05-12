@@ -70,10 +70,6 @@ namespace PacmanInTheDark
 
             //load in the content
             main.LoadContent(Content);
-            // TODO: use this.Content to load your game content here
-
-            // Load in PacMan sprite sheet
-            Texture2D pacman = Content.Load<Texture2D>("PacManSheet");
         }
 
         /// <summary>

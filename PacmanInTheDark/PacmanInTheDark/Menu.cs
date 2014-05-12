@@ -260,6 +260,46 @@ namespace PacmanInTheDark
         }
 
         /// <summary>
+        /// If a player loses or wins, they can continue when they click the start menu again
+        /// </summary>
+        public void StartMenuRestart()
+        {
+            // Reset pacman
+            pacman.Health = health;
+            pacman.Lives = lives;
+            pacman.Score = 0; 
+
+            // Set the starting path and create the map
+            currentPath = (pacman.CurrentPath);
+            bg = Map.DrawMap(gameMap, gd);
+
+            // Re-draw all the pellets
+            for (int i = 0; i < gameMap.Pellets.Count; i++)
+            {
+                gameMap.Pellets[i].Active = true;
+            }
+        }
+
+        /// <summary>
+        /// When a player wins, they can continue playing.
+        /// </summary>
+        public void WinGameContinue()
+        {
+            // Give back full health
+            pacman.Health = health;
+
+            // Set the starting path and create the map
+            currentPath = (pacman.CurrentPath);
+            bg = Map.DrawMap(gameMap, gd);
+
+            // Re-draw all the pellets
+            for (int i = 0; i < gameMap.Pellets.Count; i++)
+            {
+                gameMap.Pellets[i].Active = true;
+            }
+        }
+
+        /// <summary>
         /// Game loop
         /// </summary>
         /// <param name="gameTime"></param>
@@ -915,6 +955,7 @@ namespace PacmanInTheDark
             if (element == "Start Button")
             {
                 //what to do on click
+                StartMenuRestart();
                 gameState = GameState.InGame;
             }
             if (element == "Option")

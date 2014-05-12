@@ -20,6 +20,10 @@ namespace PacmanInTheDark
             {
                 return active;
             }
+            set
+            {
+                active = value;
+            }
         }
         public Pellet(Path p, float pos)
             : base(p,pos)
