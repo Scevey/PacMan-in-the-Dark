@@ -55,6 +55,9 @@ namespace PacmanInTheDark
         int light; // the level of light
 
         //window sizes
+        int windowWidth;
+        int windowHeight;
+        readonly int[] BGOffset = { 6, 172 };
 
         // hi score attributes
         Scores hiScores;
@@ -137,39 +140,57 @@ namespace PacmanInTheDark
             vision = content.Load<Texture2D>("Vision"); // load pacman sight image
             Font = content.Load<SpriteFont>("Arial");
 
+            //window sizing
+            float screenRatio = maxWidth / maxHeight;
+            if (gameMap.MapRatio > screenRatio)
+            {
+                windowWidth = maxWidth;
+                windowHeight = (int)(maxHeight / gameMap.MapRatio);
+            }
+            else if (gameMap.MapRatio == screenRatio)
+            {
+                windowWidth = maxWidth;
+                windowHeight = maxHeight;
+            }
+            else
+            {
+                windowWidth = (int)(maxWidth * gameMap.MapRatio);
+                windowHeight = maxHeight;
+            }
+
             // Create pacman and set initial info
-            pacman = new Pacman(pacmanImage, vision, gameMap.Paths[6], 7.5f, speed);
+            pacman = new Pacman(pacmanImage, vision, light, gameMap.Paths[0], 7.5f, speed);
             pacman.Health = health;
             pacman.Lives = lives;
-            pacman.Light = light;
 
             // Create the specified amount of ghosts from the editor
             #region
             switch (ghosts)
             {
+                default:
                 case 0: // Should never be 0, but in case -- just create all
-                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 2f, .1f);
-                    Blinky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
-                    Pinky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
-                    Inky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
+                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[1], 2f, .1f);
+                    Blinky = new Ghost(ghostImage, glowImage, gameMap.Paths[1], 0, .1f);
+                    Pinky = new Ghost(ghostImage, glowImage, gameMap.Paths[1], 0, .1f);
+                    Inky = new Ghost(ghostImage, glowImage, gameMap.Paths[1], 0, .1f);
                     break;
                 case 1: // Creates one ghost
-                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 2f, .1f);
+                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[1], 2f, .1f);
                     break;
                 case 2: // Creates two ghosts
-                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 2f, .1f);
-                    Blinky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
+                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[1], 2f, .1f);
+                    Blinky = new Ghost(ghostImage, glowImage, gameMap.Paths[1], 0, .1f);
                     break;
                 case 3: // Creates three ghosts
-                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 2f, .1f);
-                    Blinky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
-                    Pinky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
+                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[1], 2f, .1f);
+                    Blinky = new Ghost(ghostImage, glowImage, gameMap.Paths[1], 0, .1f);
+                    Pinky = new Ghost(ghostImage, glowImage, gameMap.Paths[1], 0, .1f);
                     break;
                 case 4: // Creates four ghosts
-                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 2f, .1f);
-                    Blinky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
-                    Pinky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
-                    Inky = new Ghost(ghostImage, glowImage, gameMap.Paths[12], 0, .1f);
+                    Clyde = new Ghost(ghostImage, glowImage, gameMap.Paths[1], 2f, .1f);
+                    Blinky = new Ghost(ghostImage, glowImage, gameMap.Paths[1], 0, .1f);
+                    Pinky = new Ghost(ghostImage, glowImage, gameMap.Paths[1], 0, .1f);
+                    Inky = new Ghost(ghostImage, glowImage, gameMap.Paths[1], 0, .1f);
                     break;
             }
             #endregion
@@ -473,9 +494,6 @@ namespace PacmanInTheDark
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            int windowWidth;
-            int windowHeight;
-            float screenRatio = maxWidth / maxHeight;
             //change between game states
             switch (gameState)
             {
@@ -515,26 +533,8 @@ namespace PacmanInTheDark
                 // Draw InGame
                 #region
                 case GameState.InGame:
-                    //draws gameplay
-                    //original values 1230, 530
-
-                    if (gameMap.MapRatio > screenRatio)
-                    {
-                        windowWidth = maxWidth;
-                        windowHeight = (int)(maxHeight / gameMap.MapRatio);
-                    }
-                    else if (gameMap.MapRatio == screenRatio)
-                    {
-                        windowWidth = maxWidth;
-                        windowHeight = maxHeight;
-                    }
-                    else
-                    {
-                        windowWidth = (int)(maxWidth * gameMap.MapRatio);
-                        windowHeight = maxHeight;
-                    }
-
-                    spriteBatch.Draw(bg, new Rectangle(0, 170, windowWidth, windowHeight), Color.White);
+                    //draw the map BG
+                    spriteBatch.Draw(bg, new Rectangle(BGOffset[0], BGOffset[1], windowWidth, windowHeight), Color.White);
 
                     // Check each pellet to see if it's active and if it is, draw it
                     for (int i = 0; i < gameMap.Pellets.Count; i++)
@@ -611,24 +611,8 @@ namespace PacmanInTheDark
                 // Draw Pause Menu
                 #region
                 case GameState.Pause:
-                    if (gameMap.MapRatio > screenRatio)
-                    {
-                        windowWidth = maxWidth;
-                        windowHeight = (int)(maxHeight / gameMap.MapRatio);
-                    }
-                    else if (gameMap.MapRatio == screenRatio)
-                    {
-                        windowWidth = maxWidth;
-                        windowHeight = maxHeight;
-                    }
-                    else
-                    {
-                        windowWidth = (int)(maxWidth * gameMap.MapRatio);
-                        windowHeight = maxHeight;
-                    }
-
                     // Map texture
-                    spriteBatch.Draw(bg, new Rectangle(0, 170, windowWidth, windowHeight), Color.White);
+                    spriteBatch.Draw(bg, new Rectangle(BGOffset[0], BGOffset[1], windowWidth, windowHeight), Color.White);
 
                     // Ghosts drawing
                     #region
@@ -699,23 +683,7 @@ namespace PacmanInTheDark
                 // Draw the end game screen with game behind it
                 #region
                 case GameState.EndGame:
-                    if (gameMap.MapRatio > screenRatio)
-                    {
-                        windowWidth = maxWidth;
-                        windowHeight = (int)(maxHeight / gameMap.MapRatio);
-                    }
-                    else if (gameMap.MapRatio == screenRatio)
-                    {
-                        windowWidth = maxWidth;
-                        windowHeight = maxHeight;
-                    }
-                    else
-                    {
-                        windowWidth = (int)(maxWidth * gameMap.MapRatio);
-                        windowHeight = maxHeight;
-                    }
-
-                    spriteBatch.Draw(bg, new Rectangle(0, 170, windowWidth, windowHeight), Color.White);
+                    spriteBatch.Draw(bg, new Rectangle(BGOffset[0], BGOffset[1], windowWidth, windowHeight), Color.White);
 
                     // Draw ghosts
                     #region
@@ -761,7 +729,7 @@ namespace PacmanInTheDark
                     {
                         element.Draw(spriteBatch);
                     }
-                    spriteBatch.Draw(bg, new Rectangle(0, 170, 1230, 530), Color.White);
+                    //spriteBatch.Draw(bg, new Rectangle(0, 170, 1230, 530), Color.White);
                     //related to score
                     spriteBatch.DrawString(Font, "Score", new Vector2(190, 45), Color.White);
                     spriteBatch.DrawString(Font, Convert.ToString(pacman.Score), new Vector2(185, 85), Color.White);
@@ -812,23 +780,7 @@ namespace PacmanInTheDark
                 // Draw WinGame State
                 #region
                 case GameState.WinGame:
-                    if (gameMap.MapRatio > screenRatio)
-                    {
-                        windowWidth = maxWidth;
-                        windowHeight = (int)(maxHeight / gameMap.MapRatio);
-                    }
-                    else if (gameMap.MapRatio == screenRatio)
-                    {
-                        windowWidth = maxWidth;
-                        windowHeight = maxHeight;
-                    }
-                    else
-                    {
-                        windowWidth = (int)(maxWidth * gameMap.MapRatio);
-                        windowHeight = maxHeight;
-                    }
-
-                    spriteBatch.Draw(bg, new Rectangle(0, 170, windowWidth, windowHeight), Color.White);
+                    spriteBatch.Draw(bg, new Rectangle(BGOffset[0], BGOffset[1], windowWidth, windowHeight), Color.White);
 
                     #region
                     switch (ghosts)
@@ -865,7 +817,7 @@ namespace PacmanInTheDark
                     {
                         element.Draw(spriteBatch);
                     }
-                    spriteBatch.Draw(bg, new Rectangle(0, 170, 1230, 530), Color.White);
+                    //spriteBatch.Draw(bg, new Rectangle(0, 170, 1230, 530), Color.White);
                     //related to score
                     spriteBatch.DrawString(Font, "Score", new Vector2(190, 45), Color.White);
                     spriteBatch.DrawString(Font, Convert.ToString(pacman.Score), new Vector2(185, 85), Color.White);
@@ -1045,7 +997,6 @@ namespace PacmanInTheDark
             Inky.IsSlowed = true;
 
             //save the light value and set it to zero
-            int oldLight = pacman.Light;
             pacman.Light = 0;
 
             //wait 10 seconds
@@ -1058,7 +1009,7 @@ namespace PacmanInTheDark
             Inky.IsSlowed = false;
 
             //reset the light value
-            pacman.Light = oldLight;
+            pacman.Light = pacman.OriginalLight;
         }
     }
 }

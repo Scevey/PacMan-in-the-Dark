@@ -47,6 +47,19 @@ namespace PacmanInTheDark
             }
         }
 
+        /// <summary>
+        /// Scale reference. This will be the map's width
+        /// </summary>
+        const int xRef = 50;
+
+        /// <summary>
+        /// Scale reference. This will be the map's height
+        /// </summary>
+        const int yRef = 50;
+
+        float xScale;
+        float yScale;
+
         #endregion
 
         #region Properties
@@ -150,83 +163,170 @@ namespace PacmanInTheDark
                 //blank string for input
                 string line = "";
 
+                //list for all the lines of the map file
+                List<string> lines = new List<string>();
+
+                //populate the list
                 while ((line = input.ReadLine()) != null)
                 {
-                    //it's a path if the line contains a space
-                    if (line.Contains(' '))
-                    {
-                        #region Path parsing
-                        //splits the string by the space
-                        string[] pointSplit = line.Trim().Split(' ');
+                    lines.Add(line);
+                }
 
-                        #region warp parsing
-                        //checks each point on the pair for a warp identifier
-                        for (int i = 0; i < pointSplit.Length; i++)
+                //temp variables for storing max coords
+                int maxX = 0;
+                int maxY = 0;
+
+                //iterate through the line list
+                foreach(string s in lines)
+                {
+                    try
+                    {
+                        //only do stuff to paths
+                        if (s.Contains(' '))
                         {
-                            //conditional for the presence of the identifier
-                            if (pointSplit[i].Contains('w'))
+                            //split the start and end
+                            string[] pointSplit = s.Split(' ');
+
+                            //this thing
+                            List<string[]> pointSplitSplit = new List<string[]>();
+
+                            //split the start and end into coordinate arrays, add each array to the thing
+                            pointSplitSplit.Add(pointSplit[0].Split(','));
+                            pointSplitSplit.Add(pointSplit[1].Split(','));
+
+                            //temp variables for max dimensions
+                            int x; int y;
+
+                            //iterate through the thing
+                            foreach (string[] coordSplit in pointSplitSplit)
                             {
-                                //checks the character after the w, this is the warp's ID
-                                int warpID = int.Parse(pointSplit[i].Substring(pointSplit[i].IndexOf('w')+1));
+                                //for each one, check the x and the y
+                                //if it won't parse, remove characters until it does
+                                //out to the temp variables
+                                while (!int.TryParse(coordSplit[0], out x))
+                                {
+                                    if (coordSplit[0].Length == 0)
+                                    {
+                                        x = 0;
+                                        break;
+                                    }
+                                    coordSplit[0] = coordSplit[0].Remove(coordSplit[0].Length - 1);
+                                }
+                                while (!int.TryParse(coordSplit[1], out y))
+                                {
+                                    if (coordSplit[1].Length == 0)
+                                    {
+                                        y = 0;
+                                        break;
+                                    }
+                                    coordSplit[1] = coordSplit[1].Remove(coordSplit[1].Length - 1);
+                                }
 
-                                //remove the warp identifier so the string is in the proper format for the rest of the parse
-                                pointSplit[i] = pointSplit[i].Remove(pointSplit[i].IndexOf('w'));
-
-                                //split the coordinate pair into separate coordinates
-                                string[] stringPoint = pointSplit[i].Split(',');
-
-                                //create an entry in the warp point dictionary for the ID if one doesn't exist
-                                if (!warpPointDictionary.ContainsKey(warpID))
-                                    warpPointDictionary.Add(warpID, new List<Point>());
-
-                                //add the point to the entry
-                                warpPointDictionary[warpID].Add(new Point(int.Parse(stringPoint[0]), int.Parse(stringPoint[1])));                                                               
-                            }
+                                //if the temp variables are larger than the max dimensions, set max dimensions to temp variables
+                                if (x > maxX)
+                                    maxX = x;
+                                if (y > maxY)
+                                    maxY = y;
+                            }                            
                         }
-                        #endregion
-
-                        Point[] points = new Point[pointSplit.Length];
-
-                        //iterates through the string-form points and converts them to actual points
-                        for (int i = 0; i < pointSplit.Length; i++)
-                        {
-                            string[] stringPoint = pointSplit[i].Split(',');
-                            points[i] = new Point(int.Parse(stringPoint[0]), int.Parse(stringPoint[1]));
-                        }
-
-                        //creates a path from the points and adds it to the path list
-                        paths.Add(new Path(points[0], points[1]));
-                        #endregion
                     }
-
-                    //it's a pellet if it doesn't
-                    else
+                    catch (FormatException fe)
                     {
-                        #region pellet parsing
-                        //check for a big pellet identifier
-                        bool big;
-                        if (line[line.Length - 1] == 'b')
+                        //ignore the line if it doesn't parse right
+                        continue;
+                    }
+                }
+
+                //create scale factors based on max dimensions
+                //the dimensions of every point created will be multiplied by these scale factors
+                xScale = xRef / (float)maxX;
+                yScale = yRef / (float)maxY;
+
+                for (int i = 0; i < lines.Count;i++)
+                {
+                    try
+                    {
+                        //it's a path if the s contains a space
+                        if (lines[i].Contains(' '))
                         {
-                            big = true;
-                            line = line.Remove(line.IndexOf('b'));
+                            #region Path parsing
+                            //splits the string by the space
+                            string[] pointSplit = lines[i].Trim().Split(' ');
+
+                            #region warp parsing
+                            //checks each point on the pair for a warp identifier
+                            for (int n = 0; n < pointSplit.Length; n++)
+                            {
+                                //conditional for the presence of the identifier
+                                if (pointSplit[n].Contains('w'))
+                                {
+                                    //checks the character after the w, this is the warp's ID
+                                    int warpID = int.Parse(pointSplit[n].Substring(pointSplit[n].IndexOf('w') + 1));
+
+                                    //remove the warp identifier so the string is in the proper format for the rest of the parse
+                                    pointSplit[n] = pointSplit[n].Remove(pointSplit[n].IndexOf('w'));
+
+                                    //split the coordinate pair into separate coordinates
+                                    string[] stringPoint = pointSplit[n].Split(',');
+
+                                    //create an entry in the warp point dictionary for the ID if one doesn't exist
+                                    if (!warpPointDictionary.ContainsKey(warpID))
+                                        warpPointDictionary.Add(warpID, new List<Point>());
+
+                                    //add the point to the entry
+                                    warpPointDictionary[warpID].Add(new Point(float.Parse(stringPoint[0])*xScale, float.Parse(stringPoint[1])*yScale));
+                                }
+                            }
+                            #endregion
+
+                            Point[] points = new Point[pointSplit.Length];
+
+                            //iterates through the string-form points and converts them to actual points
+                            for (int n = 0; n < pointSplit.Length; n++)
+                            {
+                                string[] stringPoint = pointSplit[n].Split(',');
+                                points[n] = new Point(float.Parse(stringPoint[0])*xScale, float.Parse(stringPoint[1])*yScale);
+                            }
+
+                            //creates a path from the points and adds it to the path list
+                            paths.Add(new Path(points[0], points[1]));
+                            #endregion
                         }
+
+                        //it's a pellet if it doesn't
                         else
-                            big = false;
-
-                        //split the string into components and make a point
-                        string[] coordSplit = line.Split(',');
-                        Point pelletPoint = new Point(int.Parse(coordSplit[0]), int.Parse(coordSplit[1]));
-
-                        //iterate through the path list
-                        foreach (Path p in paths)
                         {
-                            //if the point is on a path
-                            if (Path.PointOnPath(pelletPoint, p))
-                                //create a new pellet (or big pellet) on that path at the proper position
-                                pellets.Add((!big) ? new Pellet(p, Point.Distance(p.Start, pelletPoint)) : new BigPellet(p, Point.Distance(p.Start, pelletPoint)));
+                            #region pellet parsing
+                            //check for a big pellet identifier
+                            bool big;
+                            if (lines[i][lines[i].Length - 1] == 'b')
+                            {
+                                big = true;
+                                lines[i] = lines[i].Remove(lines[i].IndexOf('b'));
+                            }
+                            else
+                                big = false;
 
+                            //split the string into components and make a point
+                            string[] coordSplit = lines[i].Split(',');
+                            Point pelletPoint = new Point(float.Parse(coordSplit[0])*xScale, float.Parse(coordSplit[1])*yScale);
+
+                            //iterate through the path list
+                            foreach (Path p in paths)
+                            {
+                                //if the point is on a path
+                                if (Path.PointOnPath(pelletPoint, p))
+                                    //create a new pellet (or big pellet) on that path at the proper position
+                                    pellets.Add((!big) ? new Pellet(p, Point.Distance(p.Start, pelletPoint)) : new BigPellet(p, Point.Distance(p.Start, pelletPoint)));
+
+                            }
+                            #endregion
                         }
-                        #endregion
+                    }
+                    catch (FormatException fe)
+                    {
+                        //ignore the line if it doesn't parse right
+                        continue;
                     }
                 }
             }
@@ -363,11 +463,14 @@ namespace PacmanInTheDark
         /// <returns>returns a texture representation of the map</returns>
         public static Texture2D DrawMap(Map m, GraphicsDevice gd)
         {
+            //because we have a working map, this value will be used to scale all other maps to its draw-scale
+            //float drawscale = 29 / m.MapSize.X;
+
             //constants dealing with drawing style
             const int lineWidth = 10; //the width in pixels of the path lines
             const int padding = 5; //the number of pixels from the edge of the map tile that the line starts
             const int scaleFactor = padding * 2 + lineWidth; //a scale factor based on the above parameters
-            Color lineColor = Color.Blue; //the line color
+            Color lineColor = Color.Red; //the line color
 
             //create the texture and an array of color values
             Texture2D tempBG = new Texture2D(gd, (int)(m.MapSize.X) * scaleFactor, (int)(m.MapSize.Y) * scaleFactor);

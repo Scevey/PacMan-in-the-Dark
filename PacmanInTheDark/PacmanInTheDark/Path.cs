@@ -184,8 +184,7 @@ namespace PacmanInTheDark
 
         public static bool PointOnPath(Point p, Path path)
         {
-            if (p.X == path.Start.X && p.X == path.End.X && p.Y >= path.Start.Y && p.Y <= path.End.Y) return true;
-            if (p.Y == path.Start.Y && p.Y == path.End.Y && p.X >= path.Start.X && p.X <= path.End.X) return true;
+            if (Math.Abs(Point.Distance(p, path.Start) + Point.Distance(p, path.End) - path.Length) < .05) return true;
             return false;
         }
     }

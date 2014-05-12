@@ -40,6 +40,16 @@ namespace PacmanInTheDark
             return (float)Math.Abs(Math.Sqrt((p2.X - p1.X) * (p2.X - p1.X) + (p2.Y - p1.Y) * (p2.Y - p1.Y)));
         }
 
+        public static float LateralDistance(Point p1, Point p2)
+        {
+            return Math.Abs(p1.X - p2.X);
+        }
+
+        public static float VerticalDistance(Point p1, Point p2)
+        {
+            return Math.Abs(p1.Y - p2.Y);
+        }
+
         //coord conversion
         //converts map coords to gameplay box coords
         public static Point MapToScreen(Point mapPoint, Point mapSize, Point screenSize)
@@ -80,12 +90,12 @@ namespace PacmanInTheDark
 
         public static bool operator ==(Point p1, Point p2)
         {
-            return (p1.X == p2.X && p1.Y == p2.Y) ? true : false;
+            return (Point.Distance(p1, p2) < .05) ? true : false;
         }
 
         public static bool operator !=(Point p1, Point p2)
         {
-            return (p1.X == p2.X && p1.Y == p2.Y) ? false : true;
+            return (Point.Distance(p1, p2) < .05) ? false : true;
         }
 
         #endregion

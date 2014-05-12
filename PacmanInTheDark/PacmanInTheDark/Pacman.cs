@@ -32,6 +32,15 @@ namespace PacmanInTheDark
             set { light = value; }
         }
 
+        int originalLight;
+        public int OriginalLight
+        {
+            get
+            {
+                return originalLight;
+            }
+        }
+
         // How many times you can die (start with 3)
         int lives;
         public int Lives
@@ -100,7 +109,7 @@ namespace PacmanInTheDark
         /// <param name="myLives">Starting lives</param>
         /// <param name="path">Starting path</param>
         /// <param name="pos">Starting pos on path</param>
-        public Pacman(Texture2D myPacman, Texture2D visionImg, Path path, float pos, float speed)
+        public Pacman(Texture2D myPacman, Texture2D visionImg, int _light, Path path, float pos, float speed)
             : base(path, pos, speed)
         {
             //Pacman starts with 100 health and 3 lives
@@ -114,6 +123,8 @@ namespace PacmanInTheDark
             //Starting image for pacman
             PacmanImg = myPacman;
             vision = visionImg;
+            light = _light;
+            originalLight = _light;
             numFrames = 3;
             frame = numFrames;
             currentFrameX = 0;
