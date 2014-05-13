@@ -7,6 +7,7 @@ using System.Text;
 
 namespace PacmanInTheDark
 {
+    // Mike Teixeira
     abstract class GamePiece
     {
         #region Fields

@@ -14,6 +14,8 @@ namespace PacmanInTheDark
     //Jeremy Hall
     //Sungmin Park
     //Anthony Giallella
+    // Mike Teixeira
+
     class Pacman : MovableGamePiece
     {
         // Life/hunger bar (Lost over time - can be restored with pellets)
@@ -32,6 +34,7 @@ namespace PacmanInTheDark
             set { light = value; }
         }
 
+        // Pacman's original light level
         int originalLight;
         public int OriginalLight
         {
@@ -77,6 +80,7 @@ namespace PacmanInTheDark
             get { return originalPath; }
         }
 
+        // Pacmans score (advances as the game goes on)
         int score;
         public int Score
         {
@@ -210,8 +214,7 @@ namespace PacmanInTheDark
             // time for the next frame
             if (timeSinceLastFrame > millisecondsPerFrame)
             {
-
-
+                // Going left
                 if (CurrentDirection == Direction.Left)
                 {
                     currentFrameY = 0;
@@ -223,6 +226,7 @@ namespace PacmanInTheDark
                     }
                     currentFrameX = frameSizeX * frame;
                 }
+                // Going up
                 if (CurrentDirection == Direction.Up)
                 {
                     currentFrameY = 100;
@@ -234,6 +238,7 @@ namespace PacmanInTheDark
                     }
                     currentFrameX = frameSizeX * frame;
                 }
+                // Going right
                 if (CurrentDirection == Direction.Right)
                 {
 
@@ -246,6 +251,7 @@ namespace PacmanInTheDark
                     }
                     currentFrameX = frameSizeX * frame;
                 }
+                // Going down
                 if (CurrentDirection == Direction.Down)
                 {
                     currentFrameY = 300;
@@ -257,15 +263,13 @@ namespace PacmanInTheDark
                     }
                     currentFrameX = frameSizeX * frame;
                 }
+                // Odd case where going nowhere
                 if (CurrentDirection == Direction.None)
                 {
                 }
             }
         }
 
-        /// <summary>
-        /// Update Pacman Image
-        /// </summary>
         /// <summary>
         /// Update Pacman Image
         /// </summary>

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace LinkedListExperimizzle
 {
+    // Mike Teixeira
     public class LinkedList<T>:ICollection<T>
     {
         internal class Node

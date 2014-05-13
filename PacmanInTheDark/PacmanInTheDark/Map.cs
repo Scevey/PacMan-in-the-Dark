@@ -8,6 +8,7 @@ using System.Drawing;
 
 namespace PacmanInTheDark
 {
+    // Mike Teixeira
     class Map
     {
         #region Fields

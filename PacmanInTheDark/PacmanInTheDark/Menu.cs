@@ -17,11 +17,13 @@ namespace PacmanInTheDark
     //Anthony Giallella
     //Sungmin Park
     //Jeremy Hall
+    // Mike Teixeira
 
     //handles the creation of menus and manage gamestates
     public class Menu
     {
-
+        // Attributes, objects
+        #region
         //create a map object
         Map gameMap = new Map("map.txt");
         Pacman pacman;//Pacman object
@@ -51,7 +53,7 @@ namespace PacmanInTheDark
         int ghosts; // how many ghosts the game starts with
         int lives; // how many lives pacman starts with
         float health; // how much health pacman has
-        int hunger; // how fast the bar drains
+        float hunger; // how fast the bar drains
         int light; // the level of light
 
         //window sizes
@@ -73,8 +75,12 @@ namespace PacmanInTheDark
         List<Gui> highScore = new List<Gui>();
 
         GameState gameState;
+        #endregion
 
-        //add gui items to each list
+        /// <summary>
+        /// Add gui items to each list
+        /// </summary>
+        /// <param name="_gd"></param>
         public Menu(GraphicsDevice _gd)
         {
             //add gui for images to lists based on states
@@ -381,7 +387,7 @@ namespace PacmanInTheDark
                         // Move objects (ghost(s), pacman)
                         pacman.UpdateFrame(gameTime);
                         pacman.Move();
-                        pacman.LoseHealth(.4f, gameTime);
+                        pacman.LoseHealth(hunger, gameTime); // Health decreases by hunger divided by 10
                         pacman.NoHealth();
                         // Updates ghosts in real-time
                         #region
@@ -539,6 +545,11 @@ namespace PacmanInTheDark
 
         }
 
+        /// <summary>
+        /// Draws images to the game in realtime
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="spriteBatch"></param>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             //change between game states
@@ -952,7 +963,11 @@ namespace PacmanInTheDark
             }
 
         }
-        //what buttons do when clicked
+
+        /// <summary>
+        /// What buttons do when they're clicked
+        /// </summary>
+        /// <param name="element"></param>
         public void OnClick(string element)
         {
             //name of image
@@ -1025,7 +1040,7 @@ namespace PacmanInTheDark
                 ghosts = int.Parse(reader.ReadLine());
                 lives = int.Parse(reader.ReadLine());
                 health = float.Parse(reader.ReadLine());
-                hunger = int.Parse(reader.ReadLine());
+                hunger = float.Parse(reader.ReadLine()) / 10;
                 light = int.Parse(reader.ReadLine());
 
                 reader.Close();
@@ -1061,8 +1076,8 @@ namespace PacmanInTheDark
             //save the light value and set it to zero
             pacman.Light = 0;
 
-            //wait 10 seconds
-            Thread.Sleep(10000);
+            //wait 3 seconds
+            Thread.Sleep(3000);
 
             //unslow the ghosts
             Blinky.IsSlowed = false;

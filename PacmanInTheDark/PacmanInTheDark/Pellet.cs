@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace PacmanInTheDark
 {
+    // Mike Teixeira
     class Pellet : GamePiece
     {
         bool active = true;

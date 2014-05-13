@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.GamerServices;
 namespace PacmanInTheDark
 {
     //Jeremy Hall
+    // Mike Teixeira
     class Ghost : MovableGamePiece
     {
         // Attributes and properties

@@ -6,6 +6,7 @@ using System.Threading;
 
 namespace PacmanInTheDark
 {
+    // Mike Teixeira
     class BigPellet:Pellet
     {
         /// <summary>

@@ -5,6 +5,7 @@ using System.Text;
 
 namespace PacmanInTheDark
 {
+    // Mike Teixeira
     struct Point //used to reference locations in map-space and to represent vectors
     {
         #region Fields
