@@ -19,3 +19,6 @@ Z:\IGMProfile\GDDAPS2 Pacman Game\ToolForPacman\ToolForPacman\obj\Debug\ToolForP
 Z:\IGMProfile\GDDAPS2 Pacman Game\ToolForPacman\ToolForPacman\obj\Debug\ToolForPacman.csproj.GenerateResource.Cache
 Z:\IGMProfile\GDDAPS2 Pacman Game\ToolForPacman\ToolForPacman\bin\Debug\ToolForPacman.exe
 Z:\IGMProfile\GDDAPS2 Pacman Game\ToolForPacman\ToolForPacman\bin\Debug\ToolForPacman.pdb
+C:\Users\Anthony\Documents\gdaps2-pacman-game\ToolForPacman\ToolForPacman\bin\Debug\ToolForPacman.exe.config
+C:\Users\Anthony\Documents\gdaps2-pacman-game\ToolForPacman\ToolForPacman\obj\Debug\ToolForPacman.exe
+C:\Users\Anthony\Documents\gdaps2-pacman-game\ToolForPacman\ToolForPacman\obj\Debug\ToolForPacman.pdb

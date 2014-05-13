@@ -141,7 +141,6 @@ namespace PacmanInTheDark
         public void LoseHealth(float healthLost, GameTime gameTime)
         {
             // increment the elapsed time
-
             timeSinceLastHealthFrame += gameTime.ElapsedGameTime.Milliseconds;
             // time for the next frame
             if (timeSinceLastHealthFrame > 100)

@@ -107,7 +107,7 @@ namespace PacmanInTheDark
 
             //game won images
             win.Add(new Gui("Win Screen Base"));
-            win.Add(new Gui("HighScore Button"));
+            win.Add(new Gui("HighScore Win Button"));
             win.Add(new Gui("Continue Button"));
 
             //post game images
@@ -266,7 +266,7 @@ namespace PacmanInTheDark
                 gui.Center(780, 1340);
                 gui.clickEvent += OnClick;
             }
-            win.Find(x => x.ImgName == "HighScore Button").MoveElement(125,50);
+            win.Find(x => x.ImgName == "HighScore Win Button").MoveElement(125,50);
             win.Find(x => x.ImgName == "Continue Button").MoveElement(-125, 50);
 
             foreach (Gui gui in highScore)
@@ -461,8 +461,9 @@ namespace PacmanInTheDark
                     break;
 
                 #endregion
-                #region
                 //update end game screen
+                #region
+               
                 case GameState.EndGame:
                     foreach (Gui gui in end)
                     {
@@ -475,47 +476,47 @@ namespace PacmanInTheDark
                 #region
                 case GameState.WinGame:
 
-                    //the currently pressed key list
-                    List<Keys> keyList = new List<Keys>();
+                    ////the currently pressed key list
+                    //List<Keys> keyList = new List<Keys>();
 
-                    //the previous key list
-                    List<Keys> prevKeys = new List<Keys>();
+                    ////the previous key list
+                    //List<Keys> prevKeys = new List<Keys>();
 
-                    //the input list
-                    List<string> input = new List<string>(3);
+                    ////the input list
+                    //List<string> input = new List<string>(3);
 
-                    //keep checking until three keys are read
-                    while (input.Count < 3)
-                    {
-                        //get the keyboard state
-                        KeyboardState kState = Keyboard.GetState();
+                    ////keep checking until three keys are read
+                    //while (input.Count < 3)
+                    //{
+                    //    //get the keyboard state
+                    //    KeyboardState kState = Keyboard.GetState();
 
-                        //populate the current keylist
-                        keyList = kState.GetPressedKeys().ToList();
+                    //    //populate the current keylist
+                    //    keyList = kState.GetPressedKeys().ToList();
 
-                        //if it's the same as the previous list, do nothing
-                        if (keyList == prevKeys)
-                            continue;
+                    //    //if it's the same as the previous list, do nothing
+                    //    if (keyList == prevKeys)
+                    //        continue;
 
-                        //loop through the key list and remove any that overlap with the previous list
-                        for(int i = 0; i<keyList.Count;i++)
-                        {
-                                if (prevKeys.Contains(keyList[i]))
-                                {
-                                    keyList.Remove(keyList[i]);
-                                    i--;
-                                }
-                        }
+                    //    //loop through the key list and remove any that overlap with the previous list
+                    //    for(int i = 0; i<keyList.Count;i++)
+                    //    {
+                    //            if (prevKeys.Contains(keyList[i]))
+                    //            {
+                    //                keyList.Remove(keyList[i]);
+                    //                i--;
+                    //            }
+                    //    }
 
-                        //add any new keys to the input list
-                        foreach (Keys k in keyList)
-                        {
-                            input.Add(k.ToString());
-                        }
+                    //    //add any new keys to the input list
+                    //    foreach (Keys k in keyList)
+                    //    {
+                    //        input.Add(k.ToString());
+                    //    }
 
-                        //pass the current list to the previous list
-                        prevKeys = keyList;
-                    }
+                    //    //pass the current list to the previous list
+                    //    prevKeys = keyList;
+                    //}
                     foreach (Gui gui in win)
                     {
                         gui.Update();
@@ -797,28 +798,28 @@ namespace PacmanInTheDark
                     // Load the hiScores -- use the property to access each individual score
                     hiScores.LoadScores();
                     // Check if user got a high score
-                    if (hiScores.HiScores.Count == 9) // The case that the hiscores list is full
-                    {
-                        // Needs to beat at least the lowest high score to make it
-                        if (pacman.Score > hiScores.HiScores[9].Score) // User made it
-                        {
-                            // Get user input for high score
+                    //if (hiScores.HiScores.Count == 9) // The case that the hiscores list is full
+                    //{
+                    //    // Needs to beat at least the lowest high score to make it
+                    //    if (pacman.Score > hiScores.HiScores[9].Score) // User made it
+                    //    {
+                    //        // Get user input for high score
 
 
-                            // Write the score to the file
-                            hiScores.WriteScores("", 0);
-                        }
-                    }
-                    else if (hiScores.HiScores.Count < 9) // The case that the hiscores list is not full
-                    {
-                        // User automatically makes it to high scores
+                    //        // Write the score to the file
+                    //        hiScores.WriteScores("", 0);
+                    //    }
+                    //}
+                    //else if (hiScores.HiScores.Count < 9) // The case that the hiscores list is not full
+                    //{
+                    //    // User automatically makes it to high scores
 
-                        // Get user input for high score
+                    //    // Get user input for high score
 
-                        // Write the score to the file
-                        hiScores.WriteScores("", 0);
-                    }
-                    // Sort newly loaded scores
+                    //    // Write the score to the file
+                    //    hiScores.WriteScores("", 0);
+                    //}
+                    //// Sort newly loaded scores
                     hiScores.SortScores();
                     break;
                 #endregion
@@ -884,34 +885,34 @@ namespace PacmanInTheDark
 
                     //moved out of logic below for testing
                     //code for input is in wingame update
-                    spriteBatch.DrawString(Font, "Enter Initials:", new Vector2(475, 325), Color.Yellow);
+                    //spriteBatch.DrawString(Font, "Enter Initials:", new Vector2(475, 325), Color.Yellow);
                     
-                    spriteBatch.DrawString(Font, initials, new Vector2(500, 325), Color.Yellow);
+                    //spriteBatch.DrawString(Font, initials, new Vector2(500, 325), Color.Yellow);
                     // Load the hiScores -- use the property to access each individual score
                     hiScores.LoadScores();
                     // Check if user got a high score
-                    if (hiScores.HiScores.Count == 9) // The case that the hiscores list is full
-                    {
-                        // Needs to beat at least the lowest high score to make it
-                        if (pacman.Score > hiScores.HiScores[9].Score) // User made it
-                        {
-                            // Get user input for high score
-                            //Get user input for high score
+                    //if (hiScores.HiScores.Count == 9) // The case that the hiscores list is full
+                    //{
+                    //    // Needs to beat at least the lowest high score to make it
+                    //    if (pacman.Score > hiScores.HiScores[9].Score) // User made it
+                    //    {
+                    //        // Get user input for high score
+                    //        //Get user input for high score
 
-                            // Write the score to the file
-                            hiScores.WriteScores("", pacman.Score);
-                        }
-                    }
-                    else if (hiScores.HiScores.Count < 9) // The case that the hiscores list is not full
-                    {
-                        // User automatically makes it to high scores
+                    //        // Write the score to the file
+                    //        hiScores.WriteScores("", pacman.Score);
+                    //    }
+                    //}
+                    //else if (hiScores.HiScores.Count < 9) // The case that the hiscores list is not full
+                    //{
+                    //    // User automatically makes it to high scores
 
-                        // Get user input for high score
+                    //    // Get user input for high score
 
-                        // Write the score to the file
-                        hiScores.WriteScores("", 0);
-                    }
-                    // Sort newly loaded scores
+                    //    // Write the score to the file
+                    //    hiScores.WriteScores("", 0);
+                    //}
+                    //// Sort newly loaded scores
                     hiScores.SortScores();
                     break;
                 #endregion
@@ -968,7 +969,7 @@ namespace PacmanInTheDark
             }
             if (element == "Option")
             {
-                gameState = GameState.WinGame;
+                gameState = GameState.OptionMenu;
             }
             if (element == "Back Button")
             {
@@ -995,6 +996,10 @@ namespace PacmanInTheDark
                 Environment.Exit(0);
             }
             if (element == "HighScore Button")
+            {
+                gameState = GameState.HighScores;
+            }
+            if (element == "HighScore Win Button")
             {
                 gameState = GameState.HighScores;
             }

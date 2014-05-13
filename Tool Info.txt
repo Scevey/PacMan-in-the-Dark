@@ -1,0 +1,7 @@
+Tool:
+
+Enter Acceptable values for each spot.
+The help button will show these value ranges.
+The values will correlate to the attribute with it and
+change them for your game.
+When you are done hit save and it will create the file.

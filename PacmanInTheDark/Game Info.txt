@@ -1,0 +1,13 @@
+You can move through the menus by using left click on the mouse
+
+In Game:
+Move around the map using W,A,S,D to collect the pellets
+You have a limited view of the map so be careful
+Avoid the ghosts at all costs, they cannot be killed but will kill you if they hit you.
+Big Pellets will allow you to see the full map for a short time.
+Your hunger bar will depelete if you go too long without getting pellets if it empties
+you will die.
+Hit escape if you wish to pause the game
+Try and survive as long as you can!
+
+
