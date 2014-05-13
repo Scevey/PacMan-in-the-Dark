@@ -61,7 +61,7 @@ namespace PacmanInTheDark
 
         // hi score attributes
         Scores hiScores;
-
+        public string initials = "";
         //lists of gui for different states
         List<Gui> startMenu = new List<Gui>();
         List<Gui> optionMenu = new List<Gui>();
@@ -108,7 +108,7 @@ namespace PacmanInTheDark
             //game won images
             win.Add(new Gui("Win Screen Base"));
             win.Add(new Gui("HighScore Button"));
-            //win.Add(new Gui("Continue Button"));
+            win.Add(new Gui("Continue Button"));
 
             //post game images
             highScore.Add(new Gui("HighScore"));
@@ -130,7 +130,7 @@ namespace PacmanInTheDark
             LoadEditorValues();
 
             // Create high scores object
-            hiScores = new Scores(); 
+            hiScores = new Scores();
 
             // Load various images
             pacmanImage = content.Load<Texture2D>("PacManSheet"); // load pacman sprite sheet
@@ -266,7 +266,8 @@ namespace PacmanInTheDark
                 gui.Center(780, 1340);
                 gui.clickEvent += OnClick;
             }
-            win.Find(x => x.ImgName == "HighScore Button").MoveElement(0, 25);
+            win.Find(x => x.ImgName == "HighScore Button").MoveElement(125,50);
+            win.Find(x => x.ImgName == "Continue Button").MoveElement(-125, 50);
 
             foreach (Gui gui in highScore)
             {
@@ -288,7 +289,7 @@ namespace PacmanInTheDark
             // Reset pacman
             pacman.Health = health;
             pacman.Lives = lives;
-            pacman.Score = 0; 
+            pacman.Score = 0;
 
             // Set the starting path and create the map
             currentPath = (pacman.CurrentPath);
@@ -360,7 +361,7 @@ namespace PacmanInTheDark
                     }
                     break;
                 #endregion
-                
+
                 // Update InGame menu
                 #region
                 case GameState.InGame:
@@ -428,7 +429,7 @@ namespace PacmanInTheDark
                                 break;
                         }
                         #endregion
-                       
+
                         //check for collisions with pacman in pacman's current path
                         List<GamePiece> collisionList = new List<GamePiece>();
                         //check for collisions with pacman in pacman's current path
@@ -458,6 +459,9 @@ namespace PacmanInTheDark
                         gui.Update();
                     }
                     break;
+
+                #endregion
+                #region
                 //update end game screen
                 case GameState.EndGame:
                     foreach (Gui gui in end)
@@ -470,6 +474,48 @@ namespace PacmanInTheDark
                 //update win game screen
                 #region
                 case GameState.WinGame:
+
+                    //the currently pressed key list
+                    List<Keys> keyList = new List<Keys>();
+
+                    //the previous key list
+                    List<Keys> prevKeys = new List<Keys>();
+
+                    //the input list
+                    List<string> input = new List<string>(3);
+
+                    //keep checking until three keys are read
+                    while (input.Count < 3)
+                    {
+                        //get the keyboard state
+                        KeyboardState kState = Keyboard.GetState();
+
+                        //populate the current keylist
+                        keyList = kState.GetPressedKeys().ToList();
+
+                        //if it's the same as the previous list, do nothing
+                        if (keyList == prevKeys)
+                            continue;
+
+                        //loop through the key list and remove any that overlap with the previous list
+                        for(int i = 0; i<keyList.Count;i++)
+                        {
+                                if (prevKeys.Contains(keyList[i]))
+                                {
+                                    keyList.Remove(keyList[i]);
+                                    i--;
+                                }
+                        }
+
+                        //add any new keys to the input list
+                        foreach (Keys k in keyList)
+                        {
+                            input.Add(k.ToString());
+                        }
+
+                        //pass the current list to the previous list
+                        prevKeys = keyList;
+                    }
                     foreach (Gui gui in win)
                     {
                         gui.Update();
@@ -606,7 +652,7 @@ namespace PacmanInTheDark
                     spriteBatch.Draw(vision, new Vector2(536, 92), new Rectangle(0, 0, (int)(200 * (pacman.Health / 100)), 25), Color.White);
                     #endregion
                     break;
-                    #endregion
+                #endregion
 
                 // Draw Pause Menu
                 #region
@@ -836,6 +882,11 @@ namespace PacmanInTheDark
                         element.Draw(spriteBatch);
                     }
 
+                    //moved out of logic below for testing
+                    //code for input is in wingame update
+                    spriteBatch.DrawString(Font, "Enter Initials:", new Vector2(475, 325), Color.Yellow);
+                    
+                    spriteBatch.DrawString(Font, initials, new Vector2(500, 325), Color.Yellow);
                     // Load the hiScores -- use the property to access each individual score
                     hiScores.LoadScores();
                     // Check if user got a high score
@@ -845,10 +896,10 @@ namespace PacmanInTheDark
                         if (pacman.Score > hiScores.HiScores[9].Score) // User made it
                         {
                             // Get user input for high score
-
+                            //Get user input for high score
 
                             // Write the score to the file
-                            hiScores.WriteScores("", 0);
+                            hiScores.WriteScores("", pacman.Score);
                         }
                     }
                     else if (hiScores.HiScores.Count < 9) // The case that the hiscores list is not full
@@ -872,7 +923,7 @@ namespace PacmanInTheDark
                     {
                         element.Draw(spriteBatch);
                     }
-                   
+
                     // Load the hiScores -- use the property to access each individual score
                     hiScores.LoadScores();
 
@@ -907,12 +958,17 @@ namespace PacmanInTheDark
             if (element == "Start Button")
             {
                 //what to do on click
-                StartMenuRestart();
+                
+                gameState = GameState.InGame;
+            }
+            if (element == "Continue Button")
+            {
+                WinGameContinue();
                 gameState = GameState.InGame;
             }
             if (element == "Option")
             {
-                gameState = GameState.OptionMenu;
+                gameState = GameState.WinGame;
             }
             if (element == "Back Button")
             {
@@ -945,6 +1001,7 @@ namespace PacmanInTheDark
             if (element == "HighScore Main")
             {
                 gameState = GameState.MainMenu;
+                StartMenuRestart();
             }
         }
 

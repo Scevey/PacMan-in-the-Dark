@@ -19,7 +19,10 @@ namespace PacmanInTheDark
 
         //for positioning
         private Rectangle guiRectangle;
-        
+
+        //to control pace of clicks
+        private bool check = true;
+
         //name of image
         private string imgName;
         public string ImgName
@@ -48,10 +51,22 @@ namespace PacmanInTheDark
         public void Update()
         {
             //checks to see if mouse is on images area
-            if (guiRectangle.Contains(Mouse.GetState().X, Mouse.GetState().Y)&& Mouse.GetState().LeftButton == ButtonState.Pressed)
+            if (check == true && guiRectangle.Contains(Mouse.GetState().X, Mouse.GetState().Y) && Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                //when mouse is pressed
+                if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                {
+                    check = false;
+                }
+
+            }
+            //when mouse is released
+            if (Mouse.GetState().LeftButton == ButtonState.Released && check == false)
             {
                 //do click event for that image
                 clickEvent(imgName);
+                //reset for more clicks
+                check = true;
             }
         }
 
