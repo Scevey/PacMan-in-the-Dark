@@ -68,7 +68,7 @@ namespace PacmanInTheDark
 
             //add code here
             pac.Score += 50;
-            pac.Health += .1f;
+            pac.Health += .55f;
         }
 
         public override void Collision(Ghost ghost)

@@ -147,7 +147,7 @@ namespace PacmanInTheDark
             // increment the elapsed time
             timeSinceLastHealthFrame += gameTime.ElapsedGameTime.Milliseconds;
             // time for the next frame
-            if (timeSinceLastHealthFrame > 100)
+            if (timeSinceLastHealthFrame > 80)
             {
                 timeSinceLastHealthFrame = 0; // reset elapsed time
                 health = health - healthLost; // loss some health every .1 sec

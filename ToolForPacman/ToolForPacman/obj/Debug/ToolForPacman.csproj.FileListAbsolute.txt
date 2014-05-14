@@ -28,3 +28,12 @@ C:\Users\Jeremy\Documents\gdaps2-pacman-game\ToolForPacman\ToolForPacman\obj\Deb
 C:\Users\Jeremy\Documents\gdaps2-pacman-game\ToolForPacman\ToolForPacman\obj\Debug\ToolForPacman.ToolEditorForm.resources
 C:\Users\Jeremy\Documents\gdaps2-pacman-game\ToolForPacman\ToolForPacman\obj\Debug\ToolForPacman.Properties.Resources.resources
 C:\Users\Jeremy\Documents\gdaps2-pacman-game\ToolForPacman\ToolForPacman\obj\Debug\ToolForPacman.csproj.GenerateResource.Cache
+D:\game\ToolForPacman\ToolForPacman\bin\Debug\ToolForPacman.exe.config
+D:\game\ToolForPacman\ToolForPacman\obj\Debug\ToolForPacman.exe
+D:\game\ToolForPacman\ToolForPacman\obj\Debug\ToolForPacman.pdb
+D:\game\ToolForPacman\ToolForPacman\bin\Debug\ToolForPacman.exe
+D:\game\ToolForPacman\ToolForPacman\bin\Debug\ToolForPacman.pdb
+D:\game\ToolForPacman\ToolForPacman\obj\Debug\ToolForPacman.csprojResolveAssemblyReference.cache
+D:\game\ToolForPacman\ToolForPacman\obj\Debug\ToolForPacman.ToolEditorForm.resources
+D:\game\ToolForPacman\ToolForPacman\obj\Debug\ToolForPacman.Properties.Resources.resources
+D:\game\ToolForPacman\ToolForPacman\obj\Debug\ToolForPacman.csproj.GenerateResource.Cache

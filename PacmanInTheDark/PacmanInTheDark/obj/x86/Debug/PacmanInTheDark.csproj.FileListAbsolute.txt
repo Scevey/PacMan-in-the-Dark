@@ -282,3 +282,41 @@ C:\Users\Mike\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\W
 C:\Users\Anthony\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\HighScore Win Button.xnb
 C:\Users\Jeremy\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Continue Button.xnb
 C:\Users\Jeremy\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\HighScore Win Button.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.exe
+D:\game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.pdb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\SDL.dll
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Arial.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\topBar.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Back Button.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Back Button2.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Exit Button.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Exit.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\HighScore Exit.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\HighScore.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Info Button.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Info.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Main Button.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Option Base.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Option.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Pause Base.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Start Button.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Start Menu Base.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\ghostSheet.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\glowSheet.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\PacManSheet.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\End Screen Base.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\HighScore Button.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Pellet.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Vision.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Info Back.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Win Screen Base.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\HighScore Main.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Continue Button.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\HighScore Win Button.xnb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\PacmanInTheDark.exe
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\PacmanInTheDark.pdb
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Lidgren.Network.dll
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\MonoGame.Framework.dll
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\OpenTK.dll
+D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Tao.Sdl.dll
+D:\game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.csprojResolveAssemblyReference.cache
