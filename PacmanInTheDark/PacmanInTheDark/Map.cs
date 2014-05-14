@@ -65,6 +65,8 @@ namespace PacmanInTheDark
 
         #region Properties
 
+        Point mapSize;
+
         /// <summary>
         /// Gets a point representing the dimensions of the map
         /// </summary>
@@ -72,17 +74,7 @@ namespace PacmanInTheDark
         {
             get
             {
-                float maxX = 0;
-                float maxY = 0;
-                foreach (Path p in Paths)
-                {
-                    if (p.End.X > maxX)
-                        maxX = p.End.X;
-                    if (p.End.Y > maxY)
-                        maxY = p.End.Y;
-                }
-
-                return new Point(maxX + 1, maxY + 1);
+                return mapSize;
             }
         }
 
@@ -343,6 +335,23 @@ namespace PacmanInTheDark
                 if (input != null)
                     input.Close();
             }
+
+            SetMapSize();
+        }
+
+        void SetMapSize()
+        {
+            float maxX = 0;
+            float maxY = 0;
+            foreach (Path p in Paths)
+            {
+                if (p.End.X > maxX)
+                    maxX = p.End.X;
+                if (p.End.Y > maxY)
+                    maxY = p.End.Y;
+            }
+
+            mapSize = new Point(maxX + 1, maxY + 1);
         }
 
         /// <summary>
