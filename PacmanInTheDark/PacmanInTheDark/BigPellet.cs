@@ -26,9 +26,11 @@ namespace PacmanInTheDark
             base.Collision(pac);            
         }
 
+        // Constructor
         public BigPellet(Path path, float pos)
             : base(path, pos)
         {
+            IsBigPellet = true;
         }
     }
 }

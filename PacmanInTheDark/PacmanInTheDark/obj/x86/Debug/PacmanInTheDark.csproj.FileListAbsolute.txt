@@ -320,3 +320,6 @@ D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\MonoGame.Framework.d
 D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\OpenTK.dll
 D:\game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Tao.Sdl.dll
 D:\game\PacmanInTheDark\PacmanInTheDark\obj\x86\Debug\PacmanInTheDark.csprojResolveAssemblyReference.cache
+C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Continue Button.xnb
+C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\HighScore Win Button.xnb
+C:\Users\Sungmin Park\Documents\gdaps2-pacman-game\PacmanInTheDark\PacmanInTheDark\bin\WindowsGL\Debug\Content\Big Pellet.xnb

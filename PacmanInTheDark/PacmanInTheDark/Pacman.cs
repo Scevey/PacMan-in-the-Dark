@@ -26,6 +26,14 @@ namespace PacmanInTheDark
             set { health = value; }
         }
 
+        // the rate that pacmans hp drains
+        int hpDrainRate;
+        public int HpDrainRate
+        {
+            get { return hpDrainRate; }
+            set { hpDrainRate = value; }
+        }
+
         // Pacman's light value
         int light;
         public int Light
@@ -147,11 +155,11 @@ namespace PacmanInTheDark
             // increment the elapsed time
             timeSinceLastHealthFrame += gameTime.ElapsedGameTime.Milliseconds;
             // time for the next frame
-            if (timeSinceLastHealthFrame > 80)
+            if (timeSinceLastHealthFrame > HpDrainRate)
             {
                 timeSinceLastHealthFrame = 0; // reset elapsed time
-                health = health - healthLost; // loss some health every .1 sec
-                Score = score + 1; // increase score for surviving every .1 sec
+                health = health - healthLost; // loss some health
+                Score = score + 1; // increase score for surviving
             }
         }
 

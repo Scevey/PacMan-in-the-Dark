@@ -38,6 +38,7 @@ namespace PacmanInTheDark
         Texture2D pacmanImage; // pacmans image
         Texture2D vision; // pacmans sight image
         Texture2D pelletImg; // pellet image
+        Texture2D bigPelletImg; // Big Pellet image
         Texture2D bg; // path image
 
         Path currentPath;
@@ -143,6 +144,7 @@ namespace PacmanInTheDark
             Texture2D ghostImage = content.Load<Texture2D>("ghostSheet"); // load ghost sprite sheet
             Texture2D glowImage = content.Load<Texture2D>("glowSheet"); // load ghost glow sheet
             pelletImg = content.Load<Texture2D>("Pellet"); // load pellet image
+            bigPelletImg = content.Load<Texture2D>("Big Pellet"); // load big pellet image
             vision = content.Load<Texture2D>("Vision"); // load pacman sight image
             Font = content.Load<SpriteFont>("Arial");
 
@@ -168,7 +170,7 @@ namespace PacmanInTheDark
             pacman = new Pacman(pacmanImage, vision, light, gameMap.Paths[0], 7.5f, speed);
             pacman.Health = health;
             pacman.Lives = lives;
-
+            pacman.HpDrainRate = 80;
             // Create the specified amount of ghosts from the editor
             #region
             switch (ghosts)
@@ -296,9 +298,10 @@ namespace PacmanInTheDark
             pacman.Health = health;
             pacman.Lives = lives;
             pacman.Score = 0;
+            pacman.HpDrainRate = 80;
 
             // Set the starting path and create the map
-            currentPath = (pacman.CurrentPath);
+            currentPath = (pacman.OriginalPath);
             bg = Map.DrawMap(gameMap, gd);
 
             // Re-draw all the pellets
@@ -316,8 +319,12 @@ namespace PacmanInTheDark
             // Give back full health
             pacman.Health = health;
 
+            // speeds up the drain rate
+            pacman.HpDrainRate = pacman.HpDrainRate - 5;
+
             // Set the starting path and create the map
-            currentPath = (pacman.CurrentPath);
+            currentPath = (pacman.OriginalPath);
+
             bg = Map.DrawMap(gameMap, gd);
 
             // Re-draw all the pellets
@@ -383,6 +390,16 @@ namespace PacmanInTheDark
                             gameState = GameState.EndGame;
                         }
                         gui.Update();
+
+                        //Updates big pellet image
+                        for (int i = 0; i < gameMap.PelletCount; i++)
+                        {
+                            if (gameMap.Pellets[i].IsBigPellet == true)
+                            {
+                                gameMap.Pellets[i].UpdateFrame(gameTime);
+
+                            }
+                        }
 
                         // Move objects (ghost(s), pacman)
                         pacman.UpdateFrame(gameTime);
@@ -599,7 +616,15 @@ namespace PacmanInTheDark
                     {
                         if (gameMap.Pellets[i].Active == true)
                         {
-                            gameMap.Pellets[i].Draw(gameTime, spriteBatch, gameMap.MapSize, new Point(windowWidth, windowHeight), pelletImg);
+                            // checks which type of pellet it is then draws it
+                            if (gameMap.Pellets[i].IsBigPellet == true)
+                            {
+                                gameMap.Pellets[i].Draw(gameTime, spriteBatch, gameMap.MapSize, new Point(windowWidth, windowHeight), bigPelletImg);
+                            }
+                            else
+                            {
+                                gameMap.Pellets[i].Draw(gameTime, spriteBatch, gameMap.MapSize, new Point(windowWidth, windowHeight), pelletImg);
+                            }
                         }
                     }
 
