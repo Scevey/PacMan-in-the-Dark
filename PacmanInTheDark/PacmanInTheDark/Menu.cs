@@ -299,6 +299,7 @@ namespace PacmanInTheDark
             pacman.Lives = lives;
             pacman.Score = 0;
             pacman.HpDrainRate = 80;
+            pacman.CurrentPath = pacman.OriginalPath;
 
             // Set the starting path and create the map
             currentPath = (pacman.OriginalPath);
